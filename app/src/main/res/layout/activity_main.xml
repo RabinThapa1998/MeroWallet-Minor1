@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/gradient">
+
+
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                android:id="@+id/toolbar"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/Theme.AppCompat.Light"
+                android:elevation="4dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/bud"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/toolbar"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Budget Remaining:"
+                    android:textSize="20dp" />
+                <TextView
+                    android:width="200dp"
+                    android:id="@+id/editTextResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="20dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/bud"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/exp">
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Expense:"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/expense1"
+                    android:text="0"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="20dp"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/accounts"
+                android:layout_below="@+id/exp"
+                android:text="LIST OF ACCOUNTS:"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/accounts"
+                android:id="@+id/card_cash"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="75dp"
+                    android:id="@+id/card"
+                    android:text="Card:"
+                    android:textSize="20dp"
+                    android:layout_alignTop="@id/cash"
+                    android:background="@drawable/rounded_corner"
+                    android:backgroundTint="@color/blue_semi_transparent" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/card_amt"
+                    android:text="0.0"
+                    android:textSize="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="65dp"/>
+                <TextView
+                    android:layout_width="150dp"
+                    android:id="@+id/cash"
+                    android:layout_height="75dp"
+                    android:layout_toRightOf="@id/card"
+                    android:layout_marginLeft="30dp"
+                    android:text="Cash:"
+                    android:textSize="20dp"
+                    android:background="@drawable/rounded_corner"
+                    android:backgroundTint="@color/blue_semi_transparent" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cash_amt"
+                    android:text="0.0"
+                    android:textSize="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="240dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/card_cash"
+                android:layout_centerInParent="true">
+                <com.github.mikephil.charting.charts.PieChart
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/piechart"></com.github.mikephil.charting.charts.PieChart>
+                <com.github.clans.fab.FloatingActionMenu
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="16dp"
+                    fab:menu_animationDelayPerItem="55"
+                    fab:menu_backgroundColor="@android:color/transparent"
+                    fab:menu_buttonSpacing="0dp"
+                    fab:menu_colorNormal="#da3c21"
+                    fab:menu_colorRipple="#99d4d4d4"
+                    fab:menu_colorPressed="#dc4b3f"
+                    fab:menu_fab_size="normal"
+                    fab:menu_icon="@drawable/fab_add"
+                    fab:menu_labels_colorNormal="#333"
+                    fab:menu_labels_colorPressed="#444"
+                    fab:menu_labels_colorRipple="#66efecec"
+                    fab:menu_labels_cornerRadius="3dp"
+                    fab:menu_labels_ellipsize="none"
+                    fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+                    fab:menu_labels_maxLines="-1"
+                    android:padding="8dp"
+                    fab:menu_labels_position="left"
+                    fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+                    fab:menu_labels_showShadow="true"
+                    fab:menu_labels_singleLine="false"
+                    fab:menu_labels_textColor="#f2f1f1"
+                    fab:menu_labels_textSize="15sp"
+                    fab:menu_openDirection="up"
+                    fab:menu_shadowRadius="4dp"
+                    fab:menu_shadowXOffset="1dp"
+                    fab:menu_shadowYOffset="4dp"
+                    fab:menu_showShadow="true">
+
+                    <com.github.clans.fab.FloatingActionButton
+                        android:id="@+id/fabExpense"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_add_black_24dp"
+                        fab:fab_label="Add Expense"
+                        fab:fab_size="mini"
+                        android:onClick="validateFloatingAction"/>
+
+                    <com.github.clans.fab.FloatingActionButton
+                        android:id="@+id/buttonPrompt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_add_black_24dp"
+                        fab:fab_label="Allocate Budget"
+                        fab:fab_size="mini"
+                        android:onClick="validate1"/>
+
+
+                </com.github.clans.fab.FloatingActionMenu>
+
+            </RelativeLayout>
+
+
+
+
+
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+
+        </RelativeLayout>
+
+        <android.support.design.widget.NavigationView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:id="@+id/nav_view"
+            app:headerLayout="@layout/nav_header"
+            app:menu="@menu/drawer_menu"/>
+
+
+
+</android.support.v4.widget.DrawerLayout>
