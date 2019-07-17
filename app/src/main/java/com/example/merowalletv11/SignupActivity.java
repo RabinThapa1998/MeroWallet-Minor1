@@ -17,6 +17,7 @@ public class SignupActivity extends AppCompatActivity {
     DatabaseHelper MwDb;
     Button btnAddData;
     private TextInputLayout editfirst,editlast,edituser,editpassword,editconfirm,editaddress,editphone,editemail;
+   // private static double budget ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +114,8 @@ public class SignupActivity extends AppCompatActivity {
                     editconfirm.getEditText().getText().toString(),
                     editaddress.getEditText().getText().toString(),
                     editphone.getEditText().getText().toString(),
-                    editemail.getEditText().getText().toString());
+                    editemail.getEditText().getText().toString()
+                   /* budget*/);
 
             if (isInserted = true) {
                 Intent intent = new Intent(SignupActivity.this, LoginActivity.class);

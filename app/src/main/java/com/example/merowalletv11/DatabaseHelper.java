@@ -19,6 +19,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String SIGNUP_COL_PHONENUMBER ="PHONENUMBER"; //7
     public static final String SIGNUP_COL_ADDRESS ="ADDRESS"; //8
     public static final String SIGNUP_COL_EMAIL ="EMAIL"; //9
+    public static final String SIGNUP_COL_BUDGET="BUDGET"; //10
+    public static final String SIGNUP_COL_CASHEXPENSE="CASHEXPENSE";//11
+    public static final String SIGNUP_COL_CARDEXPENSE="CARDEXPENSE";
 
 
     //new table for expense
@@ -47,7 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
         sqLiteDatabase.execSQL("create table "+ SIGNUP_TABLE_NAME +
-                "(ID INTEGER PRIMARY KEY AUTOINCREMENT,FIRSTNAME TEXT NOT NULL,LASTNAME TEXT NOT NULL,USERNAME TEXT NOT NULL UNIQUE ,PASSWORD TEXT NOT NULL,CONFIRMPASSWORD TEXT NOT NULL,PHONENUMBER TEXT,ADDRESS TEXT,EMAIL TEXT NOT NULL)");
+                "(ID INTEGER PRIMARY KEY AUTOINCREMENT,FIRSTNAME TEXT NOT NULL,LASTNAME TEXT NOT NULL,USERNAME TEXT NOT NULL UNIQUE ,PASSWORD TEXT NOT NULL,CONFIRMPASSWORD TEXT NOT NULL,PHONENUMBER TEXT,ADDRESS TEXT,EMAIL TEXT NOT NULL,BUDGET DOUBLE DEFAULT 0,CASHEXPENSE DOUBLE DEFAULT 0,CARDEXPENSE DOUBLE DEFAULT 0)");
 
 
         sqLiteDatabase.execSQL("create table "+ EXPENSE_TABLE_NAME +
@@ -88,6 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(SIGNUP_COL_PHONENUMBER,phonenumber);
         contentValues.put(SIGNUP_COL_ADDRESS,address);
         contentValues.put(SIGNUP_COL_EMAIL,email);
+       // contentValues.put(SIGNUP_COL_BUDGET,budget);
 
         long result = db.insert(SIGNUP_TABLE_NAME,null,contentValues);
         if(result == -1)

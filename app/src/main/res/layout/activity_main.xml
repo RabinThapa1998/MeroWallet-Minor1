@@ -104,8 +104,9 @@
                     android:id="@+id/card_amt"
                     android:text="0.0"
                     android:textSize="20dp"
+                    android:gravity="center"
                     android:layout_marginTop="40dp"
-                    android:layout_marginLeft="65dp"/>
+                    android:layout_marginLeft="10dp"/>
                 <TextView
                     android:layout_width="150dp"
                     android:id="@+id/cash"
@@ -122,8 +123,9 @@
                     android:id="@+id/cash_amt"
                     android:text="0.0"
                     android:textSize="20dp"
+                    android:gravity="center"
                     android:layout_marginTop="40dp"
-                    android:layout_marginLeft="240dp"/>
+                    android:layout_marginLeft="190dp"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
