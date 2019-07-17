@@ -2,6 +2,7 @@ package com.example.merowalletv11;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -28,8 +29,9 @@ public class ExpenseActivity extends AppCompatActivity {
     private static double cashExpense=0;
     private static double cardExpense=0;
     public static double[] category = new double[9];
-
     DatabaseHelper MDb;
+    public static String username;
+    public static String item;
 
     private static double expense=0;
     //private static String account;
@@ -46,6 +48,7 @@ public class ExpenseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense);
         MDb = new DatabaseHelper(this);
+        username = LoginActivity.throwUsername();
 
 
 
@@ -100,16 +103,43 @@ public class ExpenseActivity extends AppCompatActivity {
 
         Spinner dropdown1 = findViewById(R.id.spinner_category);
         String[] categories = {"Food", "Bill", "Shopping", "Clothing", "Travel", "Education", "Entertainment", "Credit Card", "Other Expenses"};
-        //Changing array to list
-        ArrayList<String> myList = new ArrayList<String>(Arrays.asList(categories));
-
-        myList.add("Helo"); //Add in list
-        categories = myList.toArray(categories); //Changing list to array
 
 
 
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
-        dropdown1.setAdapter(adapter1);
+        Cursor res = MDb.getAllCategoryList();
+        if(res.getCount()==0)
+        {
+            ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
+            dropdown1.setAdapter(adapter1);
+        }
+        else {
+
+            //Changing array to list
+            ArrayList<String> myCategories = new ArrayList<String>(Arrays.asList(categories));
+            res.moveToFirst();
+
+            do {
+
+                String user = res.getString(1);
+                if (username.equals(user)) {
+                    item = res.getString(2);
+
+                    myCategories.add(item);
+                }
+            } while (res.moveToNext());
+
+            categories = myCategories.toArray(categories); //Changing list to array
+            ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
+            dropdown1.setAdapter(adapter1);
+        }
+
+
+
+
+
+
+
+
 
         Spinner dropdown2 = findViewById(R.id.spinner_account);
         String[] accounts = {"Card","Cash                    "};
