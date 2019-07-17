@@ -10,6 +10,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME ="MW.db";
     public static final String SIGNUP_TABLE_NAME ="SIGN_UP";
     public static final String EXPENSE_TABLE_NAME ="EXPENSE";
+    public static final String CATEGORY_TABLE_NAME ="CATEGORY";
     public static final String SIGNUP_COL_ID ="ID"; //1
     public static final String SIGNUP_COL_FIRSTNAME ="FIRSTNAME"; //2
     public static final String SIGNUP_COL_LASTNAME ="LASTNAME"; //3
@@ -32,6 +33,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String EXPENSE_COL_CATEGORY = "CATEGORY";
     public static final String EXPENSE_COL_PAYMENT_TYPE = "PAYMENT_TYPE";
     public static final String EXPENSE_COL_RECIEPT = "RECIEPT";
+
+    //new table for category
+    public static final String CATEGORY_COL_ID="CID";
+    public static final String CATEGORY_COL_USERNAME="USERNAME";
+    public static final String CATEGORY_COL_CATEGORY="CATEGORY";
+
 
 
 
@@ -56,6 +63,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("create table "+ EXPENSE_TABLE_NAME +
                 "(EID INTEGER PRIMARY KEY AUTOINCREMENT,MERCHANT_NAME TEXT,AMOUNT TEXT,DATE TEXT ,CATEGORY TEXT ,PAYMENT_TYPE TEXT ,RECIEPT TEXT)");
 
+        sqLiteDatabase.execSQL("create table "+ CATEGORY_TABLE_NAME +
+                "(CID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT,CATEGORY TEXT)");
+
         //Creating expense table
         /*String CREATE_EXPENSE_TABLE = "create table " + EXPENSE_TABLE_NAME +
                 " ( " + EXPENSE_COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -74,6 +84,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ SIGNUP_TABLE_NAME);
         onCreate(sqLiteDatabase);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ EXPENSE_TABLE_NAME);
+        onCreate(sqLiteDatabase);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ CATEGORY_TABLE_NAME);
         onCreate(sqLiteDatabase);
 
     }
@@ -120,6 +132,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
 
     }
+
 
     public Cursor getAllData()
     {
