@@ -20,12 +20,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class ExpenseActivity extends AppCompatActivity {
     private static double cashExpense=0;
     private static double cardExpense=0;
     public static double[] category = new double[9];
+
     DatabaseHelper MDb;
 
     private static double expense=0;
@@ -42,7 +45,8 @@ public class ExpenseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense);
-        MDb= new DatabaseHelper(this);
+        MDb = new DatabaseHelper(this);
+
 
 
         EditText editExpense=(EditText) findViewById(R.id.expense);
@@ -93,13 +97,22 @@ public class ExpenseActivity extends AppCompatActivity {
             }
         };
 
+
         Spinner dropdown1 = findViewById(R.id.spinner_category);
         String[] categories = {"Food", "Bill", "Shopping", "Clothing", "Travel", "Education", "Entertainment", "Credit Card", "Other Expenses"};
+        //Changing array to list
+        ArrayList<String> myList = new ArrayList<String>(Arrays.asList(categories));
+
+        myList.add("Helo"); //Add in list
+        categories = myList.toArray(categories); //Changing list to array
+
+
+
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
         dropdown1.setAdapter(adapter1);
 
         Spinner dropdown2 = findViewById(R.id.spinner_account);
-        String[] accounts = {"Bank","Cash                    "};
+        String[] accounts = {"Card","Cash                    "};
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, accounts);
         dropdown2.setAdapter(adapter2);
 

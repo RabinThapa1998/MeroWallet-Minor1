@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText editusername,editpassword;
     Button b1;
     Boolean check=false;
+    public static String passusername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,9 @@ public class LoginActivity extends AppCompatActivity {
 
                            Intent in = new Intent(LoginActivity.this, MainActivity.class);
                            startActivity(in);
+
+                           passusername = username;
+
                            finish();
                            check=true;
                        }
@@ -88,6 +92,12 @@ public class LoginActivity extends AppCompatActivity {
         builder.setCancelable(true);
         builder.setMessage(Message);
         builder.show();
+
+    }
+
+    public static String throwUsername()
+    {
+        return passusername;
 
     }
 

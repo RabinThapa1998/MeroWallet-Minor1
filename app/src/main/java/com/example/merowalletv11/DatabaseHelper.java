@@ -133,11 +133,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public boolean insertCategoryList(String username,String category){
+        SQLiteDatabase db1 = this.getWritableDatabase();
+        ContentValues contentValues3= new ContentValues();
+        contentValues3.put(CATEGORY_COL_USERNAME,username);
+        contentValues3.put(CATEGORY_COL_CATEGORY,category);
+
+        long res = db1.insert(CATEGORY_TABLE_NAME,null,contentValues3);
+        if(res == -1)
+            return false;
+        else
+            return true;
+
+
+    }
+
 
     public Cursor getAllData()
     {
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor res = database.rawQuery("select * from "+SIGNUP_TABLE_NAME,null);
+        return res;
+
+    }
+
+    public Cursor getAllCategoryList()
+    {
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor res = database.rawQuery("select * from "+CATEGORY_TABLE_NAME,null);
         return res;
 
     }

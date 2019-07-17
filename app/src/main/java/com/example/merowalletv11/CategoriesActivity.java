@@ -78,6 +78,15 @@ public class CategoriesActivity extends AppCompatActivity {
         View.OnClickListener addListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(itemList.size()>13)
+                {
+                    Toast.makeText(CategoriesActivity.this,"No more add",Toast.LENGTH_SHORT).show();
+                }
+
+                else{
+
+
                 item = itemText.getText().toString().trim();
                 if(item.equals(""))
                 {
@@ -105,7 +114,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
 
 
-            }}
+            }}}
 
         };
 
