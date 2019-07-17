@@ -78,8 +78,12 @@ public class CategoriesActivity extends AppCompatActivity {
         View.OnClickListener addListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                item = itemText.getText().toString();
-
+                item = itemText.getText().toString().trim();
+                if(item.equals(""))
+                {
+                    Toast.makeText(CategoriesActivity.this,"Field cannot be empty",Toast.LENGTH_SHORT).show();
+                }
+                else{
                 itemList.add(item);
                 itemText.setText("");
                 adapter.notifyDataSetChanged();
@@ -101,7 +105,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
 
 
-            }
+            }}
 
         };
 
@@ -110,7 +114,7 @@ public class CategoriesActivity extends AppCompatActivity {
         Cursor res = MwDb.getAllCategoryList();
         if(res.getCount()==0)
         {
-            Toast.makeText(CategoriesActivity.this,"",Toast.LENGTH_SHORT).show();
+            Toast.makeText(CategoriesActivity.this,"Add category list here",Toast.LENGTH_SHORT).show();
         }
         else {
             res.moveToFirst();
