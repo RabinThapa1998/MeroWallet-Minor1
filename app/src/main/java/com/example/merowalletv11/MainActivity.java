@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static double budget;
     double[] x = new double[9];
     public static String username;
+    public static double cardExpense;
+    public static double cashExpense;
     DatabaseHelper MwDb;
     private DrawerLayout drawer;
 
@@ -75,6 +77,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
        //Retrieve from database
         getBudget();
+        getCardExpense1();
+        getCashExpense1();
 
 
 
@@ -136,18 +140,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
 
-        temp = budget-ExpenseActivity.getExpense();
+        temp = budget-(cardExpense + cashExpense);
 
         TextView txt1=(TextView) findViewById(R.id.editTextResult);
         txt1.setText(""+temp);
 
         TextView txt2=(TextView) findViewById(R.id.expense1);
-        txt2.setText(""+ExpenseActivity.getExpense());
+        txt2.setText(""+(cardExpense + cashExpense));
 
         TextView txt3=(TextView) findViewById(R.id.cash_amt);
         TextView txt4=(TextView) findViewById(R.id.card_amt);
-        txt4.setText(""+ExpenseActivity.getCardExpense());
-        txt3.setText(""+ExpenseActivity.getCashExpense());
+        txt4.setText(""+cardExpense);
+        txt3.setText(""+cashExpense);
 
        drawer=findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -226,6 +230,51 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (username.equals(user)) {
 
                     budget = res.getDouble(9);
+
+                }
+            } while (res.moveToNext());
+        }
+    }
+
+    //Retriving from database values of card and cash expense
+    public void getCashExpense1()
+    {
+        Cursor res = MwDb.getAllData();
+        if(res.getCount()==0)
+        {
+            Toast.makeText(MainActivity.this,"Empty",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            res.moveToFirst();
+
+            do {
+
+                String user = res.getString(3);
+                if (username.equals(user)) {
+
+                    cashExpense = res.getDouble(10);
+
+                }
+            } while (res.moveToNext());
+        }
+    }
+
+    public void getCardExpense1()
+    {
+        Cursor res = MwDb.getAllData();
+        if(res.getCount()==0)
+        {
+            Toast.makeText(MainActivity.this,"Empty",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            res.moveToFirst();
+
+            do {
+
+                String user = res.getString(3);
+                if (username.equals(user)) {
+
+                    cardExpense = res.getDouble(11);
 
                 }
             } while (res.moveToNext());

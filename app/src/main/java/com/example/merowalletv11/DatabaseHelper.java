@@ -163,6 +163,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
+    public void updateCashExpense(String username,double cashExpense)
+    {
+        SQLiteDatabase db1=this.getWritableDatabase();
+        ContentValues contentValues4 = new ContentValues();
+        contentValues4.put(SIGNUP_COL_CASHEXPENSE,cashExpense);
+
+        long value = db1.update(SIGNUP_TABLE_NAME,contentValues4,SIGNUP_COL_USERNAME + " = ?",new String[] {username });
+
+        /*if(value == -1)
+            return false;
+
+        else
+            return true;*/
+    }
+
+
+    public void updateCardExpense(String username,double cardExpense)
+    {
+        SQLiteDatabase db1=this.getWritableDatabase();
+        ContentValues contentValues4 = new ContentValues();
+        contentValues4.put(SIGNUP_COL_CARDEXPENSE,cardExpense);
+
+        long value = db1.update(SIGNUP_TABLE_NAME,contentValues4,SIGNUP_COL_USERNAME + " = ?",new String[] {username });
+
+        /*if(value == -1)
+            return false;
+
+        else
+            return true;*/
+    }
+
 
     public Cursor getAllData()
     {
