@@ -41,10 +41,24 @@ public class SignupActivity extends AppCompatActivity {
         if (emailInput.isEmpty()){
             editemail.setError("Field Can't Be Empty");
             return false;
-        }else{
+        }
+        else{
             editemail.setError(null);
             return true;
         }
+    }
+
+    private boolean validatePhoneno(){
+        String phoneInput = editphone.getEditText().getText().toString().trim();
+        if(phoneInput.length() < 10){
+            editphone.setError("Too short");
+            return false;
+        }
+        else{
+            editphone.setError(null);
+            return true;
+        }
+
     }
 
     private boolean validateUsername(){
@@ -103,7 +117,7 @@ public class SignupActivity extends AppCompatActivity {
 
     public void AddData(View view) {
 
-        if (!validateEmail() | !validateUsername() | !validatePassword()) {
+        if (!validateEmail() | !validateUsername() | !validatePassword() | !validatePhoneno()) {
             return;
         }
 
