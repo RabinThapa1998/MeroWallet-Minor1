@@ -53,11 +53,16 @@ public class ExpenseActivity extends AppCompatActivity {
         EditText editExpense=(EditText) findViewById(R.id.expense);
 
 
+        getCashExpense1();
+        getCardExpense1();
 
 
 
 
 
+
+
+        //Camera starts here
         btnCapture =(Button)findViewById(R.id.btnTakePicture);
         imgCapture = (ImageView) findViewById(R.id.capturedImage);
         btnCapture.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +104,7 @@ public class ExpenseActivity extends AppCompatActivity {
         };
 
 
+        //Categorylist
         Spinner dropdown1 = findViewById(R.id.spinner_category);
         String[] categories = {"Food", "Bill", "Shopping", "Clothing", "Travel", "Education", "Entertainment", "Credit Card", "Other Expenses"};
 
@@ -139,6 +145,7 @@ public class ExpenseActivity extends AppCompatActivity {
 
 
 
+        //Payment type list
         Spinner dropdown2 = findViewById(R.id.spinner_account);
         String[] accounts = {"Card","Cash                    "};
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, accounts);
@@ -173,10 +180,18 @@ public class ExpenseActivity extends AppCompatActivity {
         Spinner spin=(Spinner) findViewById(R.id.spinner_account);
         String account=spin.getSelectedItem().toString();
 
-        if(account=="Bank"){
+        if(account=="Card"){
             cardExpense+=temp;
+
+            MDb.updateCardExpense(username,cardExpense);
+
+
+
         }else {
             cashExpense+=temp;
+            MDb.updateCashExpense(username,cashExpense);
+
+
         }
 
         expense+=temp;
@@ -269,6 +284,51 @@ public class ExpenseActivity extends AppCompatActivity {
         return cashExpense;
     }
 
+
+
+    public void getCashExpense1()
+    {
+        Cursor res = MDb.getAllData();
+        if(res.getCount()==0)
+        {
+            Toast.makeText(ExpenseActivity.this,"Empty",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            res.moveToFirst();
+
+            do {
+
+                String user = res.getString(3);
+                if (username.equals(user)) {
+
+                    cashExpense = res.getDouble(10);
+
+                }
+            } while (res.moveToNext());
+        }
+    }
+
+    public void getCardExpense1()
+    {
+        Cursor res = MDb.getAllData();
+        if(res.getCount()==0)
+        {
+            Toast.makeText(ExpenseActivity.this,"Empty",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            res.moveToFirst();
+
+            do {
+
+                String user = res.getString(3);
+                if (username.equals(user)) {
+
+                    cardExpense = res.getDouble(11);
+
+                }
+            } while (res.moveToNext());
+        }
+    }
 
 
 
