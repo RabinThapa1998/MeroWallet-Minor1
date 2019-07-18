@@ -151,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void validate1(View view) {
         Intent in = new Intent(com.example.merowalletv11.MainActivity.this, PromptActivity.class);
         startActivity(in);
+        finish();
     }
 
     @Override
@@ -161,8 +162,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(backPressedTime + 2000 > System.currentTimeMillis()){
             backToast.cancel();
-            super.onBackPressed();
-            this.finish();
+            //super.onBackPressed();
+            finishAffinity();
+            finish();
             return;
         }else{
           backToast =   Toast.makeText(getBaseContext(),"Press Back Again To Exit.",Toast.LENGTH_SHORT);
@@ -200,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(in);
                 break;
             case R.id.nav_logout:
+                finishAffinity();
                 Intent in1 = new Intent(com.example.merowalletv11.MainActivity.this, LoginActivity.class);
                 startActivity(in1);
                 finish();

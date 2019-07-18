@@ -44,8 +44,6 @@ public class LoginActivity extends AppCompatActivity {
             if(backPressedTime + 2000 > System.currentTimeMillis()){
                 backToast.cancel();
                 super.onBackPressed();
-                this.finish();
-                return;
             }else{
                 backToast =   Toast.makeText(getBaseContext(),"Press Back Again To Exit.",Toast.LENGTH_SHORT);
                 backToast.show();
@@ -85,9 +83,7 @@ public class LoginActivity extends AppCompatActivity {
 
                            Intent in = new Intent(LoginActivity.this, MainActivity.class);
                            startActivity(in);
-
                            passusername = username;
-
                            finish();
                            check=true;
                        }

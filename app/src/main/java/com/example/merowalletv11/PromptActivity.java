@@ -16,10 +16,20 @@ public class PromptActivity extends AppCompatActivity {
         setContentView(R.layout.activity_prompt);
     }
 
+    @Override
+    public void onBackPressed() {
+
+        finishAffinity();
+        Intent in = new Intent(PromptActivity.this, MainActivity.class);
+        startActivity(in);
+        finish();
+    }
+
     public void buttonBudget(View view) {
 
         EditText edt=findViewById(R.id.editTextDialogUserInput);
         budget=Double.parseDouble(edt.getText().toString());
+        finishAffinity();
         Intent in = new Intent(PromptActivity.this, MainActivity.class);
         startActivity(in);
     }

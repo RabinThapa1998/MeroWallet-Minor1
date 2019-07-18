@@ -50,8 +50,6 @@ public class ExpenseActivity extends AppCompatActivity {
         MDb = new DatabaseHelper(this);
         username = LoginActivity.throwUsername();
 
-
-
         EditText editExpense=(EditText) findViewById(R.id.expense);
 
 
@@ -166,6 +164,8 @@ public class ExpenseActivity extends AppCompatActivity {
 
         EditText editExpense=(EditText) findViewById(R.id.expense);
         double temp=Double.parseDouble(editExpense.getText().toString());
+
+        finishAffinity();
         Intent in = new Intent(ExpenseActivity.this, MainActivity.class);
         startActivity(in);
         finish();
@@ -229,17 +229,15 @@ public class ExpenseActivity extends AppCompatActivity {
         //    );
 
         if (isInserted = true) {
+
+            finishAffinity();
             Intent intent = new Intent(ExpenseActivity.this, MainActivity.class);
             startActivity(intent);
             Toast.makeText(ExpenseActivity.this, "Expense Entered", Toast.LENGTH_SHORT).show();
-
+            finish();
 
         } else
             Toast.makeText(ExpenseActivity.this, "Error", Toast.LENGTH_LONG).show();
-
-
-
-
 
 
     }
@@ -249,6 +247,8 @@ public class ExpenseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+        finishAffinity();
         Intent intent = new Intent(ExpenseActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
