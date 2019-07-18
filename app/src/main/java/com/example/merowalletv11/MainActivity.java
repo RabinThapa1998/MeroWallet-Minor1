@@ -200,31 +200,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_categories:
+                Intent in0 = new Intent(com.example.merowalletv11.MainActivity.this, CategoriesActivity.class);
+                startActivity(in0);
+
+
+                /*
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new CategoriesFragment()).commit();
+                        new CategoriesFragment()).commit();*/
                 break;
             case R.id.nav_records:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new RecordsFragment()).commit();
+                Intent in1 = new Intent(com.example.merowalletv11.MainActivity.this, RecordsActivity.class);
+                startActivity(in1);
+
+               /* getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new RecordsFragment()).commit();*/
                         break;
            /* case R.id.nav_reports:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ReportsFragment()).commit();
                         break;*/
             case R.id.nav_stats:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new StatisticsFragment()).commit();
+                Intent in3 = new Intent(com.example.merowalletv11.MainActivity.this, StatisticsActivity.class);
+                startActivity(in3);
+                /*getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new StatisticsFragment()).commit();*/
                         break;
             /*case R.id.nav_share:
                 Toast.makeText(this,"Share",Toast.LENGTH_SHORT).show();
                 break;*/
             case R.id.nav_aboutus:
-                Intent in = new Intent(com.example.merowalletv11.MainActivity.this, AboutUsActivity.class);
-                startActivity(in);
+                Intent in4 = new Intent(com.example.merowalletv11.MainActivity.this, AboutUsActivity.class);
+                startActivity(in4);
                 break;
             case R.id.nav_logout:
-                Intent in1 = new Intent(com.example.merowalletv11.MainActivity.this, LoginActivity.class);
-                startActivity(in1);
+                Intent in5 = new Intent(com.example.merowalletv11.MainActivity.this, LoginActivity.class);
+                startActivity(in5);
                 finish();
                 break;
         }
