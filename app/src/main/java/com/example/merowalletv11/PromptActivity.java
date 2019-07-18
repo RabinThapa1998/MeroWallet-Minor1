@@ -10,26 +10,33 @@ import android.widget.Toast;
 public class PromptActivity extends AppCompatActivity {
 
     private static double budget=0;
+    DatabaseHelper MDb;
+    private static String username;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prompt);
-    }
-
-    @Override
-    public void onBackPressed() {
-
-        finishAffinity();
-        Intent in = new Intent(PromptActivity.this, MainActivity.class);
-        startActivity(in);
-        finish();
+        username = LoginActivity.throwUsername();
+        MDb = new DatabaseHelper(this);
     }
 
     public void buttonBudget(View view) {
 
         EditText edt=findViewById(R.id.editTextDialogUserInput);
         budget=Double.parseDouble(edt.getText().toString());
-        finishAffinity();
+
+        boolean isUpdate = MDb.updateBudget(username,budget);
+        if(isUpdate == true){
+            Toast.makeText(PromptActivity.this,"Budget updated",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(PromptActivity.this,"Budget update failed",Toast.LENGTH_SHORT).show();
+        }
+
+
+
+
+
         Intent in = new Intent(PromptActivity.this, MainActivity.class);
         startActivity(in);
     }

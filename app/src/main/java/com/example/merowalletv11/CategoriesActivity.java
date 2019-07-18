@@ -52,7 +52,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
 
 
-        category1[0]="Food";
+        /*category1[0]="Food";
         category1[1]="Bill";
         category1[2]="Shopping";
         category1[3]="Clothing";
@@ -60,7 +60,7 @@ public class CategoriesActivity extends AppCompatActivity {
         category1[5]="Education";
         category1[6]="Entertainment";
         category1[7]="Credit Card";
-        category1[8]="Other Expenses";
+        category1[8]="Other Expenses";*/
 
 
         lv = (ListView)findViewById(R.id.listCat);
@@ -70,7 +70,7 @@ public class CategoriesActivity extends AppCompatActivity {
         itemList = new ArrayList<>();
         adapter = new ArrayAdapter<>(CategoriesActivity.this, android.R.layout.simple_list_item_multiple_choice,itemList);
 
-        itemList.add(category1[0]);
+        itemList.add("Food");
         itemList.add("Bill");
         itemList.add("Shopping");
         itemList.add("Clothing");
