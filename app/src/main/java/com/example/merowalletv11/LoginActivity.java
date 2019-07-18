@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.content.SharedPreferencesCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -25,8 +24,6 @@ public class LoginActivity extends AppCompatActivity {
     Button b1;
     Boolean check=false;
     public static String passusername;
-    private long backPressedTime;
-    private Toast backToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,18 +36,6 @@ public class LoginActivity extends AppCompatActivity {
         b1=(Button)findViewById(R.id.signin);
         viewAll();
     }
-
-    public void onBackPressed() {
-            if(backPressedTime + 2000 > System.currentTimeMillis()){
-                backToast.cancel();
-                super.onBackPressed();
-            }else{
-                backToast =   Toast.makeText(getBaseContext(),"Press Back Again To Exit.",Toast.LENGTH_SHORT);
-                backToast.show();
-            }
-            backPressedTime = System.currentTimeMillis();
-        }
-
 
 
         void validate1 (View view){
@@ -83,7 +68,9 @@ public class LoginActivity extends AppCompatActivity {
 
                            Intent in = new Intent(LoginActivity.this, MainActivity.class);
                            startActivity(in);
+
                            passusername = username;
+
                            finish();
                            check=true;
                        }

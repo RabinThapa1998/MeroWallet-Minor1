@@ -41,9 +41,9 @@ public class PromptActivity extends AppCompatActivity {
         startActivity(in);
     }
 
-    public static double getBudget(){
+    /*public static double getBudget(){
     return budget;
-    }
+    }*/
 
 
 }

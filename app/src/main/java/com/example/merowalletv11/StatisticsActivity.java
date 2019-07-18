@@ -1,6 +1,5 @@
 package com.example.merowalletv11;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,10 +17,5 @@ public class StatisticsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
-    public void onBackPressed() {
-        Intent in = new Intent(StatisticsActivity.this, MainActivity.class);
-        startActivity(in);
-        finish();}
 
 }

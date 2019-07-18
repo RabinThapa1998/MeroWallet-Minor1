@@ -33,7 +33,7 @@ public class ExpenseActivity extends AppCompatActivity {
     public static String username;
     public static String item;
 
-    private static double expense=0;
+    //private static double expense=0;
     //private static String account;
     private static final String TAG = "ExpenseActivity";
     private TextView mDisplayDate;
@@ -49,6 +49,8 @@ public class ExpenseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_expense);
         MDb = new DatabaseHelper(this);
         username = LoginActivity.throwUsername();
+
+
 
         EditText editExpense=(EditText) findViewById(R.id.expense);
 
@@ -132,7 +134,7 @@ public class ExpenseActivity extends AppCompatActivity {
                 }
             } while (res.moveToNext());
 
-            categories = myCategories.toArray(categories); //Changing list to array
+            categories = myCategories.toArray(categories); //Changing list to array as required
             ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
             dropdown1.setAdapter(adapter1);
         }
@@ -171,8 +173,6 @@ public class ExpenseActivity extends AppCompatActivity {
 
         EditText editExpense=(EditText) findViewById(R.id.expense);
         double temp=Double.parseDouble(editExpense.getText().toString());
-
-        finishAffinity();
         Intent in = new Intent(ExpenseActivity.this, MainActivity.class);
         startActivity(in);
         finish();
@@ -194,7 +194,7 @@ public class ExpenseActivity extends AppCompatActivity {
 
         }
 
-        expense+=temp;
+        //expense+=temp;
 
         //Categories
         Spinner spin1=(Spinner) findViewById(R.id.spinner_category);
@@ -244,15 +244,17 @@ public class ExpenseActivity extends AppCompatActivity {
         //    );
 
         if (isInserted = true) {
-
-            finishAffinity();
             Intent intent = new Intent(ExpenseActivity.this, MainActivity.class);
             startActivity(intent);
             Toast.makeText(ExpenseActivity.this, "Expense Entered", Toast.LENGTH_SHORT).show();
-            finish();
+
 
         } else
             Toast.makeText(ExpenseActivity.this, "Error", Toast.LENGTH_LONG).show();
+
+
+
+
 
 
     }
@@ -260,19 +262,10 @@ public class ExpenseActivity extends AppCompatActivity {
     /*public void AddData1() {
     }*/
 
-    @Override
-    public void onBackPressed() {
-
-        finishAffinity();
-        Intent intent = new Intent(ExpenseActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
     public static double[] retArray(){
         return (category);
     }
-    public static double getExpense(){
+    /*public static double getExpense(){
         return expense;
     }
 
@@ -283,6 +276,7 @@ public class ExpenseActivity extends AppCompatActivity {
     public static double getCashExpense(){
         return cashExpense;
     }
+    */
 
 
 

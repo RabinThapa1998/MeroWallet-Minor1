@@ -30,14 +30,6 @@ public class CategoriesActivity extends AppCompatActivity {
     public static String username;
     public static String item;
 
-    public static String[] category1 = new String[15];
-
-    @Override
-    public void onBackPressed() {
-        Intent in = new Intent(CategoriesActivity.this, MainActivity.class);
-        startActivity(in);
-        finish();}
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,16 +43,6 @@ public class CategoriesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-
-        /*category1[0]="Food";
-        category1[1]="Bill";
-        category1[2]="Shopping";
-        category1[3]="Clothing";
-        category1[4]="Travel";
-        category1[5]="Education";
-        category1[6]="Entertainment";
-        category1[7]="Credit Card";
-        category1[8]="Other Expenses";*/
 
 
         lv = (ListView)findViewById(R.id.listCat);
