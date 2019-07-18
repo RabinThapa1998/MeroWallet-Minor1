@@ -112,8 +112,8 @@ public class SignupActivity extends AppCompatActivity {
                     edituser.getEditText().getText().toString(),
                     editpassword.getEditText().getText().toString(),
                     editconfirm.getEditText().getText().toString(),
-                    editaddress.getEditText().getText().toString(),
                     editphone.getEditText().getText().toString(),
+                    editaddress.getEditText().getText().toString(),
                     editemail.getEditText().getText().toString()
                    /* budget*/);
 

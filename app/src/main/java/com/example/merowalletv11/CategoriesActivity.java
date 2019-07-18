@@ -157,6 +157,13 @@ public class CategoriesActivity extends AppCompatActivity {
 
     }
 
+    public void onBackPressed() {
+        finishAffinity();
+        Intent in = new Intent(CategoriesActivity.this, MainActivity.class);
+        startActivity(in);
+        finish();
+    }
+
 
 
 }

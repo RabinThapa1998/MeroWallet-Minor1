@@ -20,6 +20,9 @@ import java.util.StringTokenizer;
 
 public class LoginActivity extends AppCompatActivity {
     DatabaseHelper myDb;
+    private long backPressedTime;
+    private Toast backToast;
+
     EditText editusername,editpassword;
     Button b1;
     Boolean check=false;
@@ -101,7 +104,24 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        if(backPressedTime + 2000 > System.currentTimeMillis()){
+            backToast.cancel();
+            finishAffinity();
+            super.onBackPressed();
+            return;
+
+        }
+        else{
+            backToast = Toast.makeText(LoginActivity.this,"Press again to exit",Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+
+
+        backPressedTime = System.currentTimeMillis();
     }
+}
 
 
 

@@ -325,6 +325,14 @@ public class ExpenseActivity extends AppCompatActivity {
     }
 
 
+    public void onBackPressed() {
+        finishAffinity();
+        Intent in = new Intent(ExpenseActivity.this, MainActivity.class);
+        startActivity(in);
+        finish();
+    }
+
+
 
 
 }

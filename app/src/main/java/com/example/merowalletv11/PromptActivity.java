@@ -41,6 +41,14 @@ public class PromptActivity extends AppCompatActivity {
         startActivity(in);
     }
 
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+        Intent in = new Intent(PromptActivity.this, MainActivity.class);
+        startActivity(in);
+        finish();
+    }
+
     /*public static double getBudget(){
     return budget;
     }*/
