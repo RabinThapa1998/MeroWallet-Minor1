@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -41,7 +42,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     PieChart pieChart;
 
     private static double temp;
+    private static double budget;
     double[] x = new double[9];
+    public static String username;
+    DatabaseHelper MwDb;
     private DrawerLayout drawer;
 
     public void validateFloatingAction(View view) {
@@ -64,6 +68,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar=findViewById(R.id.toolbar);
        setSupportActionBar(toolbar);
 
+
+        MwDb= new DatabaseHelper(this);
+        username = LoginActivity.throwUsername();
+
+
+       //Retrieve from database
+        Cursor res = MwDb.getAllData();
+        if(res.getCount()==0)
+        {
+            Toast.makeText(MainActivity.this,"Sign up empty",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            res.moveToFirst();
+
+            do {
+
+                String user = res.getString(3);
+                if (username.equals(user)) {
+
+                    budget = res.getDouble(9);
+
+                }
+            } while (res.moveToNext());
+        }
+
+
+        //Piechart starts here
         pieChart=(PieChart) findViewById(R.id.piechart);
         pieChart.setUsePercentValues(true);
         pieChart.getDescription().setEnabled(false);
@@ -121,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
 
-        temp= PromptActivity.getBudget()-ExpenseActivity.getExpense();
+        temp = budget-ExpenseActivity.getExpense();
 
         TextView txt1=(TextView) findViewById(R.id.editTextResult);
         txt1.setText(""+temp);
