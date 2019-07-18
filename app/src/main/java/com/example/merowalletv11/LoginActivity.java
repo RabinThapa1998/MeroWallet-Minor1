@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                    Cursor res = myDb.getAllData();
                    if(res.getCount()==0)
                    {
-                       Toast.makeText(LoginActivity.this,"Please sign up first",Toast.LENGTH_SHORT).show();
+                       Toast.makeText(LoginActivity.this,"Please sign up",Toast.LENGTH_SHORT).show();
                    }
                    else {
                    res.moveToFirst();
