@@ -247,6 +247,13 @@ public class ExpenseActivity extends AppCompatActivity {
     /*public void AddData1() {
     }*/
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ExpenseActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     public static double[] retArray(){
         return (category);
     }

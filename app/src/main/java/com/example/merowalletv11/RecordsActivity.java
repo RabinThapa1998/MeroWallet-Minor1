@@ -1,5 +1,6 @@
 package com.example.merowalletv11;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,10 @@ import java.util.ArrayList;
 
 public class RecordsActivity extends AppCompatActivity {
     ListView listView;
+    public void onBackPressed() {
+        Intent in = new Intent(RecordsActivity.this, MainActivity.class);
+        startActivity(in);
+        finish();}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

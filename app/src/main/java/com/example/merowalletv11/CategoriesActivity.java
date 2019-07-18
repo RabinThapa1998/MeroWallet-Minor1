@@ -31,6 +31,13 @@ public class CategoriesActivity extends AppCompatActivity {
     public static String item;
 
     public static String[] category1 = new String[15];
+
+    @Override
+    public void onBackPressed() {
+        Intent in = new Intent(CategoriesActivity.this, MainActivity.class);
+        startActivity(in);
+        finish();}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

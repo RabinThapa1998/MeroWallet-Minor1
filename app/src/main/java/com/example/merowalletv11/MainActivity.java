@@ -41,8 +41,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     PieChart pieChart;
 
     private static double temp;
+    private long backPressedTime;
+    private Toast backToast;
+
     double[] x = new double[9];
     private DrawerLayout drawer;
+
 
     public void validateFloatingAction(View view) {
         if(PromptActivity.getBudget()==0){
@@ -154,7 +158,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer((GravityCompat.START));
         }else{
-        super.onBackPressed();
+
+        if(backPressedTime + 2000 > System.currentTimeMillis()){
+            backToast.cancel();
+            super.onBackPressed();
+            this.finish();
+            return;
+        }else{
+          backToast =   Toast.makeText(getBaseContext(),"Press Back Again To Exit.",Toast.LENGTH_SHORT);
+          backToast.show();
+        }
+        backPressedTime = System.currentTimeMillis();
     }
     }
 
