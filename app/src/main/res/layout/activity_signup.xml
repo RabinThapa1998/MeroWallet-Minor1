@@ -129,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"
-                android:maxLength="15"
+                android:maxLength="40"
                 android:inputType="textEmailAddress"/>
         </android.support.design.widget.TextInputLayout>
         <Button

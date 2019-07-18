@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static String username;
     public static double cardExpense;
     public static double cashExpense;
+    public static String email;
     DatabaseHelper MwDb;
     private DrawerLayout drawer;
 
@@ -79,10 +80,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         username = LoginActivity.throwUsername();
 
 
+
        //Retrieve from database
         getBudget();
         getCardExpense1();
         getCashExpense1();
+        getEmail();
 
 
 
@@ -164,6 +167,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                R.string.navigation_drawer_open,R.string.navigation_drawer_close);
        drawer.addDrawerListener(toggle);
        toggle.syncState();
+
+
+
+
+       // NavigationView navigationUsername = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.nav_username);
+        TextView navEmail = (TextView) headerView.findViewById(R.id.nav_email);
+        navUsername.setText(""+username);
+        navEmail.setText(""+email);
     }
 
 
@@ -198,6 +211,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
         switch (item.getItemId()){
             case R.id.nav_categories:
                 Intent in0 = new Intent(com.example.merowalletv11.MainActivity.this, CategoriesActivity.class);
@@ -303,6 +317,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (username.equals(user)) {
 
                     cardExpense = res.getDouble(11);
+
+                }
+            } while (res.moveToNext());
+        }
+    }
+
+    public void getEmail()
+    {
+        Cursor res = MwDb.getAllData();
+        if(res.getCount()==0)
+        {
+            Toast.makeText(MainActivity.this,"Empty",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            res.moveToFirst();
+
+            do {
+
+                String user = res.getString(3);
+                if (username.equals(user)) {
+
+                    email = res.getString(8);
 
                 }
             } while (res.moveToNext());
