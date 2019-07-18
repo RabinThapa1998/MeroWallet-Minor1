@@ -74,24 +74,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
        //Retrieve from database
-        Cursor res = MwDb.getAllData();
-        if(res.getCount()==0)
-        {
-            Toast.makeText(MainActivity.this,"Sign up empty",Toast.LENGTH_SHORT).show();
-        }
-        else {
-            res.moveToFirst();
+        getBudget();
 
-            do {
-
-                String user = res.getString(3);
-                if (username.equals(user)) {
-
-                    budget = res.getDouble(9);
-
-                }
-            } while (res.moveToNext());
-        }
 
 
         //Piechart starts here
@@ -224,6 +208,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void getBudget()
+    {
+        Cursor res = MwDb.getAllData();
+        if(res.getCount()==0)
+        {
+            Toast.makeText(MainActivity.this,"Sign up empty",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            res.moveToFirst();
+
+            do {
+
+                String user = res.getString(3);
+                if (username.equals(user)) {
+
+                    budget = res.getDouble(9);
+
+                }
+            } while (res.moveToNext());
+        }
     }
 
 }
