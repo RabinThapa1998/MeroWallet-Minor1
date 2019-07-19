@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private static double temp;
     private static double budget;
+    public static double[] expenseArray = new double[14];
+    public static String[] categoryArray = new String[14];
     double[] x = new double[9];
     public static String username;
     public static double cardExpense;
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static String email;
     DatabaseHelper MwDb;
     private DrawerLayout drawer;
+    public static int k=9;
 
     public void validateFloatingAction(View view) {
         if(budget==0){
@@ -70,16 +73,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         Toolbar toolbar=findViewById(R.id.toolbar);
        setSupportActionBar(toolbar);
 
 
         MwDb= new DatabaseHelper(this);
         username = LoginActivity.throwUsername();
-
-
 
        //Retrieve from database
         getBudget();
@@ -103,38 +102,124 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ArrayList<PieEntry> yvalues= new ArrayList<>();
 
-        x = ExpenseActivity.retArray();
 
-        for(int i=0;i<9;i++) {
-            if (x[i] != 0) {
+        categoryArray[0] = "Food";
+        categoryArray[1] = "Bill";
+        categoryArray[2] = "Shopping";
+        categoryArray[3] = "Clothing";
+        categoryArray[4] = "Travel";
+        categoryArray[5] = "Education";
+        categoryArray[6] = "Entertainment";
+        categoryArray[7] = "Accomodation";
+        categoryArray[8] = "Other Expenses";
+        categoryArray[9] = "";
+        categoryArray[10] = "";
+        categoryArray[11] = "";
+        categoryArray[12] = "";
+        categoryArray[13] = "";
+
+        expenseArray[0] = 0;
+        expenseArray[1] = 0;
+        expenseArray[2] = 0;
+        expenseArray[3] = 0;
+        expenseArray[4] = 0;
+        expenseArray[5] = 0;
+        expenseArray[6] = 0;
+        expenseArray[7] = 0;
+        expenseArray[8] = 0;
+        expenseArray[9] = 0;
+        expenseArray[10] = 0;
+        expenseArray[11] = 0;
+        expenseArray[12] = 0;
+        expenseArray[13] = 0;
+
+
+
+
+        //Retriving category list
+
+        Cursor res = MwDb.getAllCategoryList();
+        if(res.getCount()==0){}
+        else {
+            res.moveToFirst();
+
+            do {
+
+                String user = res.getString(1);
+                if (username.equals(user)) {
+                    categoryArray[k] = res.getString(2);
+                    k++;
+                    Toast.makeText(MainActivity.this,"Category retrieved",Toast.LENGTH_SHORT).show();
+                }
+            } while (res.moveToNext());
+        }
+
+        //Retrieve amount according to category array
+      Cursor res1 = MwDb.getExpenseTableData();
+        if(res1.getCount()==0)
+        {
+            Toast.makeText(MainActivity.this,"Add your first expense",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            res1.moveToFirst();
+
+            do {
+
+                String user1 = res1.getString(1);
+                String category1 = res1.getString(4);
+                Double amount1 = res1.getDouble(2);
+                if (username.equals(user1)) {
+                    for(int j=0;j<14;j++){
+                        if(categoryArray[j].equals(category1)) {
+                            expenseArray[j] += amount1;
+                            Toast.makeText(MainActivity.this,"Expense retrieved",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            } while (res1.moveToNext());
+        }
+
+      // x = ExpenseActivity.retArray();
+
+       /* for(int i=0;i<9;i++) {
+            if (expenseArray[i] != 0) {
 
                 if (i == 0)
-                    yvalues.add(new PieEntry((float) x[0], "Food"));
+                    yvalues.add(new PieEntry((float) expenseArray[0], "Food"));
                 if (i == 1)
-                    yvalues.add(new PieEntry((float) x[1], "Bill"));
+                    yvalues.add(new PieEntry((float) expenseArray[1], "Bill"));
                 if (i == 2)
-                    yvalues.add(new PieEntry((float) x[2], "Shopping"));
+                    yvalues.add(new PieEntry((float) expenseArray[2], "Shopping"));
                 if (i == 3)
-                    yvalues.add(new PieEntry((float) x[3], "Clothing"));
+                    yvalues.add(new PieEntry((float) expenseArray[3], "Clothing"));
                 if (i == 4)
-                    yvalues.add(new PieEntry((float) x[4], "Travel"));
+                    yvalues.add(new PieEntry((float) expenseArray[4], "Travel"));
                 if (i == 5)
-                    yvalues.add(new PieEntry((float) x[5], "Education"));
+                    yvalues.add(new PieEntry((float) expenseArray[5], "Education"));
                 if (i == 6)
-                    yvalues.add(new PieEntry((float) x[6], "Entertainment"));
+                    yvalues.add(new PieEntry((float) expenseArray[6], "Entertainment"));
                 if (i == 7)
-                    yvalues.add(new PieEntry((float) x[7], "Credit Card"));
+                    yvalues.add(new PieEntry((float) expenseArray[7], "Accomodation"));
                 if (i == 8)
-                    yvalues.add(new PieEntry((float) x[8], "Other Expenses"));
+                    yvalues.add(new PieEntry((float) expenseArray[8], "Other Expenses"));
 
             }
-        }
+        }*/
+
+
+       for(int i = 0;i<14;i++) {
+
+          if(expenseArray[i] != 0) {
+
+              yvalues.add(new PieEntry((float) expenseArray[i], categoryArray[i]));
+          }
+      }
 
 
         pieChart.animateY(1000, Easing.EasingOption.EaseInOutCubic);
 
-        for(int i=0;i<9;i++) {
-            if(x[i]!=0) {
+        /*for(int i=0;i<15;i++) {
+            if(expenseArray[i]!=0) {
                 PieDataSet dataSet = new PieDataSet(yvalues, "");
                 dataSet.setSliceSpace(3f);
                 dataSet.setSelectionShift(5f);
@@ -145,7 +230,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 data.setValueTextColor(Color.BLACK);
                 pieChart.setData(data);
             }
-        }
+        }*/
+
+        PieDataSet dataSet = new PieDataSet(yvalues, "");
+        dataSet.setSliceSpace(3f);
+        dataSet.setSelectionShift(5f);
+        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+
+        PieData data = new PieData((dataSet));
+        data.setValueTextSize(12f);
+        data.setValueTextColor(Color.BLACK);
+        pieChart.setData(data);
+
 
         temp = budget-(cardExpense + cashExpense);
 

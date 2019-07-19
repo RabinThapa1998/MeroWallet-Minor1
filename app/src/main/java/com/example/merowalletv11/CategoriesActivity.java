@@ -60,7 +60,7 @@ public class CategoriesActivity extends AppCompatActivity {
         itemList.add("Travel");
         itemList.add("Education");
         itemList.add("Entertainment");
-        itemList.add("Credit Card");
+        itemList.add("Accomodation");
         itemList.add("Other Expenses");
 
 

@@ -216,5 +216,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public Cursor getExpenseTableData()
+    {
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor res1 = database.rawQuery("select * from "+EXPENSE_TABLE_NAME,null);
+        return res1;
+    }
+
 
 }

@@ -108,7 +108,7 @@ public class ExpenseActivity extends AppCompatActivity {
 
         //Categorylist
         Spinner dropdown1 = findViewById(R.id.spinner_category);
-        String[] categories = {"Food", "Bill", "Shopping", "Clothing", "Travel", "Education", "Entertainment", "Credit Card", "Other Expenses"};
+        String[] categories = {"Food", "Bill", "Shopping", "Clothing", "Travel", "Education", "Entertainment", "Accomodation", "Other Expenses"};
 
 
 
@@ -222,7 +222,7 @@ public class ExpenseActivity extends AppCompatActivity {
                 case "Entertainment":
                     category[6]+=temp;
                     break;
-                case "Credit Card":
+                case "Accomodation":
                     category[7]+=temp;
                     break;
                 default:
@@ -262,9 +262,9 @@ public class ExpenseActivity extends AppCompatActivity {
     /*public void AddData1() {
     }*/
 
-    public static double[] retArray(){
+   /* public static double[] retArray(){
         return (category);
-    }
+    }*/
     /*public static double getExpense(){
         return expense;
     }
