@@ -193,15 +193,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;*/
     }
 
-    public int deleteCategory(String username, String category){
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(CATEGORY_TABLE_NAME,CATEGORY_COL_USERNAME +" = ? AND " + CATEGORY_COL_CATEGORY + " = ?", new String[] {username , category});
+    public void updateCategory(String username, String category){    //update category
+        SQLiteDatabase db1 = this.getWritableDatabase();
+        ContentValues cv1 = new ContentValues();
+        cv1.put(CATEGORY_COL_USERNAME,"admin");
+        cv1.put(CATEGORY_COL_CATEGORY,"Null");
+
+        long value = db1.update(CATEGORY_TABLE_NAME,cv1,CATEGORY_COL_USERNAME + " = ? AND " + CATEGORY_COL_CATEGORY + " = ?", new String[]{username,category});
 
     }
 
-    public int deleteCategoryFromExpenseTable(String username,String deleteCategory){
+    public void updateCategoryFromExpenseTable(String username,String deleteCategory){
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(EXPENSE_TABLE_NAME,EXPENSE_COL_USERNAME +" = ? AND " + EXPENSE_COL_CATEGORY + " = ?", new String[] {username , deleteCategory});
+        ContentValues cv = new ContentValues();
+        cv.put(EXPENSE_COL_USERNAME,"admin");
+        cv.put(EXPENSE_COL_CATEGORY,"Null");
+
+        long value = db.update(EXPENSE_TABLE_NAME,cv,EXPENSE_COL_USERNAME + " = ? AND " + EXPENSE_COL_CATEGORY + " = ?", new String[]{username,deleteCategory});
+
     }
 
 

@@ -30,8 +30,8 @@ public class CategoriesActivity extends AppCompatActivity {
     public static String username;
     public static String item;
     public static String deleteCategory;
-    public static double cashSubtract=0;
-    public static double cardSubtract=0;
+    public static double cashSubtract;
+    public static double cardSubtract;
     public static double finalCash;
     public static double finalCard;
 
@@ -42,6 +42,9 @@ public class CategoriesActivity extends AppCompatActivity {
 
         MwDb= new DatabaseHelper(this);
         username = LoginActivity.throwUsername();
+
+        cashSubtract = 0;
+        cardSubtract = 0;
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -146,9 +149,11 @@ public class CategoriesActivity extends AppCompatActivity {
                     if(positionchecker.get(item)){
 
                         deleteCategory = itemList.get(item);
-                        deleteCategoryFromExpenseTable(username,deleteCategory);
-                        Integer deletedRows = MwDb.deleteCategory(username,deleteCategory);
-                        if(deletedRows > 0)
+                        deleteCategoryExpenseTable(username,deleteCategory);    //kam update ho
+                        MwDb.updateCategory(username,deleteCategory);
+                        Intent intent = new Intent(CategoriesActivity.this,MainActivity.class);
+                        startActivity(intent);
+                       /* if(deletedRows > 0)
                         {
                             Toast.makeText(CategoriesActivity.this,"Deleted successfully",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(CategoriesActivity.this, CategoriesActivity.class);
@@ -156,7 +161,7 @@ public class CategoriesActivity extends AppCompatActivity {
                         }
                         else{
                             Toast.makeText(CategoriesActivity.this,"Cannot delete default category",Toast.LENGTH_SHORT).show(); //Delete from database
-                        }
+                        }*/
 
 
                         /*adapter.remove(itemList.get(item));
@@ -177,7 +182,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
     }
 
-    public void deleteCategoryFromExpenseTable(String username,String deleteCategory)
+    public void deleteCategoryExpenseTable(String username,String deleteCategory)
     {
         Cursor res1 = MwDb.getExpenseTableData();
         if(res1.getCount()==0)
@@ -188,16 +193,19 @@ public class CategoriesActivity extends AppCompatActivity {
             do {
 
                 String user = res1.getString(1);
-                double amount = res1.getDouble(2);
+
                 String category = res1.getString(4);
                 String paymentType = res1.getString(5);
                 if (username.equals(user) && category.equals(deleteCategory)) {
+                    double amount = res1.getDouble(2);
                     if(paymentType.equals("Card")){
+
                         cardSubtract += amount;
                     }
                     else{
                         cashSubtract += amount;
                     }
+                    amount = 0;
 
 
                 }
@@ -205,7 +213,8 @@ public class CategoriesActivity extends AppCompatActivity {
         }
 
 
-        MwDb.deleteCategoryFromExpenseTable(username,deleteCategory);
+        //MwDb.deleteCategoryFromExpenseTable(username,deleteCategory);
+        MwDb.updateCategoryFromExpenseTable(username,deleteCategory);
 
 
 
@@ -221,13 +230,16 @@ public class CategoriesActivity extends AppCompatActivity {
                 double totalCashExpense = res2.getDouble(10);
                 double totalCardExpense = res2.getDouble(11);
                 if (username.equals(user)) {
-                    finalCash = totalCashExpense-cashSubtract;
-                    finalCard = totalCardExpense-cardSubtract;
+                   // finalCash = totalCashExpense-cashSubtract;
+                    //finalCard = totalCardExpense-cardSubtract;
+                    MwDb.updateCardExpense(username,(totalCardExpense - cardSubtract));
+                    MwDb.updateCashExpense(username,(totalCashExpense - cashSubtract));
+
                 }
             } while (res1.moveToNext());
         }
-        MwDb.updateCardExpense(username,finalCard);
-        MwDb.updateCashExpense(username,finalCash);
+        /*MwDb.updateCardExpense(username,finalCard);
+        MwDb.updateCashExpense(username,finalCash);*/
     }
 
 
