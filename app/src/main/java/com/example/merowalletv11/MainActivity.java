@@ -196,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         pieChart.setData(data);
 
 
+        //Remaining budget and display in dashboard
         temp = budget-(cardExpense + cashExpense);
 
         TextView txt1=(TextView) findViewById(R.id.editTextResult);
@@ -209,6 +210,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         txt4.setText(""+cardExpense);
         txt3.setText(""+cashExpense);
 
+        //Code for drawer
        drawer=findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
