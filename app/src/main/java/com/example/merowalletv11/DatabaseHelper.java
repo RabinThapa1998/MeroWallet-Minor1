@@ -199,6 +199,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public int deleteCategoryFromExpenseTable(String username,String deleteCategory){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(EXPENSE_TABLE_NAME,EXPENSE_COL_USERNAME +" = ? AND " + EXPENSE_COL_CATEGORY + " = ?", new String[] {username , deleteCategory});
+    }
+
 
     public Cursor getAllData()
     {
