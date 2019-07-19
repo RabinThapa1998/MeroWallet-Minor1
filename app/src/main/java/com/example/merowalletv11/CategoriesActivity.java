@@ -29,6 +29,7 @@ public class CategoriesActivity extends AppCompatActivity {
     ListView lv;
     public static String username;
     public static String item;
+    public static String deleteCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,8 +140,20 @@ public class CategoriesActivity extends AppCompatActivity {
                 int count = lv.getCount();
                 for(int item=count-1;item>=0; item--){
                     if(positionchecker.get(item)){
-                        adapter.remove(itemList.get(item));
-                        Toast.makeText(CategoriesActivity.this, "Item Deleted Successfully", Toast.LENGTH_SHORT).show();
+
+                        deleteCategory = itemList.get(item);
+                        Integer deletedRows = MwDb.deleteCategory(username,deleteCategory);
+                        if(deletedRows > 0)
+                        {
+                            Toast.makeText(CategoriesActivity.this,"Deleted successfully",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(CategoriesActivity.this, CategoriesActivity.class);
+                            startActivity(intent);
+                        }
+                        else{
+                            Toast.makeText(CategoriesActivity.this,"Cannot delete default category",Toast.LENGTH_SHORT).show();
+                        }
+                        /*adapter.remove(itemList.get(item));
+                        Toast.makeText(CategoriesActivity.this, "Item Deleted Successfully", Toast.LENGTH_SHORT).show();*/
 
                     }
 

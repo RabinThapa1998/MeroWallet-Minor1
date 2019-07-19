@@ -194,6 +194,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;*/
     }
 
+    public int deleteCategory(String username, String category){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(CATEGORY_TABLE_NAME,CATEGORY_COL_USERNAME +" = ? AND " + CATEGORY_COL_CATEGORY + " = ?", new String[] {username , category});
+
+    }
+
 
     public Cursor getAllData()
     {
