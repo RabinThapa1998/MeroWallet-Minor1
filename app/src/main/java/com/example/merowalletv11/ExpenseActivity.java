@@ -200,36 +200,6 @@ public class ExpenseActivity extends AppCompatActivity {
         Spinner spin1=(Spinner) findViewById(R.id.spinner_category);
         String cat = spin1.getSelectedItem().toString();
 
-            switch (cat) {
-                case "Food":
-                    category[0]+=temp;
-                    break;
-                case "Bill":
-                    category[1]+=temp;
-                    break;
-                case "Shopping":
-                    category[2]+=temp;
-                    break;
-                case "Clothing":
-                    category[3]+=temp;
-                    break;
-                case "Travel":
-                    category[4]+=temp;
-                    break;
-                case "Education":
-                    category[5]+=temp;
-                    break;
-                case "Entertainment":
-                    category[6]+=temp;
-                    break;
-                case "Accomodation":
-                    category[7]+=temp;
-                    break;
-                default:
-                    category[8]+=temp;
-                    break;
-            }
-
         boolean isInserted = MDb.insertExpense(
                 username.toString(), //merchantname
                 cat, //category
@@ -258,27 +228,6 @@ public class ExpenseActivity extends AppCompatActivity {
 
 
     }
-
-    /*public void AddData1() {
-    }*/
-
-   /* public static double[] retArray(){
-        return (category);
-    }*/
-    /*public static double getExpense(){
-        return expense;
-    }
-
-    public static double getCardExpense(){
-        return cardExpense;
-    }
-
-    public static double getCashExpense(){
-        return cashExpense;
-    }
-    */
-
-
 
     public void getCashExpense1()
     {

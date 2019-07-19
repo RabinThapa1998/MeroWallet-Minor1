@@ -149,7 +149,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (username.equals(user)) {
                     categoryArray[k] = res.getString(2);
                     k++;
-                    Toast.makeText(MainActivity.this,"Category retrieved",Toast.LENGTH_SHORT).show();
                 }
             } while (res.moveToNext());
         }
@@ -157,9 +156,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Retrieve amount according to category array
       Cursor res1 = MwDb.getExpenseTableData();
         if(res1.getCount()==0)
-        {
-            Toast.makeText(MainActivity.this,"Add your first expense",Toast.LENGTH_SHORT).show();
-        }
+        { }
         else {
             res1.moveToFirst();
 
@@ -172,40 +169,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     for(int j=0;j<14;j++){
                         if(categoryArray[j].equals(category1)) {
                             expenseArray[j] += amount1;
-                            Toast.makeText(MainActivity.this,"Expense retrieved",Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
             } while (res1.moveToNext());
         }
-
-      // x = ExpenseActivity.retArray();
-
-       /* for(int i=0;i<9;i++) {
-            if (expenseArray[i] != 0) {
-
-                if (i == 0)
-                    yvalues.add(new PieEntry((float) expenseArray[0], "Food"));
-                if (i == 1)
-                    yvalues.add(new PieEntry((float) expenseArray[1], "Bill"));
-                if (i == 2)
-                    yvalues.add(new PieEntry((float) expenseArray[2], "Shopping"));
-                if (i == 3)
-                    yvalues.add(new PieEntry((float) expenseArray[3], "Clothing"));
-                if (i == 4)
-                    yvalues.add(new PieEntry((float) expenseArray[4], "Travel"));
-                if (i == 5)
-                    yvalues.add(new PieEntry((float) expenseArray[5], "Education"));
-                if (i == 6)
-                    yvalues.add(new PieEntry((float) expenseArray[6], "Entertainment"));
-                if (i == 7)
-                    yvalues.add(new PieEntry((float) expenseArray[7], "Accomodation"));
-                if (i == 8)
-                    yvalues.add(new PieEntry((float) expenseArray[8], "Other Expenses"));
-
-            }
-        }*/
-
 
        for(int i = 0;i<14;i++) {
 
@@ -217,21 +185,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         pieChart.animateY(1000, Easing.EasingOption.EaseInOutCubic);
-
-        /*for(int i=0;i<15;i++) {
-            if(expenseArray[i]!=0) {
-                PieDataSet dataSet = new PieDataSet(yvalues, "");
-                dataSet.setSliceSpace(3f);
-                dataSet.setSelectionShift(5f);
-                dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-
-                PieData data = new PieData((dataSet));
-                data.setValueTextSize(12f);
-                data.setValueTextColor(Color.BLACK);
-                pieChart.setData(data);
-            }
-        }*/
-
         PieDataSet dataSet = new PieDataSet(yvalues, "");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
