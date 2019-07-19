@@ -231,7 +231,7 @@ public class ExpenseActivity extends AppCompatActivity {
             }
 
         boolean isInserted = MDb.insertExpense(
-                editExpense.getText().toString(), //merchantname
+                username.toString(), //merchantname
                 cat, //category
                 editExpense.getText().toString(), //amount
                 mDisplayDate.getText().toString(), //date

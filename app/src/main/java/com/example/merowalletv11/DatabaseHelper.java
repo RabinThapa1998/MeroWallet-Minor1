@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME ="MW.db";
     public static final String SIGNUP_TABLE_NAME ="SIGN_UP";
@@ -27,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //new table for expense
     public static final String EXPENSE_COL_ID = "EID";
-    public static final String EXPENSE_COL_MERCHANTNAME = "MERCHANT_NAME";
+    public static final String EXPENSE_COL_USERNAME = "USERNAME";
     public static final String EXPENSE_COL_AMOUNT = "AMOUNT";
     public static final String EXPENSE_COL_DATE = "DATE";
     public static final String EXPENSE_COL_CATEGORY = "CATEGORY";
@@ -61,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         sqLiteDatabase.execSQL("create table "+ EXPENSE_TABLE_NAME +
-                "(EID INTEGER PRIMARY KEY AUTOINCREMENT,MERCHANT_NAME TEXT,AMOUNT TEXT,DATE TEXT ,CATEGORY TEXT ,PAYMENT_TYPE TEXT ,RECIEPT TEXT)");
+                "(EID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT,AMOUNT TEXT,DATE TEXT ,CATEGORY TEXT ,PAYMENT_TYPE TEXT ,RECIEPT TEXT)");
 
         sqLiteDatabase.execSQL("create table "+ CATEGORY_TABLE_NAME +
                 "(CID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT,CATEGORY TEXT)");
@@ -69,7 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //Creating expense table
         /*String CREATE_EXPENSE_TABLE = "create table " + EXPENSE_TABLE_NAME +
                 " ( " + EXPENSE_COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + EXPENSE_COL_MERCHANTNAME + "TEXT,"
+                + EXPENSE_COL_USERNAME + "TEXT,"
                 + EXPENSE_COL_AMOUNT + "INTEGER,"
                 + EXPENSE_COL_DATE + "DATE,"
                 + EXPENSE_COL_CATEGORY + "TEXT,"
@@ -114,10 +113,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean insertExpense(String merchantname,String category,String amount,String date,String paymenttype,String receipt) {
+    public boolean insertExpense(String username,String category,String amount,String date,String paymenttype,String receipt) {
         SQLiteDatabase db1 = this.getWritableDatabase();
         ContentValues contentValues2= new ContentValues();
-        contentValues2.put(EXPENSE_COL_MERCHANTNAME,merchantname);
+        contentValues2.put(EXPENSE_COL_USERNAME,username);
         contentValues2.put(EXPENSE_COL_CATEGORY,category);
         contentValues2.put(EXPENSE_COL_AMOUNT,amount);
         contentValues2.put(EXPENSE_COL_DATE,date);
