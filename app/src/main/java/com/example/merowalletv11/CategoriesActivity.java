@@ -150,7 +150,7 @@ public class CategoriesActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                         else{
-                            Toast.makeText(CategoriesActivity.this,"Cannot delete default category",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CategoriesActivity.this,"Cannot delete default category",Toast.LENGTH_SHORT).show(); //Delete from database
                         }
                         /*adapter.remove(itemList.get(item));
                         Toast.makeText(CategoriesActivity.this, "Item Deleted Successfully", Toast.LENGTH_SHORT).show();*/
