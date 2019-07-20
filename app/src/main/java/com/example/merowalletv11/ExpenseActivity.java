@@ -227,15 +227,14 @@ public class ExpenseActivity extends AppCompatActivity {
 
 
          if( thisYear < selectedYear || ( thisYear == selectedYear && thisMonth < selectedMonth ) || ( thisYear == selectedYear && thisMonth == selectedMonth && thisDay < selectedDay )){
-            Toast.makeText(ExpenseActivity.this,"Expense cannot be entered in future date" + thisMonth+"  " + selectedMonth,Toast.LENGTH_SHORT).show();
+            Toast.makeText(ExpenseActivity.this,"Expense cannot be entered in future date",Toast.LENGTH_SHORT).show();
         }
         else if( thisYear > selectedYear || ( thisYear == selectedYear && thisMonth > selectedMonth )){
-            Toast.makeText(ExpenseActivity.this,"Expense cannot be entered in previous month"+ thisMonth+"  "+ selectedMonth,Toast.LENGTH_SHORT).show();
+            Toast.makeText(ExpenseActivity.this,"Expense cannot be entered in previous month",Toast.LENGTH_SHORT).show();
         }
         else {
              String date = selectedDay + "/" + selectedMonth + "/" + selectedYear;
              finalDate =date;
-             Toast.makeText(ExpenseActivity.this,"Expense entered in date" + thisMonth+"  " + selectedMonth,Toast.LENGTH_SHORT).show();
 
 
              mDisplayDate.setText(date);
