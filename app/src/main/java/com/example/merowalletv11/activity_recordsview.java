@@ -6,27 +6,29 @@ public class activity_recordsview {
     private String account;
     private String  price;
     private String date;
-    public static String testAmount;
+    public static String exportEid;
+    public static Integer eid;
 
-    public activity_recordsview(int imageResource,String text1, String text2, String text3, String text4){
+    public activity_recordsview(int imageResource,String text1, String text2, String text3, String eid1){
         categIcon = imageResource;
         category = text1;
         account = text2;
         price = text3;
-        date=text4;
+        date=eid1;
+       // eid=eid1;
     }
 
 
-    public void setAMOUNT(String amount){
-        date = amount;
+  public void setEID(){
 
-        testAmount = price;
+        exportEid = date;
 
 
     }
 
-    public static String getAMOUNT(){
-        return (testAmount);
+
+    public static String importEid(){
+        return (exportEid);
     }
 
     public int getCategIcon(){
@@ -43,6 +45,9 @@ public class activity_recordsview {
 
     public String getPrice(){
         return price;
+    }
+    public static int getEid(){
+        return eid;
     }
 
     public String getDate(){

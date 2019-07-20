@@ -24,6 +24,7 @@ public class RecordsActivity extends AppCompatActivity {
     DatabaseHelper MwDb;
     public static String username;
 
+
     @Override
     public void onBackPressed() {
         Intent in = new Intent(RecordsActivity.this, MainActivity.class);
@@ -63,6 +64,8 @@ public class RecordsActivity extends AppCompatActivity {
 
                 String amountString = Double.toString(amount);
                 String date = res.getString(3);
+                Integer eid = res.getInt(0);
+                String eidString = eid.toString();
 
 
                 int drawable1;
@@ -104,7 +107,7 @@ public class RecordsActivity extends AppCompatActivity {
                     }
 
 
-                    recordsList.add(new activity_recordsview(drawable1,catName,paymentType,amountString,date));
+                    recordsList.add(new activity_recordsview(drawable1,catName,paymentType,amountString,eidString));
 
 
                 }
@@ -130,10 +133,11 @@ public class RecordsActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
-        mAdapter.setOnItemClickListener(new RecordsAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(
+                new RecordsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                recordsList.get(position).setAMOUNT("sdfghj");
+                recordsList.get(position).setEID();
                 Intent in = new Intent(RecordsActivity.this, RecordDetails.class);
                 startActivity(in);
             }
