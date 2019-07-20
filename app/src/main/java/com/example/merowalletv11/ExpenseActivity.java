@@ -4,13 +4,18 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,6 +26,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -40,6 +48,11 @@ public class ExpenseActivity extends AppCompatActivity {
     public static int selectedYear;
     public static String finalDate;
 
+    private static final int GALLERY_REQUEST_CODE=100;
+    private static final float PREFERRED_WIDTH=250;
+    private static final float PREFERRED_HEIGHT=250;
+    String img;
+
 
 
 
@@ -49,8 +62,8 @@ public class ExpenseActivity extends AppCompatActivity {
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private Button btnCapture;
-    private ImageView imgCapture;
-    private static final int Image_Capture_Code = 1;
+    private ImageView selectedImageView;
+    //private static final int Image_Capture_Code = 1;
     EditText editExpense;
 
     @Override
@@ -60,6 +73,8 @@ public class ExpenseActivity extends AppCompatActivity {
         MDb = new DatabaseHelper(this);
         username = LoginActivity.throwUsername();
 
+        selectedImageView=(ImageView)findViewById(R.id.capturedImage);
+
 
 
         EditText editExpense=(EditText) findViewById(R.id.expense);
@@ -68,6 +83,8 @@ public class ExpenseActivity extends AppCompatActivity {
         getCashExpense1();
         getCardExpense1();
 
+        btnCapture =(Button)findViewById(R.id.btnTakePicture);
+
 
 
 
@@ -75,7 +92,7 @@ public class ExpenseActivity extends AppCompatActivity {
 
 
         //Camera starts here
-        btnCapture =(Button)findViewById(R.id.btnTakePicture);
+       /* btnCapture =(Button)findViewById(R.id.btnTakePicture);
         imgCapture = (ImageView) findViewById(R.id.capturedImage);
         btnCapture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +100,7 @@ public class ExpenseActivity extends AppCompatActivity {
                 Intent cInt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cInt,Image_Capture_Code);
             }
-        });
+        });*/
 
         //test default date
 
@@ -203,7 +220,7 @@ public class ExpenseActivity extends AppCompatActivity {
         dropdown2.setAdapter(adapter2);
 
     }
-
+/*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Image_Capture_Code) {
@@ -215,9 +232,18 @@ public class ExpenseActivity extends AppCompatActivity {
             }
         }
     }
-
+*/
 
     void validateExpense(View view){
+
+        if(selectedImageView.getDrawable()==null) {
+            img="null";
+        }
+        else
+        {
+            Bitmap image = ((BitmapDrawable) selectedImageView.getDrawable()).getBitmap();
+            img = bitmapToString(resizeBitmap(image));
+        }
 
 
         EditText editExpense=(EditText) findViewById(R.id.expense);
@@ -272,7 +298,7 @@ public class ExpenseActivity extends AppCompatActivity {
                      //mDisplayDate.getText().toString(), //date
                      finalDate,
                      account, //paymenttype
-                     editExpense.getText().toString()); //receipt
+                     img); //receipt
 
              Intent in = new Intent(ExpenseActivity.this, MainActivity.class);
              startActivity(in);
@@ -348,6 +374,33 @@ public class ExpenseActivity extends AppCompatActivity {
         res.close();
     }
 
+    //gallery section
+
+    public void openGallery(View view) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), GALLERY_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
+            try {
+                Uri selectedImage = data.getData();
+                InputStream imageStream = getContentResolver().openInputStream(selectedImage);
+                selectedImageView.setImageBitmap(BitmapFactory.decodeStream(imageStream));
+
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+
+
+        }
+    }
+
 
     public void onBackPressed() {
         finishAffinity();
@@ -355,6 +408,31 @@ public class ExpenseActivity extends AppCompatActivity {
         startActivity(in);
         finish();
     }
+
+    private static String bitmapToString(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        return Base64.encodeToString(b, Base64.DEFAULT);
+    }
+
+
+    public static Bitmap resizeBitmap(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        float scaleWidth = PREFERRED_WIDTH / width;
+        float scaleHeight = PREFERRED_HEIGHT / height;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        Bitmap resizedBitmap = Bitmap.createBitmap(
+                bitmap, 0, 0, width, height, matrix, false);
+        bitmap.recycle();
+        return resizedBitmap;
+    }
+
+
+
 
 
 

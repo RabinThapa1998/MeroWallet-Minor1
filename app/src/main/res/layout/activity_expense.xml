@@ -87,13 +87,9 @@
             android:id="@+id/btnTakePicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upload Reciept"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/capturedImage"
-            android:layout_below="@+id/btnTakePicture"
-            android:layout_marginLeft="15dp"/>
+            android:text="Upload Reciept"
+            android:onClick="openGallery"/>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,6 +100,16 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:onClick="validateExpense"/>
+
+        <ImageView
+            android:id="@+id/capturedImage"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_below="@+id/btnTakePicture"
+            android:layout_alignEnd="@+id/exp"
+            android:layout_alignBottom="@+id/exp"
+            android:layout_marginLeft="45sp"
+            android:scaleType="fitXY" />
     </LinearLayout>
 
 

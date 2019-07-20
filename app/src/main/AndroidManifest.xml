@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".AlertReceiver"></activity>
         <activity android:name=".RecordDetails" />
         <activity android:name=".AboutUsActivity" />
         <activity

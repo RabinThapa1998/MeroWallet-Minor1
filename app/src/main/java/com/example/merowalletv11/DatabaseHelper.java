@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String EXPENSE_COL_DATE = "DATE";
     public static final String EXPENSE_COL_CATEGORY = "CATEGORY";
     public static final String EXPENSE_COL_PAYMENT_TYPE = "PAYMENT_TYPE";
-    public static final String EXPENSE_COL_RECIEPT = "RECIEPT";
+    public static final String EXPENSE_COL_IMAGE = "IMAGE";
 
     //new table for category
     public static final String CATEGORY_COL_ID="CID";
@@ -60,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         sqLiteDatabase.execSQL("create table "+ EXPENSE_TABLE_NAME +
-                "(EID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT,AMOUNT TEXT,DATE TEXT ,CATEGORY TEXT ,PAYMENT_TYPE TEXT ,RECIEPT TEXT)");
+                "(EID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT,AMOUNT TEXT,DATE TEXT ,CATEGORY TEXT ,PAYMENT_TYPE TEXT ,IMAGE TEXT DEFAULT 0)");
 
         sqLiteDatabase.execSQL("create table "+ CATEGORY_TABLE_NAME +
                 "(CID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT,CATEGORY TEXT)");
@@ -114,7 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean insertExpense(String username,String category,String amount,String date,String paymenttype,String receipt) {
+    public boolean insertExpense(String username,String category,String amount,String date,String paymenttype,String img) {
         SQLiteDatabase db1 = this.getWritableDatabase();
         ContentValues contentValues2= new ContentValues();
         contentValues2.put(EXPENSE_COL_USERNAME,username);
@@ -122,7 +122,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues2.put(EXPENSE_COL_AMOUNT,amount);
         contentValues2.put(EXPENSE_COL_DATE,date);
         contentValues2.put(EXPENSE_COL_PAYMENT_TYPE,paymenttype);
-        contentValues2.put(EXPENSE_COL_RECIEPT,receipt);
+        contentValues2.put(EXPENSE_COL_IMAGE,img);
+
 
 
         long res = db1.insert(EXPENSE_TABLE_NAME,null,contentValues2);
