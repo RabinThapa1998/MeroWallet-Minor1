@@ -53,7 +53,7 @@ public class RecordsActivity extends AppCompatActivity {
             Toast.makeText(RecordsActivity.this,"RECORDS HERE",Toast.LENGTH_SHORT).show();
         }
         else {
-            res.moveToFirst();
+            res.moveToLast();
 
             do {
 
@@ -111,7 +111,7 @@ public class RecordsActivity extends AppCompatActivity {
 
 
                 }
-            } while (res.moveToNext());
+            } while (res.moveToPrevious());
         }
         res.close();
 

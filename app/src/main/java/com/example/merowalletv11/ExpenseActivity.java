@@ -95,6 +95,9 @@ public class ExpenseActivity extends AppCompatActivity {
         thisMonth =month1;
         thisYear=year1;
         thisDay= day1;
+        selectedYear = year1;
+        selectedMonth = month1;
+        selectedDay = day1;
 
         String date= day1 + "/" + month1 + "/" + year1;
         mDisplayDate = (TextView) findViewById(R.id.tvDate);
@@ -223,15 +226,17 @@ public class ExpenseActivity extends AppCompatActivity {
 
 
 
-         if(thisMonth < selectedMonth && thisYear<selectedYear && thisDay<selectedDay){
-            Toast.makeText(ExpenseActivity.this,"Expense cannot be entered in future date",Toast.LENGTH_SHORT).show();
+         if( thisYear < selectedYear || ( thisYear == selectedYear && thisMonth < selectedMonth ) || ( thisYear == selectedYear && thisMonth == selectedMonth && thisDay < selectedDay )){
+            Toast.makeText(ExpenseActivity.this,"Expense cannot be entered in future date" + thisMonth+"  " + selectedMonth,Toast.LENGTH_SHORT).show();
         }
-        else if(thisMonth>selectedMonth && thisYear>=selectedYear){
-            Toast.makeText(ExpenseActivity.this,"Expense cannot be entered in previous month",Toast.LENGTH_SHORT).show();
+        else if( thisYear > selectedYear || ( thisYear == selectedYear && thisMonth > selectedMonth )){
+            Toast.makeText(ExpenseActivity.this,"Expense cannot be entered in previous month"+ thisMonth+"  "+ selectedMonth,Toast.LENGTH_SHORT).show();
         }
         else {
              String date = selectedDay + "/" + selectedMonth + "/" + selectedYear;
              finalDate =date;
+             Toast.makeText(ExpenseActivity.this,"Expense entered in date" + thisMonth+"  " + selectedMonth,Toast.LENGTH_SHORT).show();
+
 
              mDisplayDate.setText(date);
 
