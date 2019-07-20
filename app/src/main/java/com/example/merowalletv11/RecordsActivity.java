@@ -17,8 +17,16 @@ import java.util.ArrayList;
 
 public class RecordsActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private RecordsAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    @Override
+    public void onBackPressed() {
+        Intent in = new Intent(RecordsActivity.this, MainActivity.class);
+        startActivity(in);
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +45,17 @@ public class RecordsActivity extends AppCompatActivity {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(new RecordsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                recordsList.get(position);
+                Intent in = new Intent(RecordsActivity.this, RecordDetails.class);
+                startActivity(in);
+            }
+        });
+
+
 
       /* mAdapter.setOnItemClickListener(new RecordsAdapter.OnItemClickListener() {
             @Override

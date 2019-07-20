@@ -15,6 +15,7 @@ public class activity_recordsview {
         date=text4;
     }
 
+
     public int getCategIcon(){
         return categIcon;
     }
