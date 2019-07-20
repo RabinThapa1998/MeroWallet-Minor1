@@ -6,6 +6,7 @@ public class activity_recordsview {
     private String account;
     private String  price;
     private String date;
+    public static String testAmount;
 
     public activity_recordsview(int imageResource,String text1, String text2, String text3, String text4){
         categIcon = imageResource;
@@ -15,6 +16,18 @@ public class activity_recordsview {
         date=text4;
     }
 
+
+    public void setAMOUNT(String amount){
+        date = amount;
+
+        testAmount = price;
+
+
+    }
+
+    public static String getAMOUNT(){
+        return (testAmount);
+    }
 
     public int getCategIcon(){
         return categIcon;

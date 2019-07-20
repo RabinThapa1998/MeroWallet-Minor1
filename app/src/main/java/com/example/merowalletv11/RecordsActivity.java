@@ -52,7 +52,7 @@ public class RecordsActivity extends AppCompatActivity {
             Toast.makeText(RecordsActivity.this,"RECORDS HERE",Toast.LENGTH_SHORT).show();
         }
         else {
-            res.moveToLast();
+            res.moveToFirst();
 
             do {
 
@@ -108,7 +108,7 @@ public class RecordsActivity extends AppCompatActivity {
 
 
                 }
-            } while (res.moveToPrevious());
+            } while (res.moveToNext());
         }
         res.close();
 
@@ -133,7 +133,7 @@ public class RecordsActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new RecordsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                recordsList.get(position);
+                recordsList.get(position).setAMOUNT("sdfghj");
                 Intent in = new Intent(RecordsActivity.this, RecordDetails.class);
                 startActivity(in);
             }
