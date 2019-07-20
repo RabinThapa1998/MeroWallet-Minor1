@@ -76,6 +76,7 @@ public class SignupActivity extends AppCompatActivity {
             if(res.getCount()==0)
             {
                 edituser.setError(null);
+                res.close();
                 return true;
             }
             else {
@@ -92,6 +93,7 @@ public class SignupActivity extends AppCompatActivity {
                 } while (res.moveToNext());
 
                 edituser.setError(null);
+                res.close();
                 return true;
             }
         }

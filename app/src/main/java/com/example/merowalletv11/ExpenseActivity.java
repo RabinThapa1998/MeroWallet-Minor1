@@ -138,6 +138,7 @@ public class ExpenseActivity extends AppCompatActivity {
             ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
             dropdown1.setAdapter(adapter1);
         }
+        res.close();
 
 
 
@@ -249,6 +250,7 @@ public class ExpenseActivity extends AppCompatActivity {
                 }
             } while (res.moveToNext());
         }
+        res.close();
     }
 
     public void getCardExpense1()
@@ -271,6 +273,7 @@ public class ExpenseActivity extends AppCompatActivity {
                 }
             } while (res.moveToNext());
         }
+        res.close();
     }
 
 

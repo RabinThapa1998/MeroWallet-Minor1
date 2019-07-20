@@ -47,16 +47,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private static double temp;
     private static double budget;
-    public static double[] expenseArray = new double[14];
-    public static String[] categoryArray = new String[14];
-    double[] x = new double[9];
+    public static double[] expenseArray = new double[50];
+    public static String[] categoryArray = new String[50];
     public static String username;
     public static double cardExpense;
     public static double cashExpense;
     public static String email;
     DatabaseHelper MwDb;
     private DrawerLayout drawer;
-    public static int k=9;
+    public static int k;
 
     public void validateFloatingAction(View view) {
         if(budget==0){
@@ -79,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         MwDb= new DatabaseHelper(this);
         username = LoginActivity.throwUsername();
+        k=9;
 
        //Retrieve from database
         getBudget();
@@ -112,11 +112,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         categoryArray[6] = "Entertainment";
         categoryArray[7] = "Accomodation";
         categoryArray[8] = "Other Expenses";
-        categoryArray[9] = "";
-        categoryArray[10] = "";
-        categoryArray[11] = "";
-        categoryArray[12] = "";
-        categoryArray[13] = "";
+        categoryArray[9] = "0";
+        categoryArray[10] = "0";
+        categoryArray[11] = "0";
+        categoryArray[12] = "0";
+        categoryArray[13] = "0";
 
         expenseArray[0] = 0;
         expenseArray[1] = 0;
@@ -146,12 +146,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             do {
 
                 String user = res.getString(1);
-                if (username.equals(user)) {
+                if(user.equals(null))
+                {throw new NullPointerException("Test");
+                }
+
+                if (username.equals(user)  && !user.equals(null)) {
                     categoryArray[k] = res.getString(2);
                     k++;
                 }
             } while (res.moveToNext());
         }
+        res.close();
 
         //Retrieve amount according to category array
       Cursor res1 = MwDb.getExpenseTableData();
@@ -174,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             } while (res1.moveToNext());
         }
+        res1.close();
 
        for(int i = 0;i<14;i++) {
 
@@ -327,6 +333,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             } while (res.moveToNext());
         }
+        res.close();
     }
 
     //Retriving from database values of card and cash expense
@@ -349,7 +356,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 }
             } while (res.moveToNext());
-        }
+        }res.close();
     }
 
     public void getCardExpense1()
@@ -371,7 +378,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 }
             } while (res.moveToNext());
-        }
+        }res.close();
     }
 
     public void getEmail()
@@ -394,6 +401,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             } while (res.moveToNext());
         }
+        res.close();
     }
 
 }

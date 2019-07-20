@@ -138,6 +138,7 @@ public class CategoriesActivity extends AppCompatActivity {
                 }
             } while (res.moveToNext());
         }
+        res.close();
 
 
         lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -149,11 +150,10 @@ public class CategoriesActivity extends AppCompatActivity {
                     if(positionchecker.get(item)){
 
                         deleteCategory = itemList.get(item);
-                        deleteCategoryExpenseTable(username,deleteCategory);    //kam update ho
-                        MwDb.updateCategory(username,deleteCategory);
-                        Intent intent = new Intent(CategoriesActivity.this,MainActivity.class);
-                        startActivity(intent);
-                       /* if(deletedRows > 0)
+                       // deleteCategoryExpenseTable(username,deleteCategory);
+                        Integer deletedRows = MwDb.deleteCategory(username,deleteCategory);
+
+                        if(deletedRows > 0)
                         {
                             Toast.makeText(CategoriesActivity.this,"Deleted successfully",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(CategoriesActivity.this, CategoriesActivity.class);
@@ -161,7 +161,7 @@ public class CategoriesActivity extends AppCompatActivity {
                         }
                         else{
                             Toast.makeText(CategoriesActivity.this,"Cannot delete default category",Toast.LENGTH_SHORT).show(); //Delete from database
-                        }*/
+                        }
 
 
                         /*adapter.remove(itemList.get(item));
@@ -182,7 +182,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
     }
 
-    public void deleteCategoryExpenseTable(String username,String deleteCategory)
+    /*public void deleteCategoryExpenseTable(String username,String deleteCategory)
     {
         Cursor res1 = MwDb.getExpenseTableData();
         if(res1.getCount()==0)
@@ -211,6 +211,7 @@ public class CategoriesActivity extends AppCompatActivity {
                 }
             } while (res1.moveToNext());
         }
+        res1.close();
 
 
         //MwDb.deleteCategoryFromExpenseTable(username,deleteCategory);
@@ -238,9 +239,10 @@ public class CategoriesActivity extends AppCompatActivity {
                 }
             } while (res1.moveToNext());
         }
-        /*MwDb.updateCardExpense(username,finalCard);
-        MwDb.updateCashExpense(username,finalCash);*/
-    }
+
+        res2.close();
+    }*/
+
 
 
 

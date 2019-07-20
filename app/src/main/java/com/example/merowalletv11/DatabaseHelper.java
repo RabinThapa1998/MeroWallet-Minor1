@@ -105,6 +105,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
        // contentValues.put(SIGNUP_COL_BUDGET,budget);
 
         long result = db.insert(SIGNUP_TABLE_NAME,null,contentValues);
+        db.close();
         if(result == -1)
             return false;
         else
@@ -125,6 +126,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         long res = db1.insert(EXPENSE_TABLE_NAME,null,contentValues2);
+        db1.close();
         if(res == -1)
             return false;
         else
@@ -139,6 +141,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues3.put(CATEGORY_COL_CATEGORY,category);
 
         long res = db1.insert(CATEGORY_TABLE_NAME,null,contentValues3);
+        db1.close();
         if(res == -1)
             return false;
         else
@@ -154,6 +157,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues4.put(SIGNUP_COL_BUDGET,budget);
 
         long value = db1.update(SIGNUP_TABLE_NAME,contentValues4,SIGNUP_COL_USERNAME + " = ?",new String[] {username });
+        db1.close();
 
         if(value == -1)
             return false;
@@ -169,6 +173,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues4.put(SIGNUP_COL_CASHEXPENSE,cashExpense);
 
         long value = db1.update(SIGNUP_TABLE_NAME,contentValues4,SIGNUP_COL_USERNAME + " = ?",new String[] {username });
+        db1.close();
 
         /*if(value == -1)
             return false;
@@ -185,6 +190,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues4.put(SIGNUP_COL_CARDEXPENSE,cardExpense);
 
         long value = db1.update(SIGNUP_TABLE_NAME,contentValues4,SIGNUP_COL_USERNAME + " = ?",new String[] {username });
+        db1.close();
 
         /*if(value == -1)
             return false;
@@ -193,25 +199,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;*/
     }
 
-    public void updateCategory(String username, String category){    //update category
-        SQLiteDatabase db1 = this.getWritableDatabase();
-        ContentValues cv1 = new ContentValues();
-        cv1.put(CATEGORY_COL_USERNAME,"admin");
-        cv1.put(CATEGORY_COL_CATEGORY,"Null");
+    public int deleteCategory(String username, String category){
+        SQLiteDatabase db = this.getWritableDatabase();
 
-        long value = db1.update(CATEGORY_TABLE_NAME,cv1,CATEGORY_COL_USERNAME + " = ? AND " + CATEGORY_COL_CATEGORY + " = ?", new String[]{username,category});
+
+        return db.delete(CATEGORY_TABLE_NAME,CATEGORY_COL_USERNAME + " = ? AND " + CATEGORY_COL_CATEGORY + " = ?", new String[]{username,category});
 
     }
 
-    public void updateCategoryFromExpenseTable(String username,String deleteCategory){
+   /* public void updateCategoryFromExpenseTable(String username,String deleteCategory){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(EXPENSE_COL_USERNAME,"admin");
         cv.put(EXPENSE_COL_CATEGORY,"Null");
 
         long value = db.update(EXPENSE_TABLE_NAME,cv,EXPENSE_COL_USERNAME + " = ? AND " + EXPENSE_COL_CATEGORY + " = ?", new String[]{username,deleteCategory});
+        db.close();
 
-    }
+    }*/
 
 
     public Cursor getAllData()
