@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+       // Toast.makeText(MainActivity.this,LoginActivity.passusername,Toast.LENGTH_SHORT).show();
 
         Toolbar toolbar=findViewById(R.id.toolbar);
        setSupportActionBar(toolbar);
@@ -304,6 +305,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(in4);
                 break;
             case R.id.nav_logout:
+                int status =0;
+                MwDb.updateOnlineStatus(username,status);
                 Intent in5 = new Intent(com.example.merowalletv11.MainActivity.this, LoginActivity.class);
                 startActivity(in5);
                 finish();

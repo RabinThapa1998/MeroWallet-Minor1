@@ -21,7 +21,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String SIGNUP_COL_EMAIL ="EMAIL"; //9
     public static final String SIGNUP_COL_BUDGET="BUDGET"; //10
     public static final String SIGNUP_COL_CASHEXPENSE="CASHEXPENSE";//11
-    public static final String SIGNUP_COL_CARDEXPENSE="CARDEXPENSE";
+    public static final String SIGNUP_COL_CARDEXPENSE="CARDEXPENSE";//12
+    public static final String SIGNUP_COL_ONLINESTATUS = "ONLINESTATUS";//13-1
 
 
     //new table for expense
@@ -56,7 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
         sqLiteDatabase.execSQL("create table "+ SIGNUP_TABLE_NAME +
-                "(ID INTEGER PRIMARY KEY AUTOINCREMENT,FIRSTNAME TEXT NOT NULL,LASTNAME TEXT NOT NULL,USERNAME TEXT NOT NULL UNIQUE ,PASSWORD TEXT NOT NULL,CONFIRMPASSWORD TEXT NOT NULL,PHONENUMBER TEXT,ADDRESS TEXT,EMAIL TEXT NOT NULL,BUDGET DOUBLE DEFAULT 0,CASHEXPENSE DOUBLE DEFAULT 0,CARDEXPENSE DOUBLE DEFAULT 0)");
+                "(ID INTEGER PRIMARY KEY AUTOINCREMENT,FIRSTNAME TEXT NOT NULL,LASTNAME TEXT NOT NULL,USERNAME TEXT NOT NULL UNIQUE ,PASSWORD TEXT NOT NULL,CONFIRMPASSWORD TEXT NOT NULL,PHONENUMBER TEXT,ADDRESS TEXT,EMAIL TEXT NOT NULL,BUDGET DOUBLE DEFAULT 0,CASHEXPENSE DOUBLE DEFAULT 0,CARDEXPENSE DOUBLE DEFAULT 0,ONLINESTATUS INTEGER DEFAULT 0)");
 
 
         sqLiteDatabase.execSQL("create table "+ EXPENSE_TABLE_NAME +
@@ -242,6 +243,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor res1 = database.rawQuery("select * from "+EXPENSE_TABLE_NAME,null);
         return res1;
     }
+     public void updateOnlineStatus(String username, int status){
+
+         SQLiteDatabase db1=this.getWritableDatabase();
+         ContentValues contentValues00 = new ContentValues();
+         contentValues00.put(SIGNUP_COL_ONLINESTATUS,status);
+
+
+         long value = db1.update(SIGNUP_TABLE_NAME,contentValues00,SIGNUP_COL_USERNAME + " = ?",new String[] {username });
+         db1.close();
+
+
+
+     }
+
 
 
 }

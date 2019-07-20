@@ -8,6 +8,7 @@ import android.provider.ContactsContract;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +38,45 @@ public class LoginActivity extends AppCompatActivity {
         editusername=(EditText) findViewById(R.id.username1);
         editpassword=(EditText) findViewById(R.id.pass1);
         b1=(Button)findViewById(R.id.signin);
-        viewAll();
+
+
+       /* boolean check = true;
+
+
+        Cursor res = myDb.getAllData();
+        if(res.getCount()==0)
+        {
+            Toast.makeText(LoginActivity.this,"WELCOME",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            res.moveToFirst();
+
+            do {
+
+                String user = res.getString(1);
+                int status = res.getInt(12);
+
+                if (status ==1) {
+
+                    passusername = user;
+
+                    Intent in = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(in);
+                    finish();
+
+                    check =false;
+
+                }
+            } while (res.moveToNext());
+        }
+        res.close();
+        */
+
+
+         viewAll();
+
+
+
     }
 
 
@@ -73,6 +112,9 @@ public class LoginActivity extends AppCompatActivity {
                            startActivity(in);
 
                            passusername = username;
+
+                           int status =1;
+                           myDb.updateOnlineStatus(username,status);
 
                            finish();
                            check=true;
