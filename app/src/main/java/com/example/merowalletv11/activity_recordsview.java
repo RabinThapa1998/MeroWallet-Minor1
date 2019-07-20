@@ -4,7 +4,7 @@ public class activity_recordsview {
     private int categIcon;
     private String category;
     private String account;
-    private String price;
+    private String  price;
     private String date;
 
     public activity_recordsview(int imageResource,String text1, String text2, String text3, String text4){
