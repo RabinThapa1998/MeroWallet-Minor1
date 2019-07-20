@@ -162,7 +162,7 @@ public class SignupActivity extends AppCompatActivity {
             //notify
         Calendar calendar = getInstance();
         calendar.set(HOUR_OF_DAY,19);
-        calendar.set(MINUTE,00);
+        calendar.set(MINUTE,0);
         calendar.set(SECOND,0);
         startAlarm(calendar);
 
