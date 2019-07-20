@@ -3,6 +3,7 @@ package com.example.merowalletv11;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,8 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -37,7 +40,11 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import static com.example.merowalletv11.Receiver2.CHANNEL_1_ID;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private NotificationManagerCompat notificationManager;
 
     PieChart pieChart;
 
@@ -216,6 +223,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView txt4=(TextView) findViewById(R.id.card_amt);
         txt4.setText(""+cardExpense);
         txt3.setText(""+cashExpense);
+
+        if(budget!=0) {
+
+            if (temp <= 0.1 * budget) {
+                notificationManager = NotificationManagerCompat.from(this);
+                Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                        .setSmallIcon(R.drawable.nati)
+                        .setContentTitle("Low Budget")
+                        .setContentText("Please maintain your budget")
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                        .build();
+
+                notificationManager.notify(1, notification);
+            }
+
+        }
+
+
 
         //Code for drawer
        drawer=findViewById(R.id.drawer_layout);
@@ -406,6 +432,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         res.close();
     }
+
+    public static double getRemainingBudget(){
+        return temp;
+    }
+
 
 }
 

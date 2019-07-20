@@ -53,6 +53,9 @@ public class ExpenseActivity extends AppCompatActivity {
     private static final float PREFERRED_HEIGHT=250;
     String img;
 
+    public static double remainingBudget;
+
+
 
 
 
@@ -78,6 +81,8 @@ public class ExpenseActivity extends AppCompatActivity {
 
 
         EditText editExpense=(EditText) findViewById(R.id.expense);
+
+        remainingBudget = MainActivity.getRemainingBudget();
 
 
         getCashExpense1();
@@ -236,95 +241,94 @@ public class ExpenseActivity extends AppCompatActivity {
 
     void validateExpense(View view){
 
-        if(selectedImageView.getDrawable()==null) {
-            img="null";
-        }
-        else
-        {
-            Bitmap image = ((BitmapDrawable) selectedImageView.getDrawable()).getBitmap();
-            img = bitmapToString(resizeBitmap(image));
-        }
+        if((remainingBudget)<= 0){
 
+            Toast.makeText(ExpenseActivity.this,"Not enough budget remaining. Please reallocate budget",Toast.LENGTH_LONG).show();
 
-        EditText editExpense=(EditText) findViewById(R.id.expense);
-        double temp=Double.parseDouble(editExpense.getText().toString());
-
-
-
-
-         if( thisYear < selectedYear || ( thisYear == selectedYear && thisMonth < selectedMonth ) || ( thisYear == selectedYear && thisMonth == selectedMonth && thisDay < selectedDay )){
-            Toast.makeText(ExpenseActivity.this,"Expense cannot be entered in future date",Toast.LENGTH_SHORT).show();
-        }
-        else if( thisYear > selectedYear || ( thisYear == selectedYear && thisMonth > selectedMonth )){
-            Toast.makeText(ExpenseActivity.this,"Expense cannot be entered in previous month",Toast.LENGTH_SHORT).show();
         }
         else {
-             String date = selectedDay + "/" + selectedMonth + "/" + selectedYear;
-             finalDate =date;
+
+            if (selectedImageView.getDrawable() == null) {
+                img = "null";
+            } else {
+                Bitmap image = ((BitmapDrawable) selectedImageView.getDrawable()).getBitmap();
+                img = bitmapToString(resizeBitmap(image));
+            }
 
 
-             mDisplayDate.setText(date);
-
-             //do nothing
-
-
-             //Accounts
-             Spinner spin = (Spinner) findViewById(R.id.spinner_account);
-             String account = spin.getSelectedItem().toString();
-
-             if (account == "Card") {
-                 cardExpense += temp;
-
-                 MDb.updateCardExpense(username, cardExpense);
+            EditText editExpense = (EditText) findViewById(R.id.expense);
+            double temp = Double.parseDouble(editExpense.getText().toString());
 
 
-             } else {
-                 cashExpense += temp;
-                 MDb.updateCashExpense(username, cashExpense);
+            if (thisYear < selectedYear || (thisYear == selectedYear && thisMonth < selectedMonth) || (thisYear == selectedYear && thisMonth == selectedMonth && thisDay < selectedDay)) {
+                Toast.makeText(ExpenseActivity.this, "Expense cannot be entered in future date", Toast.LENGTH_SHORT).show();
+            } else if (thisYear > selectedYear || (thisYear == selectedYear && thisMonth > selectedMonth)) {
+                Toast.makeText(ExpenseActivity.this, "Expense cannot be entered in previous month", Toast.LENGTH_SHORT).show();
+            } else {
+                String date = selectedDay + "/" + selectedMonth + "/" + selectedYear;
+                finalDate = date;
 
 
-             }
+                mDisplayDate.setText(date);
 
-             //expense+=temp;
-
-             //Categories
-             Spinner spin1 = (Spinner) findViewById(R.id.spinner_category);
-             String cat = spin1.getSelectedItem().toString();
-
-             boolean isInserted = MDb.insertExpense(
-                     username.toString(), //merchantname
-                     cat, //category
-                     editExpense.getText().toString(), //amount
-                     //mDisplayDate.getText().toString(), //date
-                     finalDate,
-                     account, //paymenttype
-                     img); //receipt
-
-             Intent in = new Intent(ExpenseActivity.this, MainActivity.class);
-             startActivity(in);
-             finish();
+                //do nothing
 
 
-             // editExpense.getText().toString()
+                //Accounts
+                Spinner spin = (Spinner) findViewById(R.id.spinner_account);
+                String account = spin.getSelectedItem().toString();
+
+                if (account == "Card") {
+                    cardExpense += temp;
+
+                    MDb.updateCardExpense(username, cardExpense);
+
+
+                } else {
+                    cashExpense += temp;
+                    MDb.updateCashExpense(username, cashExpense);
+
+
+                }
+
+                //expense+=temp;
+
+                //Categories
+                Spinner spin1 = (Spinner) findViewById(R.id.spinner_category);
+                String cat = spin1.getSelectedItem().toString();
+
+                boolean isInserted = MDb.insertExpense(
+                        username.toString(), //merchantname
+                        cat, //category
+                        editExpense.getText().toString(), //amount
+                        //mDisplayDate.getText().toString(), //date
+                        finalDate,
+                        account, //paymenttype
+                        img); //receipt
+
+                Intent in = new Intent(ExpenseActivity.this, MainActivity.class);
+                startActivity(in);
+                finish();
+
+
+                // editExpense.getText().toString()
 //                mDisplayDate.getText().toString(),
-             //             account
-             //    );
+                //             account
+                //    );
 
-             if (isInserted = true) {
-                 Intent intent = new Intent(ExpenseActivity.this, MainActivity.class);
-                 startActivity(intent);
-                 Toast.makeText(ExpenseActivity.this, "Expense Entered", Toast.LENGTH_SHORT).show();
-
-
-             } else
-                 Toast.makeText(ExpenseActivity.this, "Error", Toast.LENGTH_LONG).show();
-
-         }
+                if (isInserted = true) {
+                    Intent intent = new Intent(ExpenseActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(ExpenseActivity.this, "Expense Entered", Toast.LENGTH_SHORT).show();
 
 
+                } else
+                    Toast.makeText(ExpenseActivity.this, "Error", Toast.LENGTH_LONG).show();
+
+            }
 
 
-
+        }
 
     }
 
