@@ -76,7 +76,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int thisMonth;
     public static int thisYear;
 
+    public static double amountCategory[] = new double[15];
     public static double averageCategory[] = new double[15];
+
     public static int numberOfDays;
 
 
@@ -108,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         k=9;
 
 
-        getDataAnalysis();
 
        //Retrieve from database
         getBudget();
@@ -119,10 +120,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         numberOfDays = (int)(  (thisYear - Integer.parseInt(signupDate.substring(0,4)))*365.25 +  (  thisMonth - Integer.parseInt(signupDate.substring(5,7)) )*30.4375  +   (thisDay - Integer.parseInt(signupDate.substring(8,10)))   );
 
     //-----------double to int ---difference in year times the number of days in a year---------------difference in month ------------------------------------------------------diff in day
+
+        if(numberOfDays >= 2) {
+            getDataAnalysis();
+        }
+
+
+
+
         //calender code for todays date
-
-
-
 
         Calendar cal = Calendar.getInstance();
         int year1 = cal.get(Calendar.YEAR);
@@ -205,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         expenseArray[13] = 0;
 
         for(int i=0; i<15;i++){
-            averageCategory[i] =0;
+            amountCategory[i] =0;
         }
 
 
@@ -527,7 +533,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     if (username.equals(user) && categoryArray[i].equals(tableCategory) && Integer.parseInt(retrievedYear) <= thisYear && Integer.parseInt(retrievedMonth) <= thisMonth && Integer.parseInt(retrievedDay) < thisDay) {
 
-                        averageCategory[i] += tableAmount;
+                        amountCategory[i] += tableAmount;
+
 
                     }
 
@@ -535,6 +542,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             } while (res.moveToNext());
         }
         res.close();
+
+
+        for(int i=0;i<14;i++){
+
+            averageCategory[i] = amountCategory[i]/numberOfDays;
+        }
+
 
 
 
@@ -554,6 +568,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public static  String[] retCategoryList(){
         return categoryArray;
+    }
+
+
+
+    public static int getNumberOfDays()
+    {
+        return numberOfDays;
     }
 
 
