@@ -49,6 +49,7 @@ public class NotificationHelper extends ContextWrapper {
                 .setContentTitle("Mero Wallet")
                 .setContentText("Did you forget to enter the expense")
                 .setSmallIcon(R.drawable.ic_icon)
+
                 .setContentIntent(contentIntent)
                 .setAutoCancel(true);
 

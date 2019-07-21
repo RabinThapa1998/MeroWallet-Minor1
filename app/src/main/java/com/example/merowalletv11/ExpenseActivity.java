@@ -47,9 +47,10 @@ public class ExpenseActivity extends AppCompatActivity {
     public static int selectedMonth;
     public static int selectedYear;
     public static String finalDate;
-    
+
 
     private static final int GALLERY_REQUEST_CODE=100;
+    private static final int CAMERA_REQUEST_CODE=200;
     private static final float PREFERRED_WIDTH=250;
     private static final float PREFERRED_HEIGHT=250;
     String img;
@@ -394,6 +395,14 @@ public class ExpenseActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), GALLERY_REQUEST_CODE);
     }
 
+    public void openCamera(View view) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
+        }
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -410,7 +419,14 @@ public class ExpenseActivity extends AppCompatActivity {
 
 
         }
+        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            selectedImageView.setImageBitmap(imageBitmap);
+        }
+
     }
+
 
 
     public void onBackPressed() {

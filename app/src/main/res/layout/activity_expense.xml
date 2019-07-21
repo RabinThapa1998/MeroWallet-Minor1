@@ -87,8 +87,15 @@
             android:id="@+id/btnTakePicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upload Reciept"
+            android:text="Upload reciept"
             android:onClick="openGallery"/>
+        <Button
+            android:id="@+id/btnTakePicCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="take photo"
+            android:onClick="openCamera"/>
+
 
         <Button
             android:layout_width="wrap_content"
@@ -104,7 +111,7 @@
         <ImageView
             android:id="@+id/capturedImage"
             android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
             android:layout_below="@+id/btnTakePicture"
             android:layout_alignEnd="@+id/exp"
             android:layout_alignBottom="@+id/exp"

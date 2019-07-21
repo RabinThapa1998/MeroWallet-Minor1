@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .setContentTitle("Low Budget")
                         .setContentText("Please maintain your budget")
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
-                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                         .build();
 
                 notificationManager.notify(1, notification);
