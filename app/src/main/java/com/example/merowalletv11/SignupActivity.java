@@ -35,6 +35,8 @@ public class SignupActivity extends AppCompatActivity {
     private static String yearString;
 
     private static String signupDate;
+    private static String signupDate1;
+
 
 
     public static int thisDay;
@@ -89,6 +91,7 @@ public class SignupActivity extends AppCompatActivity {
 
         signupDate= year1 + "-" + monthString + "-" + dayString;
 
+        signupDate1 = "2019-07-01";
 
 
     }
@@ -191,7 +194,7 @@ public class SignupActivity extends AppCompatActivity {
                     editphone.getEditText().getText().toString(),
                     editaddress.getEditText().getText().toString(),
                     editemail.getEditText().getText().toString(),
-                   signupDate
+                   signupDate1
                    /* budget*/);
 
             if (isInserted = true) {

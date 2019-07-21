@@ -43,6 +43,7 @@ public class CategoriesActivity extends AppCompatActivity {
         MwDb= new DatabaseHelper(this);
         username = LoginActivity.throwUsername();
 
+
         cashSubtract = 0;
         cardSubtract = 0;
 

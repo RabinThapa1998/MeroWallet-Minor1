@@ -52,6 +52,14 @@ public class ExpenseActivity extends AppCompatActivity {
     public static String monthString;
 
 
+    public static String cat;
+
+    public static String arrayCategory1[] = new String[15];
+    public static double todayAmount[] = new double[15];
+    public static double averageCategory1[] = new double[15];
+
+
+
     private static final int GALLERY_REQUEST_CODE=100;
     private static final int CAMERA_REQUEST_CODE=200;
     private static final float PREFERRED_WIDTH=250;
@@ -99,6 +107,14 @@ public class ExpenseActivity extends AppCompatActivity {
 
         MDb = new DatabaseHelper(this);
         username = LoginActivity.throwUsername();
+
+        for(int i=0;i<14;i++){
+            todayAmount[i] = 0;
+
+
+        }
+
+        averageCategory1 = MainActivity.getAverageCategory();
 
         selectedImageView=(ImageView)findViewById(R.id.capturedImage);
 
@@ -333,6 +349,10 @@ public class ExpenseActivity extends AppCompatActivity {
 
 
 
+
+
+
+
             if (thisYear < selectedYear || (thisYear == selectedYear && thisMonth < selectedMonth) || (thisYear == selectedYear && thisMonth == selectedMonth && thisDay < selectedDay)) {
                 Toast.makeText(ExpenseActivity.this, "Expense cannot be entered in future date", Toast.LENGTH_SHORT).show();
             } else if (thisYear > selectedYear || (thisYear == selectedYear && thisMonth > selectedMonth)) {
@@ -340,21 +360,19 @@ public class ExpenseActivity extends AppCompatActivity {
             } else {
 
 
-                if(selectedDay<10){
+                if (selectedDay < 10) {
 
-                    dayString = "0"+selectedDay;
+                    dayString = "0" + selectedDay;
 
+                } else {
+                    dayString = "" + selectedDay;
                 }
-                else{
-                    dayString = ""+selectedDay;
-                }
-                if(selectedMonth<10){
+                if (selectedMonth < 10) {
 
-                    monthString = "0"+selectedMonth;
-                }
-                else{
+                    monthString = "0" + selectedMonth;
+                } else {
 
-                    monthString = ""+selectedMonth;
+                    monthString = "" + selectedMonth;
                 }
 
                 String date = selectedYear + "-" + monthString + "-" + dayString;
@@ -387,7 +405,7 @@ public class ExpenseActivity extends AppCompatActivity {
 
                 //Categories
                 Spinner spin1 = (Spinner) findViewById(R.id.spinner_category);
-                String cat = spin1.getSelectedItem().toString();
+                cat = spin1.getSelectedItem().toString();
 
                 boolean isInserted = MDb.insertExpense(
                         username.toString(), //merchantname
@@ -397,6 +415,12 @@ public class ExpenseActivity extends AppCompatActivity {
                         finalDate,
                         account, //paymenttype
                         img); //receipt
+
+                if (MainActivity.numberOfDays >= 2) {
+                    // Toast.makeText(ExpenseActivity.this,"ANALYSIS",Toast.LENGTH_LONG).show();
+                    analysis();
+                }
+
 
                 Intent in = new Intent(ExpenseActivity.this, MainActivity.class);
                 startActivity(in);
@@ -409,15 +433,19 @@ public class ExpenseActivity extends AppCompatActivity {
                 //    );
 
                 if (isInserted = true) {
+
+
                     Intent intent = new Intent(ExpenseActivity.this, MainActivity.class);
                     startActivity(intent);
-                    Toast.makeText(ExpenseActivity.this, "Expense Entered", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(ExpenseActivity.this, "Expense Entered", Toast.LENGTH_SHORT).show();
 
 
-                } else
-                    Toast.makeText(ExpenseActivity.this, "Error", Toast.LENGTH_LONG).show();
+                } else {
+                    //   Toast.makeText(ExpenseActivity.this, "Error", Toast.LENGTH_LONG).show();
 
+                }
             }
+
 
 
         }
@@ -541,6 +569,76 @@ public class ExpenseActivity extends AppCompatActivity {
         return resizedBitmap;
     }
 
+    public void analysis(){
+
+        arrayCategory1 = MainActivity.retCategoryList();
+
+
+
+        Cursor res = MDb.getExpenseTableData();
+        if(res.getCount()==0)
+        {
+            Toast.makeText(ExpenseActivity.this,"Empty ann",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            res.moveToFirst();
+
+            do {
+
+                String user = res.getString(1);
+                String tableCategory = res.getString(4);
+                Double tableAmount = Double.parseDouble(res.getString(2));
+                String retrievedDate = res.getString(3);
+                String retrievedYear = retrievedDate.substring(0,4);
+                String retrievedMonth = retrievedDate.substring(5,7);
+                String retrievedDay = retrievedDate.substring(8,10);
+
+
+
+                    if (username.equals(user) && cat.equals(tableCategory) && Integer.parseInt(retrievedDay) == thisDay && Integer.parseInt(retrievedMonth)==thisMonth && Integer.parseInt(retrievedYear) == thisYear) {
+
+                        for(int i=0; i<14;i++) {
+
+                            if(arrayCategory1[i].equals(cat)){
+
+                                todayAmount[i] += tableAmount;
+
+
+
+                            }
+
+
+
+
+                        }
+
+                    }
+            } while (res.moveToNext());
+        }
+        res.close();
+
+        for(int i=0; i<14;i++){
+
+            if(arrayCategory1[i].equals(cat)){
+
+                if(todayAmount[i] >= 0.9 * averageCategory1[i] && averageCategory1[i] >= 10)
+                {
+                    Toast.makeText(ExpenseActivity.this,"You have exceeded your daily average expense in "+ cat,Toast.LENGTH_LONG).show();
+
+
+                }
+
+
+
+            }
+
+        }
+
+
+
+
+
+    }
 
 
 

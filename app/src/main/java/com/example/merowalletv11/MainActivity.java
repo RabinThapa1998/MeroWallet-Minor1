@@ -111,19 +111,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-       //Retrieve from database
+
+
+
+
+
+        //Retrieve from database
         getBudget();
         getCardExpense1();
         getCashExpense1();
         getEmail();
 
-        numberOfDays = (int)(  (thisYear - Integer.parseInt(signupDate.substring(0,4)))*365.25 +  (  thisMonth - Integer.parseInt(signupDate.substring(5,7)) )*30.4375  +   (thisDay - Integer.parseInt(signupDate.substring(8,10)))   );
-
-    //-----------double to int ---difference in year times the number of days in a year---------------difference in month ------------------------------------------------------diff in day
-
-        if(numberOfDays >= 2) {
-            getDataAnalysis();
-        }
 
 
 
@@ -162,6 +160,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         thisDate= year1 + "-" + monthString + "-" + dayString;
 
 
+        numberOfDays = (int)(  (thisYear - Integer.parseInt(signupDate.substring(0,4)))*365.25 +  (  thisMonth - Integer.parseInt(signupDate.substring(5,7)) )*30.4375  +   (thisDay - Integer.parseInt(signupDate.substring(8,10)))   );
+
+        //-----------double to int ---difference in year times the number of days in a year---------------difference in month ------------------------------------------------------diff in day
+
+
+
+
+
+
+
 
 
 
@@ -176,6 +184,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         pieChart.setHoleColor(Color.TRANSPARENT);
         pieChart.setHoleRadius(35f);
         pieChart.setTransparentCircleRadius(40f);
+
+
 
         ArrayList<PieEntry> yvalues= new ArrayList<>();
 
@@ -213,6 +223,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         for(int i=0; i<15;i++){
             amountCategory[i] =0;
         }
+
+
+
+
+        getDataAnalysis();
+
+        for(int i=0;i<14;i++){
+
+            averageCategory[i] = amountCategory[i]/numberOfDays;
+        }
+
 
 
 
@@ -334,6 +355,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView navEmail = (TextView) headerView.findViewById(R.id.nav_email);
         navUsername.setText(""+username);
         navEmail.setText(""+email);
+
+
+
+
+
+
+        //Toast.makeText(MainActivity.this,"  " + numberOfDays,Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
+
+
+
     }
 
 
@@ -509,16 +546,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void getDataAnalysis(){
 
-
         Cursor res = MwDb.getExpenseTableData();
         if(res.getCount()==0)
         {
-            Toast.makeText(MainActivity.this,"Empty",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this,"Start your budget tracking",Toast.LENGTH_SHORT).show();
         }
         else {
             res.moveToFirst();
 
             do {
+
 
                 String user = res.getString(1);
                 String tableCategory = res.getString(4);
@@ -529,16 +566,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 String retrievedDay = retrievedDate.substring(8,10);
 
 
-                for(int i=0; i<14;i++) {
+                if (username.equals(user)  ) {
 
-                    if (username.equals(user) && categoryArray[i].equals(tableCategory) && Integer.parseInt(retrievedYear) <= thisYear && Integer.parseInt(retrievedMonth) <= thisMonth && Integer.parseInt(retrievedDay) < thisDay) {
+                    for(int i=0; i<14;i++) {
 
-                        amountCategory[i] += tableAmount;
+
+                        if( (" "+categoryArray[i]).equals(" "+tableCategory) && Integer.parseInt(retrievedYear) <= thisYear && Integer.parseInt(retrievedMonth) <= thisMonth && Integer.parseInt(retrievedDay) < thisDay  ){
+                            amountCategory[i] += tableAmount;
+
+                        }
+
 
 
                     }
 
                 }
+
+                //Toast.makeText(MainActivity.this,"check",Toast.LENGTH_SHORT).show();
             } while (res.moveToNext());
         }
         res.close();
@@ -577,6 +621,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return numberOfDays;
     }
 
+    public static String[] getCategoryArray(){
+        return categoryArray;
+    }
 
+    public static double[] getAverageCategory(){
+
+        return averageCategory;
+    }
 }
 
