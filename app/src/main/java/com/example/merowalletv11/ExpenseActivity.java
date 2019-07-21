@@ -78,11 +78,11 @@ public class ExpenseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Toolbar toolbar1 = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar1);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        toolbar.setNavigationOnClickListener(
+        toolbar1.setNavigationOnClickListener(
 
                 new View.OnClickListener() {
 
@@ -113,12 +113,6 @@ public class ExpenseActivity extends AppCompatActivity {
         getCardExpense1();
 
         btnCapture =(Button)findViewById(R.id.btnTakePicture);
-
-
-
-
-
-
 
         //Camera starts here
        /* btnCapture =(Button)findViewById(R.id.btnTakePicture);
@@ -306,12 +300,12 @@ public class ExpenseActivity extends AppCompatActivity {
     }
 */
 
-    void validateExpense(View view){
-
-
+    void validateExpense(View view){ {
         EditText editExpense = (EditText) findViewById(R.id.expense);
 
         double temp = Double.parseDouble(editExpense.getText().toString());
+
+
 
 
         if((remainingBudget - temp)<= 0){
@@ -420,7 +414,7 @@ public class ExpenseActivity extends AppCompatActivity {
             }
 
 
-        }
+        }}
 
     }
 
