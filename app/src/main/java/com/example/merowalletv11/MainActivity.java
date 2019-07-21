@@ -39,6 +39,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static com.example.merowalletv11.Receiver2.CHANNEL_1_ID;
 
@@ -64,6 +65,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     public static int k;
 
+    private static String dayString;
+    private static String monthString;
+    private static String yearString;
+
+    private static String thisDate;
+
+
+    public static int thisDay;
+    public static int thisMonth;
+    public static int thisYear;
+
+    public static double averageCategory[] = new double[15];
+    public static int numberOfDays;
+
+
+
+    public static String signupDate; //piggybacked from getBudget mehhod
+
     public void validateFloatingAction(View view) {
         if(budget==0){
             Toast.makeText(this,"Please Set Your Budget First!",Toast.LENGTH_SHORT).show();
@@ -88,11 +107,55 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         username = LoginActivity.throwUsername();
         k=9;
 
+
+        getDataAnalysis();
+
        //Retrieve from database
         getBudget();
         getCardExpense1();
         getCashExpense1();
         getEmail();
+
+        numberOfDays = (int)(  (thisYear - Integer.parseInt(signupDate.substring(0,4)))*365.25 +  (  thisMonth - Integer.parseInt(signupDate.substring(5,7)) )*30.4375  +   (thisDay - Integer.parseInt(signupDate.substring(8,10)))   );
+
+    //-----------double to int ---difference in year times the number of days in a year---------------difference in month ------------------------------------------------------diff in day
+        //calender code for todays date
+
+
+
+
+        Calendar cal = Calendar.getInstance();
+        int year1 = cal.get(Calendar.YEAR);
+        int month1 = cal.get(Calendar.MONTH);
+        int day1 = cal.get(Calendar.DAY_OF_MONTH);
+        month1++;
+        thisMonth =month1;
+        thisYear=year1;
+        thisDay= day1;
+        yearString = "" + year1;
+
+
+        if(thisDay<10){
+
+            dayString = "0"+thisDay;
+
+        }
+        else{
+            dayString = ""+thisDay;
+        }
+
+        if(thisMonth<10){
+
+            monthString = "0"+thisMonth;
+        }
+
+        else{
+            monthString = ""+thisMonth;
+        }
+
+        thisDate= year1 + "-" + monthString + "-" + dayString;
+
+
 
 
 
@@ -140,6 +203,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         expenseArray[11] = 0;
         expenseArray[12] = 0;
         expenseArray[13] = 0;
+
+        for(int i=0; i<15;i++){
+            averageCategory[i] =0;
+        }
 
 
 
@@ -358,6 +425,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (username.equals(user)) {
 
                     budget = res.getDouble(9);
+                    signupDate = res.getString(13);
 
                 }
             } while (res.moveToNext());
@@ -431,6 +499,53 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             } while (res.moveToNext());
         }
         res.close();
+    }
+
+    public void getDataAnalysis(){
+
+
+        Cursor res = MwDb.getExpenseTableData();
+        if(res.getCount()==0)
+        {
+            Toast.makeText(MainActivity.this,"Empty",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            res.moveToFirst();
+
+            do {
+
+                String user = res.getString(1);
+                String tableCategory = res.getString(4);
+                Double tableAmount = Double.parseDouble(res.getString(2));
+                String retrievedDate = res.getString(3);
+                String retrievedYear = retrievedDate.substring(0,4);
+                String retrievedMonth = retrievedDate.substring(5,7);
+                String retrievedDay = retrievedDate.substring(8,10);
+
+
+                for(int i=0; i<14;i++) {
+
+                    if (username.equals(user) && categoryArray[i].equals(tableCategory) && Integer.parseInt(retrievedYear) <= thisYear && Integer.parseInt(retrievedMonth) <= thisMonth && Integer.parseInt(retrievedDay) < thisDay) {
+
+                        averageCategory[i] += tableAmount;
+
+                    }
+
+                }
+            } while (res.moveToNext());
+        }
+        res.close();
+
+
+
+
+
+
+
+
+
+
+
     }
 
     public static double getRemainingBudget(){
