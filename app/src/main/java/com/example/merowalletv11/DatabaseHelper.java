@@ -23,6 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String SIGNUP_COL_CASHEXPENSE="CASHEXPENSE";//11
     public static final String SIGNUP_COL_CARDEXPENSE="CARDEXPENSE";//12
     public static final String SIGNUP_COL_ONLINESTATUS = "ONLINESTATUS";//13-1
+    public static final String SIGNUP_COL_SIGNUPDATE = "SIGNUPDATE";
 
 
     //new table for expense
@@ -57,7 +58,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
         sqLiteDatabase.execSQL("create table "+ SIGNUP_TABLE_NAME +
-                "(ID INTEGER PRIMARY KEY AUTOINCREMENT,FIRSTNAME TEXT NOT NULL,LASTNAME TEXT NOT NULL,USERNAME TEXT NOT NULL UNIQUE ,PASSWORD TEXT NOT NULL,CONFIRMPASSWORD TEXT NOT NULL,PHONENUMBER TEXT,ADDRESS TEXT,EMAIL TEXT NOT NULL,BUDGET DOUBLE DEFAULT 0,CASHEXPENSE DOUBLE DEFAULT 0,CARDEXPENSE DOUBLE DEFAULT 0,ONLINESTATUS INTEGER DEFAULT 0)");
+                "(ID INTEGER PRIMARY KEY AUTOINCREMENT,FIRSTNAME TEXT NOT NULL,LASTNAME TEXT NOT NULL,USERNAME TEXT NOT NULL UNIQUE ,PASSWORD TEXT NOT NULL,CONFIRMPASSWORD TEXT NOT NULL,PHONENUMBER TEXT,ADDRESS TEXT,EMAIL TEXT NOT NULL,BUDGET DOUBLE DEFAULT 0,CASHEXPENSE DOUBLE DEFAULT 0,CARDEXPENSE DOUBLE DEFAULT 0,ONLINESTATUS INTEGER DEFAULT 0,SIGNUPDATE TEXT)");
 
 
         sqLiteDatabase.execSQL("create table "+ EXPENSE_TABLE_NAME +
@@ -90,7 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean insertData(String  firstname ,String lastname ,String username, String password ,String confirmpassword,String phonenumber,String address,String email) {
+    public boolean insertData(String  firstname ,String lastname ,String username, String password ,String confirmpassword,String phonenumber,String address,String email,String date) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -103,6 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(SIGNUP_COL_PHONENUMBER,phonenumber);
         contentValues.put(SIGNUP_COL_ADDRESS,address);
         contentValues.put(SIGNUP_COL_EMAIL,email);
+        contentValues.put(SIGNUP_COL_SIGNUPDATE,date);
        // contentValues.put(SIGNUP_COL_BUDGET,budget);
 
         long result = db.insert(SIGNUP_TABLE_NAME,null,contentValues);
