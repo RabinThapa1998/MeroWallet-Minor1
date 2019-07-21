@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                    res.moveToFirst();
                    do {
 
-                       String username = editusername.getText().toString();
+                       String username = editusername.getText().toString().trim();
                        String password = editpassword.getText().toString();
 
 
