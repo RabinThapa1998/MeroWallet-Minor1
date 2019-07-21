@@ -30,7 +30,18 @@ public class SignupActivity extends AppCompatActivity {
     DatabaseHelper MwDb;
     Button btnAddData;
     private TextInputLayout editfirst,editlast,edituser,editpassword,editconfirm,editaddress,editphone,editemail;
-   // private static double budget ;
+    private static String dayString;
+    private static String monthString;
+    private static String yearString;
+
+    private static String signupDate;
+
+
+    public static int thisDay;
+    public static int thisMonth;
+    public static int thisYear;
+
+    // private static double budget ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +57,38 @@ public class SignupActivity extends AppCompatActivity {
         editaddress= findViewById(R.id.text_input_address);
         editphone = findViewById(R.id.text_input_phone);
         editemail= findViewById(R.id.text_input_email);
+
+        Calendar cal = Calendar.getInstance();
+        int year1 = cal.get(Calendar.YEAR);
+        int month1 = cal.get(Calendar.MONTH);
+        int day1 = cal.get(Calendar.DAY_OF_MONTH);
+        month1++;
+        thisMonth =month1;
+        thisYear=year1;
+        thisDay= day1;
+        yearString = "" + year1;
+
+
+        if(thisDay<10){
+
+            dayString = "0"+thisDay;
+
+        }
+        else{
+            dayString = ""+thisDay;
+        }
+
+        if(thisMonth<10){
+
+            monthString = "0"+thisMonth;
+        }
+
+        else{
+            monthString = ""+thisMonth;
+        }
+
+        signupDate= year1 + "-" + monthString + "-" + dayString;
+
 
 
     }
@@ -147,7 +190,8 @@ public class SignupActivity extends AppCompatActivity {
                     editconfirm.getEditText().getText().toString(),
                     editphone.getEditText().getText().toString(),
                     editaddress.getEditText().getText().toString(),
-                    editemail.getEditText().getText().toString()
+                    editemail.getEditText().getText().toString(),
+                   signupDate
                    /* budget*/);
 
             if (isInserted = true) {
