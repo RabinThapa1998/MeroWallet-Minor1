@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import static com.example.merowalletv11.Receiver2.CHANNEL_1_ID;
+import static com.example.merowalletv11.Receiver2.CHANNEL_2_ID;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private long backPressedTime;
     private Toast backToast;
+    public static  String  analysisCategory ;
+
+
 
 
     private static double temp;
@@ -108,6 +112,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MwDb= new DatabaseHelper(this);
         username = LoginActivity.throwUsername();
         k=9;
+
+        if(ExpenseActivity.analysisNotification ==true){
+             analysisCategory = ExpenseActivity.getAnalysisData();
+
+            notificationManager = NotificationManagerCompat.from(this);
+            Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
+                    .setSmallIcon(R.drawable.nati)
+                    .setContentTitle("Exceeded daily average expense")
+                    .setContentText("Today's expense in "+analysisCategory +" category has exceeded it's daily expense")
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                    .build();
+
+            notificationManager.notify(2, notification);
+
+
+
+        }
+
 
 
 
@@ -332,6 +355,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 notificationManager.notify(1, notification);
             }
+
 
         }
 

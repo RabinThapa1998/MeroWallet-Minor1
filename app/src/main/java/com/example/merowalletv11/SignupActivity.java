@@ -5,6 +5,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
@@ -13,9 +16,14 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.AlarmManager.INTERVAL_DAY;
 import static android.app.AlarmManager.RTC_WAKEUP;
@@ -43,6 +51,10 @@ public class SignupActivity extends AppCompatActivity {
     public static int thisMonth;
     public static int thisYear;
 
+    private CircleImageView profile;
+    private static final int GALLERY_REQUEST_CODE=101;
+
+
     // private static double budget ;
 
     @Override
@@ -59,6 +71,16 @@ public class SignupActivity extends AppCompatActivity {
         editaddress= findViewById(R.id.text_input_address);
         editphone = findViewById(R.id.text_input_phone);
         editemail= findViewById(R.id.text_input_email);
+
+        profile=(CircleImageView)findViewById(R.id.profile_image);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
+
+
 
         Calendar cal = Calendar.getInstance();
         int year1 = cal.get(Calendar.YEAR);
@@ -238,5 +260,32 @@ public class SignupActivity extends AppCompatActivity {
 
         //  alarmManager.setExact(RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
         alarmManager.setRepeating(RTC_WAKEUP,c.getTimeInMillis(),INTERVAL_DAY,pendingIntent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
+            try {
+                Uri selectedImage = data.getData();
+                InputStream imageStream = getContentResolver().openInputStream(selectedImage);
+                profile.setImageBitmap(BitmapFactory.decodeStream(imageStream));
+
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+
+
+        }
+
+
+    }
+
+    private void openGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), GALLERY_REQUEST_CODE);
     }
 }

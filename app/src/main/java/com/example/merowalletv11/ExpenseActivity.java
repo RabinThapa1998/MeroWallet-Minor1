@@ -51,12 +51,15 @@ public class ExpenseActivity extends AppCompatActivity {
     public static String finalDate;
     public static String dayString;
     public static String monthString;
+    public static boolean analysisNotification;
+
 
     private static String exp;
     private TextInputLayout editExpense;
 
 
     public static String cat;
+    public static String throwCategory;
 
     public static String arrayCategory1[] = new String[15];
     public static double todayAmount[] = new double[15];
@@ -108,6 +111,8 @@ public class ExpenseActivity extends AppCompatActivity {
 
                 }
         );
+
+        analysisNotification = false;
 
         MDb = new DatabaseHelper(this);
         username = LoginActivity.throwUsername();
@@ -629,7 +634,9 @@ public class ExpenseActivity extends AppCompatActivity {
 
                 if(todayAmount[i] >= 0.9 * averageCategory1[i] && averageCategory1[i] >= 10)
                 {
-                    Toast.makeText(ExpenseActivity.this,"You have exceeded your daily average expense in "+ cat,Toast.LENGTH_LONG).show();
+                   // Toast.makeText(ExpenseActivity.this,"You have exceeded your daily average expense in "+ cat,Toast.LENGTH_LONG).show();
+                    analysisNotification =true;
+                    throwCategory = cat;
 
 
                 }
@@ -646,6 +653,8 @@ public class ExpenseActivity extends AppCompatActivity {
 
     }
 
+
+
     private boolean validateExpenses() {
 
         String expenseInput = editExpense.getEditText().getText().toString().trim();
@@ -656,6 +665,10 @@ public class ExpenseActivity extends AppCompatActivity {
             editExpense.setError(null);
             return true;
         }
+    }
+
+    public static String getAnalysisData(){
+        return throwCategory;
     }
 
 }
