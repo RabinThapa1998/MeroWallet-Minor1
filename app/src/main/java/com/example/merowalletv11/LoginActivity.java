@@ -3,11 +3,18 @@ package com.example.merowalletv11;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -38,6 +45,28 @@ public class LoginActivity extends AppCompatActivity {
         editusername=(EditText) findViewById(R.id.username1);
         editpassword=(EditText) findViewById(R.id.pass1);
         b1=(Button)findViewById(R.id.signin);
+
+        TextView textView = findViewById(R.id.signup);
+        String text = "Don't have an account? Sign Up.";
+        SpannableString ss =new SpannableString(text);
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                    Intent in = new Intent(LoginActivity.this, SignupActivity.class);
+                    startActivity(in);
+            }
+
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(Color.WHITE);
+
+            }
+        };
+        ss.setSpan(clickableSpan, 22,31, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(ss);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
 
 
        /* boolean check = true;

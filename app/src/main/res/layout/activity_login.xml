@@ -62,15 +62,23 @@
             android:text="Sign In"
             android:layout_marginTop="20dp"
             android:id="@+id/signin"
-            android:onClick="viewAll"/>
+            android:onClick="viewAll"
+            android:background="@drawable/rounded_corner" />
             <!--android:onClick="validate"/>-->
 
-        <Button
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/signup"
+            android:layout_marginTop="20dp"
+            android:text="Don't have an account? Sign Up."/>
+
+       <!-- <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign Up"
             android:layout_marginTop="20dp"
-            android:onClick="validate1"/>
+            android:onClick="validate1"/>-->
 
     </LinearLayout>
 

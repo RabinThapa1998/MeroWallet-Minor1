@@ -24,8 +24,9 @@
             android:id="@+id/editTextDialogUserInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:text="0.0"/>
+            android:inputType="numberDecimal"
+            android:maxLength="8"
+            android:hint="0.0"/>
 
         <Button
             android:layout_width="wrap_content"

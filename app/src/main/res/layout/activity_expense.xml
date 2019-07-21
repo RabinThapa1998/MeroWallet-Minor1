@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ExpenseActivity"
     android:background="@drawable/gradient">
-    <ImageView
+
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/gradient2"
-        android:id="@+id/action_bar"
-        />
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:background="@drawable/logo"
-        />
+        android:layout_height="wrap_content"
+        android:theme="@style/AppBarOverlay"
+        android:id="@+id/toolbar1">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/action_bar"
+        android:layout_below="@id/toolbar1"
         android:id="@+id/exp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -37,8 +39,9 @@
             android:id="@+id/expense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="0.00"
-            android:inputType="number"/>
+            android:maxLength="8"
+            android:hint="0.00"
+            android:inputType="numberDecimal"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -83,18 +86,28 @@
                 android:layout_height="wrap_content" />
 
         </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
         <Button
             android:id="@+id/btnTakePicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upload reciept"
-            android:onClick="openGallery"/>
+            android:text=" Upload reciept "
+            android:onClick="openGallery"
+            android:background="@drawable/rounded_corner"
+            />
         <Button
+            android:layout_toRightOf="@id/btnTakePicture"
+            android:layout_marginLeft="20dp"
             android:id="@+id/btnTakePicCamera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="take photo"
-            android:onClick="openCamera"/>
+            android:text=" take photo "
+            android:onClick="openCamera"
+            android:background="@drawable/rounded_corner"/>
+        </RelativeLayout>
 
 
         <Button
@@ -104,18 +117,17 @@
             android:text="Enter"
             android:background="@drawable/rounded_corner"
             android:backgroundTint="@color/blue_semi_transparent"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:onClick="validateExpense"/>
+            android:onClick="validateExpense" />
 
         <ImageView
             android:id="@+id/capturedImage"
-            android:layout_width="300dp"
-            android:layout_height="200dp"
+            android:layout_width="150sp"
+            android:layout_height="200sp"
+            android:layout_marginTop="20dp"
             android:layout_below="@+id/btnTakePicture"
             android:layout_alignEnd="@+id/exp"
             android:layout_alignBottom="@+id/exp"
-            android:layout_marginLeft="45sp"
             android:scaleType="fitXY" />
     </LinearLayout>
 

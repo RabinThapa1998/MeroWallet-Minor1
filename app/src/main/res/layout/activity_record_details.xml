@@ -123,10 +123,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/picRec"
-                android:src="@drawable/nati"/>
+                android:layout_width="150sp"
+                android:layout_height="200sp"
+                android:id="@+id/picRec" />
         </LinearLayout>
 
     </RelativeLayout>

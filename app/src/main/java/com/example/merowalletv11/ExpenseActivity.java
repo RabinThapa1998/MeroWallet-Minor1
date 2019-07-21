@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -77,6 +78,25 @@ public class ExpenseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(
+
+                new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        Intent in = new Intent(ExpenseActivity.this, MainActivity.class);
+                        startActivity(in);
+                        finish();
+                    }
+
+
+                }
+        );
+
         MDb = new DatabaseHelper(this);
         username = LoginActivity.throwUsername();
 
