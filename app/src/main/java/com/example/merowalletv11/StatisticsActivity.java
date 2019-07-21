@@ -31,6 +31,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class StatisticsActivity extends AppCompatActivity {
 
@@ -51,6 +52,16 @@ public class StatisticsActivity extends AppCompatActivity {
     public static double[] cashExpenseArray = new double[50];
     public static double[] cardExpenseArray = new double[50];
 
+    private static String dayString;
+    private static String monthString;
+    private static String yearString;
+
+    public static int thisDay;
+    public static int thisMonth;
+    public static int thisYear;
+
+
+
 
 
     @Override
@@ -62,8 +73,43 @@ public class StatisticsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+
         MwDb= new DatabaseHelper(this);
         username = LoginActivity.throwUsername();
+
+
+        Calendar cal = Calendar.getInstance();
+        int year1 = cal.get(Calendar.YEAR);
+        int month1 = cal.get(Calendar.MONTH);
+        int day1 = cal.get(Calendar.DAY_OF_MONTH);
+        month1++;
+        thisMonth =month1;
+        thisYear=year1;
+        thisDay= day1;
+        yearString = "" + year1;
+
+
+        if(thisDay<10){
+
+            dayString = "0"+thisDay;
+
+        }
+        else{
+            dayString = ""+thisDay;
+        }
+
+        if(thisMonth<10){
+
+            monthString = "0"+thisMonth;
+        }
+
+        else{
+            monthString = ""+thisMonth;
+        }
+
+        String date= year1 + "-" + monthString + "-" + dayString;
+
+
 
 
 
