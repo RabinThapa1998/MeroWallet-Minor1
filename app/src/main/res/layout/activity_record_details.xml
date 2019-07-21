@@ -123,8 +123,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
             <ImageView
-                android:layout_width="150sp"
-                android:layout_height="200sp"
+                android:scaleType="fitXY"
+                android:layout_width="200sp"
+                android:layout_height="320sp"
                 android:id="@+id/picRec" />
         </LinearLayout>
 

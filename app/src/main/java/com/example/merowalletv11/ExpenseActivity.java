@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -51,6 +52,8 @@ public class ExpenseActivity extends AppCompatActivity {
     public static String dayString;
     public static String monthString;
 
+    private TextInputLayout editExpense;
+
 
     private static final int GALLERY_REQUEST_CODE=100;
     private static final int CAMERA_REQUEST_CODE=200;
@@ -72,7 +75,6 @@ public class ExpenseActivity extends AppCompatActivity {
     private Button btnCapture;
     private ImageView selectedImageView;
     //private static final int Image_Capture_Code = 1;
-    EditText editExpense;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +106,7 @@ public class ExpenseActivity extends AppCompatActivity {
 
 
 
-        EditText editExpense=(EditText) findViewById(R.id.expense);
+        editExpense = findViewById(R.id.expense);
 
         remainingBudget = MainActivity.getRemainingBudget();
 
@@ -301,14 +303,19 @@ public class ExpenseActivity extends AppCompatActivity {
 */
 
     void validateExpense(View view){ {
-        EditText editExpense = (EditText) findViewById(R.id.expense);
 
-        double temp = Double.parseDouble(editExpense.getText().toString());
+        if (!validateExpenses()) {
+            return;
+        }
+
+        editExpense = findViewById(R.id.expense);
+
+        double temp = Double.parseDouble(editExpense.getEditText().getText().toString());
 
 
 
 
-        if((remainingBudget - temp)<= 0){
+            if((remainingBudget - temp)<= 0){
 
             Toast.makeText(ExpenseActivity.this,"Not enough budget remaining. Please reallocate budget",Toast.LENGTH_LONG).show();
 
@@ -386,7 +393,7 @@ public class ExpenseActivity extends AppCompatActivity {
                 boolean isInserted = MDb.insertExpense(
                         username.toString(), //merchantname
                         cat, //category
-                        editExpense.getText().toString(), //amount
+                        editExpense.getEditText().getText().toString(), //amount
                         //mDisplayDate.getText().toString(), //date
                         finalDate,
                         account, //paymenttype
@@ -536,9 +543,16 @@ public class ExpenseActivity extends AppCompatActivity {
     }
 
 
+    private boolean validateExpenses() {
 
-
-
-
+        String expenseInput = editExpense.getEditText().getText().toString().trim();
+        if (expenseInput.matches("")) {
+            editExpense.setError("Field Can't Be Empty");
+            return false;
+        } else {
+            editExpense.setError(null);
+            return true;
+        }
+    }
 
 }

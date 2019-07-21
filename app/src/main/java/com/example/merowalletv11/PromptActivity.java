@@ -22,14 +22,20 @@ public class PromptActivity extends AppCompatActivity {
         username = LoginActivity.throwUsername();
         MDb = new DatabaseHelper(this);
 
-        edt = findViewById(R.id.editTextDialogUserInput);
+
     }
 
     public void buttonBudget(View view) {
 
+        edt = findViewById(R.id.editTextDialogUserInput);
+        exp = edt.getEditText().getText().toString();
+        budget = Double.parseDouble(exp);
+
+
         if (!validateBudget()) {
             return;
         }
+
 
 
      /*   if (exp.equals("")) {
