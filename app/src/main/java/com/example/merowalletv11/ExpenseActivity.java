@@ -47,6 +47,7 @@ public class ExpenseActivity extends AppCompatActivity {
     public static int selectedMonth;
     public static int selectedYear;
     public static String finalDate;
+    
 
     private static final int GALLERY_REQUEST_CODE=100;
     private static final float PREFERRED_WIDTH=250;
@@ -241,7 +242,13 @@ public class ExpenseActivity extends AppCompatActivity {
 
     void validateExpense(View view){
 
-        if((remainingBudget)<= 0){
+
+        EditText editExpense = (EditText) findViewById(R.id.expense);
+
+        double temp = Double.parseDouble(editExpense.getText().toString());
+
+
+        if((remainingBudget - temp)<= 0){
 
             Toast.makeText(ExpenseActivity.this,"Not enough budget remaining. Please reallocate budget",Toast.LENGTH_LONG).show();
 
@@ -256,8 +263,8 @@ public class ExpenseActivity extends AppCompatActivity {
             }
 
 
-            EditText editExpense = (EditText) findViewById(R.id.expense);
-            double temp = Double.parseDouble(editExpense.getText().toString());
+
+
 
 
             if (thisYear < selectedYear || (thisYear == selectedYear && thisMonth < selectedMonth) || (thisYear == selectedYear && thisMonth == selectedMonth && thisDay < selectedDay)) {
