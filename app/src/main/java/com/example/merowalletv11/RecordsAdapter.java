@@ -31,7 +31,7 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.ExampleV
         public TextView string_cat;
         public TextView string_acc;
         public TextView string_price;
-        public TextView string_date;
+       // public TextView string_date;
 
         public ExampleViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -39,7 +39,7 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.ExampleV
             string_cat = itemView.findViewById(R.id.category);
             string_acc = itemView.findViewById(R.id.account);
             string_price = itemView.findViewById(R.id.price);
-            string_date = itemView.findViewById(R.id.date);
+           // string_date = itemView.findViewById(R.id.date);
 
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -76,7 +76,7 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.ExampleV
         holder.string_cat.setText(currentItem.getCategory());
         holder.string_acc.setText(currentItem.getAccount());
         holder.string_price.setText(currentItem.getPrice());
-        holder.string_date.setText(currentItem.getDate());
+        //holder.string_date.setText(currentItem.getDate());
     }
 
     @Override

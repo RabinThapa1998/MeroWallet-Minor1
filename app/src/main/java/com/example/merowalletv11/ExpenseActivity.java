@@ -47,6 +47,8 @@ public class ExpenseActivity extends AppCompatActivity {
     public static int selectedMonth;
     public static int selectedYear;
     public static String finalDate;
+    public static String dayString;
+    public static String monthString;
 
 
     private static final int GALLERY_REQUEST_CODE=100;
@@ -123,7 +125,28 @@ public class ExpenseActivity extends AppCompatActivity {
         selectedMonth = month1;
         selectedDay = day1;
 
-        String date= day1 + "/" + month1 + "/" + year1;
+        if(thisDay<10){
+
+            dayString = "0"+thisDay;
+
+        }
+        else{
+            dayString = ""+thisDay;
+        }
+
+        if(thisMonth<10){
+
+            monthString = "0"+thisMonth;
+        }
+
+        else{
+            monthString = ""+thisMonth;
+        }
+
+        String date= dayString + "/" + monthString + "/" + year1;
+
+
+
         mDisplayDate = (TextView) findViewById(R.id.tvDate);
         mDisplayDate.setText(date);
 
@@ -166,7 +189,29 @@ public class ExpenseActivity extends AppCompatActivity {
                 selectedMonth = month;
                 selectedDay = dayOfMonth;
 
-                String date = selectedDay + "/" + selectedMonth + "/" + selectedYear;
+
+                if(selectedDay<10){
+
+                    dayString = "0"+selectedDay;
+
+                }
+                else{
+                    dayString = ""+selectedDay;
+                }
+
+                if(selectedMonth<10){
+
+                    monthString = "0"+selectedMonth;
+                }
+
+                else{
+                    monthString =""+selectedMonth;
+                }
+
+
+
+
+                String date = dayString + "/" + monthString + "/" + selectedYear;
 
 
                 mDisplayDate.setText(date);
@@ -273,7 +318,26 @@ public class ExpenseActivity extends AppCompatActivity {
             } else if (thisYear > selectedYear || (thisYear == selectedYear && thisMonth > selectedMonth)) {
                 Toast.makeText(ExpenseActivity.this, "Expense cannot be entered in previous month", Toast.LENGTH_SHORT).show();
             } else {
-                String date = selectedDay + "/" + selectedMonth + "/" + selectedYear;
+
+
+                if(selectedDay<10){
+
+                    dayString = "0"+selectedDay;
+
+                }
+                else{
+                    dayString = ""+selectedDay;
+                }
+                if(selectedMonth<10){
+
+                    monthString = "0"+selectedMonth;
+                }
+                else{
+
+                    monthString = ""+selectedMonth;
+                }
+
+                String date = dayString + "/" + monthString + "/" + selectedYear;
                 finalDate = date;
 
 
@@ -426,7 +490,6 @@ public class ExpenseActivity extends AppCompatActivity {
         }
 
     }
-
 
 
     public void onBackPressed() {

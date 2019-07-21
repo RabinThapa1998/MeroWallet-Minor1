@@ -43,13 +43,13 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:id="@+id/price"/>
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2019/12/28"
             android:textSize="15sp"
             android:id="@+id/date"
             android:layout_below="@+id/price"
-            android:layout_alignParentEnd="true"/>
+            android:layout_alignParentEnd="true"/>-->
     </RelativeLayout>
 </android.support.v7.widget.CardView>
