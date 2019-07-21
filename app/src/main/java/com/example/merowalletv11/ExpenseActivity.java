@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -51,6 +52,9 @@ public class ExpenseActivity extends AppCompatActivity {
     public static String dayString;
     public static String monthString;
 
+    private static String exp;
+    private TextInputLayout editExpense;
+
 
     public static String cat;
 
@@ -80,17 +84,17 @@ public class ExpenseActivity extends AppCompatActivity {
     private Button btnCapture;
     private ImageView selectedImageView;
     //private static final int Image_Capture_Code = 1;
-    EditText editExpense;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Toolbar toolbar1 = findViewById(R.id.toolbar);
+        toolbar1.setTitle("Add Expense");
+        setSupportActionBar(toolbar1);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        toolbar.setNavigationOnClickListener(
+        toolbar1.setNavigationOnClickListener(
 
                 new View.OnClickListener() {
 
@@ -120,7 +124,7 @@ public class ExpenseActivity extends AppCompatActivity {
 
 
 
-        EditText editExpense=(EditText) findViewById(R.id.expense);
+        editExpense = findViewById(R.id.expense);
 
         remainingBudget = MainActivity.getRemainingBudget();
 
@@ -129,12 +133,6 @@ public class ExpenseActivity extends AppCompatActivity {
         getCardExpense1();
 
         btnCapture =(Button)findViewById(R.id.btnTakePicture);
-
-
-
-
-
-
 
         //Camera starts here
        /* btnCapture =(Button)findViewById(R.id.btnTakePicture);
@@ -322,13 +320,21 @@ public class ExpenseActivity extends AppCompatActivity {
     }
 */
 
-    void validateExpense(View view){
+    void validateExpense(View view){ {
+
+        editExpense = findViewById(R.id.expense);
+        exp = editExpense.getEditText().getText().toString();
+
+        if (!validateExpenses()) {
+            return;
+        }
 
 
-        EditText editExpense = (EditText) findViewById(R.id.expense);
-
-        double temp = Double.parseDouble(editExpense.getText().toString());
-
+        if (exp.isEmpty() || exp.length() == 0 || exp.equals("") || exp == null) {
+            Toast.makeText(this, "Field Can't Be Empty",Toast.LENGTH_SHORT).show();;
+            return;
+        }else{
+            double temp = Double.parseDouble(exp);
 
         if((remainingBudget - temp)<= 0){
 
@@ -410,7 +416,7 @@ public class ExpenseActivity extends AppCompatActivity {
                 boolean isInserted = MDb.insertExpense(
                         username.toString(), //merchantname
                         cat, //category
-                        editExpense.getText().toString(), //amount
+                        editExpense.getEditText().getText().toString(), //amount
                         //mDisplayDate.getText().toString(), //date
                         finalDate,
                         account, //paymenttype
@@ -448,9 +454,9 @@ public class ExpenseActivity extends AppCompatActivity {
 
 
 
-        }
+        }}
 
-    }
+    }}
 
     public void getCashExpense1()
     {
@@ -640,9 +646,16 @@ public class ExpenseActivity extends AppCompatActivity {
 
     }
 
+    private boolean validateExpenses() {
 
-
-
-
+        String expenseInput = editExpense.getEditText().getText().toString().trim();
+        if (expenseInput.matches("")) {
+            editExpense.setError("Field Can't Be Empty");
+            return false;
+        } else {
+            editExpense.setError(null);
+            return true;
+        }
+    }
 
 }

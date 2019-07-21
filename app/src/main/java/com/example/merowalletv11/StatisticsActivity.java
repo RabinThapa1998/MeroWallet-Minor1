@@ -52,6 +52,9 @@ public class StatisticsActivity extends AppCompatActivity {
     public static double[] cashExpenseArray = new double[50];
     public static double[] cardExpenseArray = new double[50];
 
+    public static double[] cardExpenseLineChart = new double[50];
+    public static double[] cashExpenseLineChart = new double[50];
+
     private static String dayString;
     private static String monthString;
     private static String yearString;
@@ -59,6 +62,9 @@ public class StatisticsActivity extends AppCompatActivity {
     public static int thisDay;
     public static int thisMonth;
     public static int thisYear;
+    public static String retrievedYear;
+    public static String retrievedMonth;
+    public static String retrievedDay;
 
 
 
@@ -69,6 +75,7 @@ public class StatisticsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Statistics");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -76,6 +83,9 @@ public class StatisticsActivity extends AppCompatActivity {
 
         MwDb= new DatabaseHelper(this);
         username = LoginActivity.throwUsername();
+        retrievedDay = "";
+        retrievedMonth = "";
+        retrievedYear = "";
 
 
         Calendar cal = Calendar.getInstance();
@@ -112,9 +122,6 @@ public class StatisticsActivity extends AppCompatActivity {
 
 
 
-
-        mpLineChart = (LineChart) findViewById(R.id.linechart);
-
         categoryArrayBarGraph = MainActivity.retCategoryList();
         /*for(int i=0;i<14;i++) {
             categoryArrayBarGraph[i] = "0";
@@ -127,41 +134,10 @@ public class StatisticsActivity extends AppCompatActivity {
         }
 
 
-        Cursor res = MwDb.getExpenseTableData();
-        if(res.getCount()==0){
-            Intent in = new Intent(StatisticsActivity.this, MainActivity.class);
-            startActivity(in);
-            Toast.makeText(StatisticsActivity.this,"No data",Toast.LENGTH_SHORT).show();
-        }
-        else {
-            res.moveToFirst();
 
-            do {
+        getDataForBarGraph();
 
-                String user = res.getString(1);
-                double expense = res.getDouble(2);
-                String category = res.getString(4);
-                String paymentmode = res.getString(5);
 
-                if(username.equals(user) && paymentmode.equals("Card")){
-                    for(int i=0;i<14;i++){
-                        if(categoryArrayBarGraph[i].equals(category)){
-                            cardExpenseArray[i]+=expense;
-                        }
-                    }
-                }
-
-                else if (username.equals(user)){
-                    for(int i=0;i<14;i++){
-                        if(categoryArrayBarGraph[i].equals(category)){
-                            cashExpenseArray[i]+=expense;
-                        }
-                    }
-
-                }
-            } while (res.moveToNext());
-        }
-        res.close();
 
 
         barWidth = 0.35f;
@@ -268,10 +244,31 @@ public class StatisticsActivity extends AppCompatActivity {
         //Line chart
 
 
+        for(int i=0;i<33;i++)
+        {
+            cardExpenseLineChart[i] = 0;
+            cashExpenseLineChart[i] = 0;
+        }
 
-        //First line
+         getDataForLineChart();
+
+        mpLineChart = (LineChart) findViewById(R.id.linechart);
+
         ArrayList<Entry> dataVals1 = new ArrayList<Entry>();
-        dataVals1.add(new Entry(0,20));
+        ArrayList<Entry> dataVals2 = new ArrayList<Entry>();
+
+
+        for(int i=0;i<32;i++){
+
+
+
+
+                dataVals1.add(new Entry((i + 1), (float) cardExpenseLineChart[i]));
+                dataVals2.add(new Entry((i + 1), (float) cashExpenseLineChart[i]));
+
+
+        }
+      /*  dataVals1.add(new Entry(0,20));
         dataVals1.add(new Entry(1,24));
         dataVals1.add(new Entry(2,2));
         dataVals1.add(new Entry(3,10));
@@ -309,7 +306,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
 
         //Second line
-        ArrayList<Entry> dataVals2 = new ArrayList<>();
+
         dataVals2.add(new Entry(0,12));
         dataVals2.add(new Entry(1,18));
         dataVals2.add(new Entry(2,20));
@@ -341,7 +338,8 @@ public class StatisticsActivity extends AppCompatActivity {
         dataVals2.add(new Entry(28,29));
         dataVals2.add(new Entry(29,27));
         dataVals2.add(new Entry(30,33));
-        dataVals2.add(new Entry(31,36));
+        dataVals2.add(new Entry(31,36));*/
+
 
 
 
@@ -403,18 +401,82 @@ public class StatisticsActivity extends AppCompatActivity {
         mpLineChart.setScaleEnabled(false);
 
 
+    }
 
 
-        /*String input = "123456789";
-        String chars = "";
-        if(input.length()>4)
+    public void getDataForBarGraph()
+    {
+        Cursor res = MwDb.getExpenseTableData();
+        if(res.getCount()==0){
+            Intent in = new Intent(StatisticsActivity.this, MainActivity.class);
+            startActivity(in);
+            Toast.makeText(StatisticsActivity.this,"No data",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            res.moveToFirst();
+
+            do {
+
+                String user = res.getString(1);
+                double expense = res.getDouble(2);
+                String category = res.getString(4);
+                String paymentmode = res.getString(5);
+
+                if(username.equals(user) && paymentmode.equals("Card")){
+                    for(int i=0;i<14;i++){
+                        if(categoryArrayBarGraph[i].equals(category)){
+                            cardExpenseArray[i]+=expense;
+                        }
+                    }
+                }
+
+                else if (username.equals(user)){
+                    for(int i=0;i<14;i++){
+                        if(categoryArrayBarGraph[i].equals(category)){
+                            cashExpenseArray[i]+=expense;
+                        }
+                    }
+
+                }
+            } while (res.moveToNext());
+        }
+        res.close();
+    }
+
+    public void getDataForLineChart(){
+        Cursor res = MwDb.getExpenseTableData();
+        if(res.getCount()==0)
         {
-            chars = input.substring(0,4);
+            Intent in = new Intent(StatisticsActivity.this, MainActivity.class);
+            startActivity(in);
+            Toast.makeText(StatisticsActivity.this,"No data",Toast.LENGTH_SHORT).show();
         }
-        else{
-            chars = input;
+        else {
+            res.moveToFirst();
+
+            do {
+
+                String user = res.getString(1);
+                String retrievedDate = res.getString(3);
+                retrievedYear = retrievedDate.substring(0,4);
+                retrievedMonth = retrievedDate.substring(5,7);
+                retrievedDay = retrievedDate.substring(8,10);
+                int retrievedDayint = Integer.parseInt(retrievedDay);
+                double retrievedAmount = res.getDouble(2);
+                String retrievedPaymentType = res.getString(5);
+                if (username.equals(user) && retrievedYear.equals(yearString) && retrievedMonth.equals(monthString)) {
+
+                    if(retrievedPaymentType.equals("Card")) {
+                        cardExpenseLineChart[retrievedDayint-1] += retrievedAmount;
+
+                        }
+                    else{
+                        cashExpenseLineChart[retrievedDayint-1] += retrievedAmount;
+                    }
+                }
+            } while (res.moveToNext());
         }
-        Toast.makeText(StatisticsActivity.this,chars,Toast.LENGTH_LONG).show();*/
+        res.close();
 
     }
 

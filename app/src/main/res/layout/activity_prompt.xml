@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_root"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -13,20 +14,28 @@
         android:layout_marginLeft="15sp"
         android:layout_marginRight="15sp"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Adjust Budget : "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/editTextDialogUserInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Adjust Budget"
+                android:maxLength="8"
+                android:inputType="numberDecimal"/>
+        </android.support.design.widget.TextInputLayout>
+
+       <!-- <EditText
             android:id="@+id/editTextDialogUserInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:maxLength="8"
-            android:hint="0.0"/>
+            android:text="0.0"/>-->
 
         <Button
             android:layout_width="wrap_content"

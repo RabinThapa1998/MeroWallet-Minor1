@@ -6,9 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".AboutUsActivity"
     android:background="@drawable/gradient">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppBarOverlay"
+        android:id="@+id/toolbar1">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+        <ImageView
+            android:layout_width="175sp"
+            android:layout_height="175sp"
+            android:src="@drawable/nati"
+            android:layout_gravity="center" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MERO WALLET"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:fontFamily="serif"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="V.1.0."
+            android:textSize="18sp"
+            android:fontFamily="serif"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="25sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DEVELOPERS"
+            android:textSize="18sp"
+            android:fontFamily="serif"
+            android:layout_marginLeft="14sp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="15sp"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/aboutUs"></ListView>
+
+    </LinearLayout>
 
 </RelativeLayout>
