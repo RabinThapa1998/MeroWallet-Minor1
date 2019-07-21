@@ -28,21 +28,19 @@ public class PromptActivity extends AppCompatActivity {
     public void buttonBudget(View view) {
 
         edt = findViewById(R.id.editTextDialogUserInput);
-        exp = edt.getEditText().getText().toString();
-        budget = Double.parseDouble(exp);
-
-
+        exp = edt.getEditText().getText().toString().trim();
         if (!validateBudget()) {
             return;
         }
 
 
 
-     /*   if (exp.equals("")) {
+        if (exp.isEmpty() || exp.length() == 0 || exp.equals("") || exp == null) {
             Toast.makeText(this, "Field Can't Be Empty",Toast.LENGTH_SHORT).show();;
             return;
-        }*/
+        }else{
 
+            budget = Double.parseDouble(exp);
 
             boolean isUpdate = MDb.updateBudget(username, budget);
             if (isUpdate == true) {
@@ -53,7 +51,7 @@ public class PromptActivity extends AppCompatActivity {
 
 
             Intent in = new Intent(PromptActivity.this, MainActivity.class);
-            startActivity(in);
+            startActivity(in);}
 
     }
 

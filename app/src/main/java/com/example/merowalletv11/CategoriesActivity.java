@@ -47,6 +47,7 @@ public class CategoriesActivity extends AppCompatActivity {
         cardSubtract = 0;
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Categories");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

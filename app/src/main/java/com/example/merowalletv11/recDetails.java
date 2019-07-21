@@ -11,6 +11,7 @@ public class recDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rec_details);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Record Details");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

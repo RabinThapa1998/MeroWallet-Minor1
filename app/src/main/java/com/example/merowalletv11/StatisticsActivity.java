@@ -75,6 +75,7 @@ public class StatisticsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Statistics");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

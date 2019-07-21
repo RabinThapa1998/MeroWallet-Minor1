@@ -52,6 +52,7 @@ public class ExpenseActivity extends AppCompatActivity {
     public static String dayString;
     public static String monthString;
 
+    private static String exp;
     private TextInputLayout editExpense;
 
 
@@ -81,6 +82,7 @@ public class ExpenseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense);
         Toolbar toolbar1 = findViewById(R.id.toolbar);
+        toolbar1.setTitle("Add Expense");
         setSupportActionBar(toolbar1);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -304,18 +306,21 @@ public class ExpenseActivity extends AppCompatActivity {
 
     void validateExpense(View view){ {
 
+        editExpense = findViewById(R.id.expense);
+        exp = editExpense.getEditText().getText().toString();
+
         if (!validateExpenses()) {
             return;
         }
 
-        editExpense = findViewById(R.id.expense);
 
-        double temp = Double.parseDouble(editExpense.getEditText().getText().toString());
+        if (exp.isEmpty() || exp.length() == 0 || exp.equals("") || exp == null) {
+            Toast.makeText(this, "Field Can't Be Empty",Toast.LENGTH_SHORT).show();;
+            return;
+        }else{
+            double temp = Double.parseDouble(exp);
 
-
-
-
-            if((remainingBudget - temp)<= 0){
+        if((remainingBudget - temp)<= 0){
 
             Toast.makeText(ExpenseActivity.this,"Not enough budget remaining. Please reallocate budget",Toast.LENGTH_LONG).show();
 
@@ -423,7 +428,7 @@ public class ExpenseActivity extends AppCompatActivity {
 
         }}
 
-    }
+    }}
 
     public void getCashExpense1()
     {

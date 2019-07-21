@@ -37,6 +37,7 @@ public class RecordsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_records);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Records");
         MwDb = new DatabaseHelper(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
