@@ -163,7 +163,7 @@ public class ExpenseActivity extends AppCompatActivity {
             monthString = ""+thisMonth;
         }
 
-        String date= dayString + "/" + monthString + "/" + year1;
+        String date= year1 + "-" + monthString + "-" + dayString;
 
 
 
@@ -231,7 +231,7 @@ public class ExpenseActivity extends AppCompatActivity {
 
 
 
-                String date = dayString + "/" + monthString + "/" + selectedYear;
+                String date = selectedYear + "-" + monthString + "-" + dayString;
 
 
                 mDisplayDate.setText(date);
@@ -357,7 +357,7 @@ public class ExpenseActivity extends AppCompatActivity {
                     monthString = ""+selectedMonth;
                 }
 
-                String date = dayString + "/" + monthString + "/" + selectedYear;
+                String date = selectedYear + "-" + monthString + "-" + dayString;
                 finalDate = date;
 
 

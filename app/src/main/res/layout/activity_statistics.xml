@@ -32,18 +32,42 @@
             android:layout_height="30dp"
             android:gravity="center"
             android:layout_gravity="center"
-            android:text="BAR GRAPH" />
+            android:text="Barchart"
+            android:textSize="17dp"
+            android:textColor="@color/white"/>
         <!--<View
             android:layout_width="match_parent"
             android:layout_height="200dp"/>-->
         <com.github.mikephil.charting.charts.BarChart
             android:layout_width="match_parent"
             android:layout_height="580dp"
-            android:id="@+id/chart1"></com.github.mikephil.charting.charts.BarChart>
+            android:id="@+id/chart1">
+
+        </com.github.mikephil.charting.charts.BarChart>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:id="@+id/openspace"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Line chart"
+            android:textSize="17dp"
+            android:textColor="@color/white" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:id="@+id/linechart"></com.github.mikephil.charting.charts.LineChart>
 
 
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp"/>
 
     </LinearLayout>
 </ScrollView>
-
