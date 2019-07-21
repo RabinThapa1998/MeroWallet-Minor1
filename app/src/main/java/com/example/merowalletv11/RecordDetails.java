@@ -115,7 +115,7 @@ public class RecordDetails extends AppCompatActivity {
 
     }
 
-    private static Bitmap stringToBitmap(String encodedString){
+    public static Bitmap stringToBitmap(String encodedString){
         try{
             byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
             return BitmapFactory.decodeByteArray(encodeByte, 0 ,encodeByte.length);

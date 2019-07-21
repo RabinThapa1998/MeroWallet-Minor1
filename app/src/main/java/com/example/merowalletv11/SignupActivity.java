@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -27,6 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.AlarmManager.INTERVAL_DAY;
 import static android.app.AlarmManager.RTC_WAKEUP;
+import static com.example.merowalletv11.ExpenseActivity.resizeBitmap;
 import static java.util.Calendar.DATE;
 import static java.util.Calendar.HOUR_OF_DAY;
 import static java.util.Calendar.MINUTE;
@@ -54,6 +56,8 @@ public class SignupActivity extends AppCompatActivity {
     private CircleImageView profile;
     private static final int GALLERY_REQUEST_CODE=101;
 
+    private static String imag;
+
 
     // private static double budget ;
 
@@ -73,7 +77,11 @@ public class SignupActivity extends AppCompatActivity {
         editemail= findViewById(R.id.text_input_email);
 
         profile=(CircleImageView)findViewById(R.id.profile_image);
+
+        imag="null";
+
         profile.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 openGallery();
@@ -204,6 +212,15 @@ public class SignupActivity extends AppCompatActivity {
 
     public void AddData(View view) {
 
+        //camera section
+        if (profile.getDrawable().equals(null)) {
+            imag = "null";
+        }
+        else {
+            Bitmap image = ((BitmapDrawable) profile.getDrawable()).getBitmap();
+            imag = ExpenseActivity.bitmapToString(resizeBitmap(image));
+        }
+
         if (!validateEmail() | !validateUsername() | !validatePassword() | !validatePhoneno()) {
             return;
         }
@@ -216,8 +233,9 @@ public class SignupActivity extends AppCompatActivity {
                     editphone.getEditText().getText().toString(),
                     editaddress.getEditText().getText().toString(),
                     editemail.getEditText().getText().toString(),
-                   signupDate1
-                   /* budget*/);
+                   signupDate1,
+                    imag
+                   );
 
             if (isInserted = true) {
                 Intent intent = new Intent(SignupActivity.this, LoginActivity.class);

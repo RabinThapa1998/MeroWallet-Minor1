@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -25,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +43,8 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static com.example.merowalletv11.Receiver2.CHANNEL_1_ID;
 import static com.example.merowalletv11.Receiver2.CHANNEL_2_ID;
 
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private long backPressedTime;
     private Toast backToast;
     public static  String  analysisCategory ;
+    private static String imag;
 
 
 
@@ -377,8 +382,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View headerView = navigationView.getHeaderView(0);
         TextView navUsername = (TextView) headerView.findViewById(R.id.nav_username);
         TextView navEmail = (TextView) headerView.findViewById(R.id.nav_email);
+        CircleImageView navImage =(CircleImageView) headerView.findViewById(R.id.navProfile);
         navUsername.setText(""+username);
         navEmail.setText(""+email);
+        Bitmap bitmap = RecordDetails.stringToBitmap(imag);
+        navImage.setImageBitmap(bitmap);
 
 
 
@@ -561,6 +569,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (username.equals(user)) {
 
                     email = res.getString(8);
+                    imag = res.getString(14);
+
+
 
                 }
             } while (res.moveToNext());
