@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DatabaseHelper MwDb;
     private DrawerLayout drawer;
     public static int k;
+    public static int[] A = new int[15];
+    public static int[] repeat = new int[15];
 
     private static String dayString;
     private static String monthString;
@@ -117,6 +119,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MwDb= new DatabaseHelper(this);
         username = LoginActivity.throwUsername();
         k=9;
+        for(int i=0;i<15;i++)
+        {
+            A[i]=1;
+            repeat[i] = 0;
+        }
 
         if(ExpenseActivity.analysisNotification ==true){
              analysisCategory = ExpenseActivity.getAnalysisData();
@@ -257,11 +264,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         getDataAnalysis();
 
-        for(int i=0;i<14;i++){
+      /*  for(int i=0;i<14;i++){
 
             averageCategory[i] = amountCategory[i]/numberOfDays;
         }
-
+*/
 
 
 
@@ -608,6 +615,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                         if( (" "+categoryArray[i]).equals(" "+tableCategory) && Integer.parseInt(retrievedYear) <= thisYear && Integer.parseInt(retrievedMonth) <= thisMonth && Integer.parseInt(retrievedDay) < thisDay  ){
                             amountCategory[i] += tableAmount;
+                            if(repeat[i] == 0){
+                                repeat[i] = Integer.parseInt(retrievedDay);
+                            }
+                            else{
+                                if(repeat[i] != Integer.parseInt(retrievedDay)){
+                                    repeat[i] = Integer.parseInt(retrievedDay);
+                                    A[i]++;
+                                }
+
+                            }
 
                         }
 
@@ -625,7 +642,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         for(int i=0;i<14;i++){
 
-            averageCategory[i] = amountCategory[i]/numberOfDays;
+            averageCategory[i] = amountCategory[i]/A[i];
         }
 
 
@@ -651,10 +668,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    public static int getNumberOfDays()
+   /* public static int getNumberOfDays()
     {
         return numberOfDays;
-    }
+    }*/
 
     public static String[] getCategoryArray(){
         return categoryArray;

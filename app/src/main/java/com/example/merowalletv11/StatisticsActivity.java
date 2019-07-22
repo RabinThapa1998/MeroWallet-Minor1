@@ -244,7 +244,7 @@ public class StatisticsActivity extends AppCompatActivity {
         //Line chart
 
 
-        for(int i=0;i<33;i++)
+        for(int i=0;i<32;i++)
         {
             cardExpenseLineChart[i] = 0;
             cashExpenseLineChart[i] = 0;
@@ -258,7 +258,7 @@ public class StatisticsActivity extends AppCompatActivity {
         ArrayList<Entry> dataVals2 = new ArrayList<Entry>();
 
 
-        for(int i=0;i<32;i++){
+        for(int i=0;i<31;i++){
 
 
 
@@ -268,87 +268,6 @@ public class StatisticsActivity extends AppCompatActivity {
 
 
         }
-      /*  dataVals1.add(new Entry(0,20));
-        dataVals1.add(new Entry(1,24));
-        dataVals1.add(new Entry(2,2));
-        dataVals1.add(new Entry(3,10));
-        dataVals1.add(new Entry(4,28));
-        dataVals1.add(new Entry(5,28));
-        dataVals1.add(new Entry(6,28));
-        dataVals1.add(new Entry(7,28));
-        dataVals1.add(new Entry(8,28));
-        dataVals1.add(new Entry(9,28));
-        dataVals1.add(new Entry(10,28));
-        dataVals1.add(new Entry(11,28));
-        dataVals1.add(new Entry(12,28));
-        dataVals1.add(new Entry(13,28));
-        dataVals1.add(new Entry(14,28));
-        dataVals1.add(new Entry(15,28));
-        dataVals1.add(new Entry(16,28));
-        dataVals1.add(new Entry(17,28));
-        dataVals1.add(new Entry(18,28));
-        dataVals1.add(new Entry(19,28));
-        dataVals1.add(new Entry(20,28));
-        dataVals1.add(new Entry(21,28));
-        dataVals1.add(new Entry(22,28));
-        dataVals1.add(new Entry(23,28));
-        dataVals1.add(new Entry(24,28));
-        dataVals1.add(new Entry(25,28));
-        dataVals1.add(new Entry(26,28));
-        dataVals1.add(new Entry(27,28));
-        dataVals1.add(new Entry(28,28));
-        dataVals1.add(new Entry(29,28));
-        dataVals1.add(new Entry(30,28));
-        dataVals1.add(new Entry(31,28));
-
-
-
-
-
-        //Second line
-
-        dataVals2.add(new Entry(0,12));
-        dataVals2.add(new Entry(1,18));
-        dataVals2.add(new Entry(2,20));
-        dataVals2.add(new Entry(3,26));
-        dataVals2.add(new Entry(4,30));
-        dataVals2.add(new Entry(5,35));
-        dataVals2.add(new Entry(6,20));
-        dataVals2.add(new Entry(7,29));
-        dataVals2.add(new Entry(8,50));
-        dataVals2.add(new Entry(9,22));
-        dataVals2.add(new Entry(10,10));
-        dataVals2.add(new Entry(11,19));
-        dataVals2.add(new Entry(12,26));
-        dataVals2.add(new Entry(13,30));
-        dataVals2.add(new Entry(14,32));
-        dataVals2.add(new Entry(15,54));
-        dataVals2.add(new Entry(16,24));
-        dataVals2.add(new Entry(17,23));
-        dataVals2.add(new Entry(18,50));
-        dataVals2.add(new Entry(19,23));
-        dataVals2.add(new Entry(20,24));
-        dataVals2.add(new Entry(21,40));
-        dataVals2.add(new Entry(22,43));
-        dataVals2.add(new Entry(23,25));
-        dataVals2.add(new Entry(24,35));
-        dataVals2.add(new Entry(25,34));
-        dataVals2.add(new Entry(26,24));
-        dataVals2.add(new Entry(27,32));
-        dataVals2.add(new Entry(28,29));
-        dataVals2.add(new Entry(29,27));
-        dataVals2.add(new Entry(30,33));
-        dataVals2.add(new Entry(31,36));*/
-
-
-
-
-
-
-
-
-
-
 
 
         LineDataSet lineDataSet1 = new LineDataSet(dataVals1,"Card");
