@@ -262,7 +262,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-        getDataAnalysis();
 
       /*  for(int i=0;i<14;i++){
 
@@ -325,6 +324,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
               yvalues.add(new PieEntry((float) expenseArray[i], categoryArray[i]));
           }
       }
+
+
+        getDataAnalysis();
+
 
 
         pieChart.animateY(1000, Easing.EasingOption.EaseInOutCubic);
