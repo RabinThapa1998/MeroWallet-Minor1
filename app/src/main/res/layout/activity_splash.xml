@@ -25,7 +25,7 @@
         android:paddingRight="30dp"
         android:paddingTop="30dp"
         android:paddingBottom="30dp"
-        android:text="V 0.01"
+        android:text="V 1.0"
         android:textColor="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
