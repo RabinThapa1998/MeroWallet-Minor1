@@ -628,8 +628,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             }
                             else{
                                 if(repeat[i] != Integer.parseInt(retrievedDay)){
-                                    repeat[i] = Integer.parseInt(retrievedDay);
-                                    A[i]++;
+                                    repeat[i] = Integer.parseInt(retrievedDay); //Date change bhako herna lai
+                                    A[i]++; //Date change bhaye matra value update garna lai
                                 }
 
                             }
