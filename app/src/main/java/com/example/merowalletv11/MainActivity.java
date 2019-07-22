@@ -465,9 +465,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 /*getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new StatisticsFragment()).commit();*/
                         break;
-            /*case R.id.nav_share:
-                Toast.makeText(this,"Share",Toast.LENGTH_SHORT).show();
-                break;*/
+            case R.id.nav_share:
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("Text/Plain");
+                String shareBody = "Hey! Download Our App HERE: https://drive.google.com/open?id=10sZDWuw57pN2eklgDnp9RzuAvGUwzvHY";
+                String shareSubject = "Mero Wallet";
+
+                sharingIntent.putExtra(Intent.EXTRA_TEXT,shareBody);
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
+
+                startActivity(Intent.createChooser(sharingIntent, "Share Using"));
+                break;
             case R.id.nav_aboutus:
                 Intent in4 = new Intent(com.example.merowalletv11.MainActivity.this, AboutUsActivity.class);
                 startActivity(in4);
