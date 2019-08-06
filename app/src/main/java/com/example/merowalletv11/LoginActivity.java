@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                        try{
-                           pass = decrypt(pass1,"test");
+                           pass = decrypt(pass1,user);
 
 
                        }

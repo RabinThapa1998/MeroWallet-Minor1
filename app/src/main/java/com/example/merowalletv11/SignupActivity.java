@@ -240,7 +240,7 @@ public class SignupActivity extends AppCompatActivity {
         try {
 
 
-            encryptedPassword = encrypt(editpassword.getEditText().getText().toString(),"test");
+            encryptedPassword = encrypt(editpassword.getEditText().getText().toString(),edituser.getEditText().getText().toString());
         }
         catch (Exception e){
             e.printStackTrace();
@@ -266,7 +266,7 @@ public class SignupActivity extends AppCompatActivity {
             if (isInserted = true) {
                 Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                 startActivity(intent);
-                Toast.makeText(SignupActivity.this, encryptedPassword, Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignupActivity.this, "Successful", Toast.LENGTH_SHORT).show();
 
 
 
