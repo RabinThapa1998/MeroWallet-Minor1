@@ -15,6 +15,7 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +25,11 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.security.MessageDigest;
 import java.util.StringTokenizer;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 public class LoginActivity extends AppCompatActivity {
     DatabaseHelper myDb;
@@ -35,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     Button b1;
     Boolean check=false;
     public static String passusername;
+    private String pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +140,22 @@ public class LoginActivity extends AppCompatActivity {
 
 
                        String user = res.getString(3);
-                       String pass = res.getString(4);
+                       String pass1 = res.getString(4);
+
+
+                       try{
+                           pass = decrypt(pass1,"test");
+
+
+                       }
+
+                       catch(Exception e){
+                           e.printStackTrace();
+                       }
+
+
+
+
                        if (user.equals(username) && pass.equals(password)) {
 
                            Intent in = new Intent(LoginActivity.this, MainActivity.class);
@@ -193,6 +214,33 @@ public class LoginActivity extends AppCompatActivity {
 
         backPressedTime = System.currentTimeMillis();
     }
+
+
+    public String decrypt (String data, String passkey) throws Exception{
+
+        SecretKeySpec key = generateKey(passkey);
+        Cipher c = Cipher.getInstance("AES");
+        c.init(Cipher.DECRYPT_MODE,key);
+        byte[] decodedValue = Base64.decode(data,Base64.DEFAULT);
+        byte[] decval = c.doFinal(decodedValue);
+        String decryptedValue = new String(decval);
+        return decryptedValue;
+
+
+
+    }
+
+    private SecretKeySpec generateKey(String passkey) throws Exception{
+
+        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] bytes = passkey.getBytes("UTF-8");
+        digest.update(bytes,0,bytes.length);
+        byte[] key = digest.digest();
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key,"AES");
+        return secretKeySpec;
+    }
+
+
 }
 
 

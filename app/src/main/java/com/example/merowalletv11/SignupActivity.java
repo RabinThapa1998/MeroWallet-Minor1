@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,11 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.MessageDigest;
 import java.util.Calendar;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -57,6 +62,9 @@ public class SignupActivity extends AppCompatActivity {
     private static final int GALLERY_REQUEST_CODE=101;
 
     private static String imag;
+
+    private String encryptedPassword;
+    public String AES = "AES";
 
 
     // private static double budget ;
@@ -212,6 +220,10 @@ public class SignupActivity extends AppCompatActivity {
 
     public void AddData(View view) {
 
+
+
+
+
         //camera section
         if (profile.getDrawable().equals(null)) {
             imag = "null";
@@ -225,22 +237,37 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-            boolean isInserted = MwDb.insertData(editfirst.getEditText().getText().toString(),
+        try {
+
+
+            encryptedPassword = encrypt(editpassword.getEditText().getText().toString(),"test");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+
+        }
+
+
+
+        boolean isInserted = MwDb.insertData(editfirst.getEditText().getText().toString(),
                     editlast.getEditText().getText().toString(),
                     edituser.getEditText().getText().toString(),
-                    editpassword.getEditText().getText().toString(),
-                    editconfirm.getEditText().getText().toString(),
+                  // editpassword.getEditText().getText().toString(),
+                    encryptedPassword,
+                encryptedPassword,
+                   // editconfirm.getEditText().getText().toString(),
                     editphone.getEditText().getText().toString(),
                     editaddress.getEditText().getText().toString(),
                     editemail.getEditText().getText().toString(),
                    signupDate1,
                     imag
-                   );
+        );
 
             if (isInserted = true) {
                 Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                 startActivity(intent);
-                Toast.makeText(SignupActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignupActivity.this, encryptedPassword, Toast.LENGTH_SHORT).show();
+
 
 
             } else
@@ -305,5 +332,43 @@ public class SignupActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), GALLERY_REQUEST_CODE);
+    }
+
+
+
+    private String decrypt (String data, String passkey) throws Exception{
+
+        SecretKeySpec key = generateKey(passkey);
+        Cipher c = Cipher.getInstance(AES);
+        c.init(Cipher.DECRYPT_MODE,key);
+        byte[] decodedValue = Base64.decode(data,Base64.DEFAULT);
+        byte[] decval = c.doFinal(decodedValue);
+        String decryptedValue = new String(decval);
+        return decryptedValue;
+
+
+
+    }
+
+    private String encrypt (String Data, String password) throws Exception{
+
+        SecretKeySpec key = generateKey(password);
+        Cipher c = Cipher.getInstance(AES);
+        c.init(Cipher.ENCRYPT_MODE,key);
+        byte[] encVal = c.doFinal(Data.getBytes());
+        String encryptedValue = Base64.encodeToString(encVal,Base64.DEFAULT);
+        return encryptedValue;
+
+    }
+
+
+    private SecretKeySpec generateKey(String password) throws Exception{
+
+        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] bytes = password.getBytes("UTF-8");
+        digest.update(bytes,0,bytes.length);
+        byte[] key = digest.digest();
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key,"AES");
+        return secretKeySpec;
     }
 }
