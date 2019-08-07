@@ -10,10 +10,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -21,10 +24,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -44,6 +52,7 @@ public class SignupActivity extends AppCompatActivity {
 
     DatabaseHelper MwDb;
     Button btnAddData;
+    private static final String TAG="SignupActivity";
     private TextInputLayout editfirst,editlast,edituser,editpassword,editconfirm,editaddress,editphone,editemail;
     private static String dayString;
     private static String monthString;
@@ -51,6 +60,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private static String signupDate;
     private static String signupDate1;
+    public static String realPath="null";
 
 
 
@@ -225,13 +235,6 @@ public class SignupActivity extends AppCompatActivity {
 
 
         //camera section
-        if (profile.getDrawable().equals(null)) {
-            imag = "null";
-        }
-        else {
-            Bitmap image = ((BitmapDrawable) profile.getDrawable()).getBitmap();
-            imag = ExpenseActivity.bitmapToString(resizeBitmap(image));
-        }
 
         if (!validateEmail() | !validateUsername() | !validatePassword() | !validatePhoneno()) {
             return;
@@ -260,7 +263,7 @@ public class SignupActivity extends AppCompatActivity {
                     editaddress.getEditText().getText().toString(),
                     editemail.getEditText().getText().toString(),
                    signupDate1,
-                    imag
+                    realPath
         );
 
             if (isInserted = true) {
@@ -311,21 +314,66 @@ public class SignupActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
+        if (resultCode == RESULT_OK && requestCode== GALLERY_REQUEST_CODE) {
+            Uri selectedImage = data.getData();
+
             try {
-                Uri selectedImage = data.getData();
-                InputStream imageStream = getContentResolver().openInputStream(selectedImage);
-                profile.setImageBitmap(BitmapFactory.decodeStream(imageStream));
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                profile.setImageBitmap(bitmap);
 
-            } catch (IOException exception) {
-                exception.printStackTrace();
+                // Creating file
+                File photoFile = null;
+                try {
+                    photoFile = createImageFile();
+                } catch (IOException ex) {
+                    Log.d(TAG, "Error occurred while creating the file");
+                }
+
+                InputStream inputStream = this.getContentResolver().openInputStream(data.getData());
+                FileOutputStream fileOutputStream = new FileOutputStream(photoFile);
+                // Copying
+                copyStream(inputStream, fileOutputStream);
+                fileOutputStream.close();
+                inputStream.close();
+
+            } catch (Exception e) {
+                Log.d(TAG, "onActivityResult: " + e.toString());
             }
-
-
         }
 
 
     }
+
+
+
+    private File createImageFile() throws IOException {
+
+
+
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = this.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        realPath = image.getAbsolutePath();
+        return image;
+    }
+    public static void copyStream(InputStream input, OutputStream output) throws IOException {
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = input.read(buffer)) != -1) {
+            output.write(buffer, 0, bytesRead);
+        }
+    }
+
+
+
 
     private void openGallery() {
         Intent intent = new Intent();
@@ -371,4 +419,5 @@ public class SignupActivity extends AppCompatActivity {
         SecretKeySpec secretKeySpec = new SecretKeySpec(key,"AES");
         return secretKeySpec;
     }
+
 }

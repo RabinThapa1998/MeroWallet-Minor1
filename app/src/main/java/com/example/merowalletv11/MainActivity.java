@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -40,6 +41,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -414,8 +416,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         CircleImageView navImage =(CircleImageView) headerView.findViewById(R.id.navProfile);
         navUsername.setText(""+username);
         navEmail.setText(""+email);
-        Bitmap bitmap = RecordDetails.stringToBitmap(imag);
-        navImage.setImageBitmap(bitmap);
+        //Bitmap bitmap = RecordDetails.stringToBitmap(imag);
+        //navImage.setImageBitmap(bitmap);
+
+        if(imag!="null")
+        {
+            navImage.setImageURI(Uri.fromFile(new File(imag)));
+        }
 
 
 
