@@ -529,12 +529,12 @@ public class ExpenseActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), GALLERY_REQUEST_CODE);
     }
 
-    public void openCamera(View view) {
+   /* public void openCamera(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
         }
-    }
+    }*/
 
 
     @Override
@@ -567,14 +567,13 @@ public class ExpenseActivity extends AppCompatActivity {
                 Log.d(TAG, "onActivityResult: " + e.toString());
             }
         }
-        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
+        /*if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             selectedImageView.setImageBitmap(imageBitmap);
 
            /* Bitmap image = ((BitmapDrawable) selectedImageView.getDrawable()).getBitmap();
             img = bitmapToString(resizeBitmap(image));*/
-        }
 
     }
 
@@ -612,12 +611,12 @@ public class ExpenseActivity extends AppCompatActivity {
         finish();
     }
 
-    public static String bitmapToString(Bitmap bitmap) {
+  /*  public static String bitmapToString(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] b = baos.toByteArray();
         return Base64.encodeToString(b, Base64.DEFAULT);
-    }
+    }*/
 
 
     public static Bitmap resizeBitmap(Bitmap bitmap) {

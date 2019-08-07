@@ -100,7 +100,7 @@
             android:onClick="openGallery"
             android:background="@drawable/rounded_corner"
             />
-        <Button
+        <!--<Button
             android:layout_toRightOf="@id/btnTakePicture"
             android:layout_marginLeft="20dp"
             android:id="@+id/btnTakePicCamera"
@@ -108,7 +108,7 @@
             android:layout_height="wrap_content"
             android:text=" take photo "
             android:onClick="openCamera"
-            android:background="@drawable/rounded_corner"/>
+            android:background="@drawable/rounded_corner"/>-->
         </RelativeLayout>
 
 
