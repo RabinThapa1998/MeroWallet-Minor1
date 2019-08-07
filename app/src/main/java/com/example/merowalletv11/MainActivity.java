@@ -91,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static double averageCategory[] = new double[15];
 
     public static int numberOfDays;
+    public static String retrievedYear;
+    public static String retrievedMonth;
 
 
 
@@ -306,7 +308,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 String user1 = res1.getString(1);
                 String category1 = res1.getString(4);
                 Double amount1 = res1.getDouble(2);
-                if (username.equals(user1)) {
+                //String retrievedDate = res.getString(3);
+                /*retrievedYear = retrievedDate.substring(0,4);
+                retrievedMonth = retrievedDate.substring(5,7);*/
+                if (username.equals(user1)/*&& retrievedYear.equals(yearString) && retrievedMonth.equals(monthString)*/){
                     for(int j=0;j<14;j++){
                         if(categoryArray[j].equals(category1)) {
                             expenseArray[j] += amount1;
@@ -624,18 +629,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     for(int i=0; i<14;i++) {
 
 
-                        if( (" "+categoryArray[i]).equals(" "+tableCategory) && Integer.parseInt(retrievedYear) <= thisYear && Integer.parseInt(retrievedMonth) <= thisMonth && Integer.parseInt(retrievedDay) < thisDay  ){
-                            amountCategory[i] += tableAmount;
-                            if(repeat[i] == 0){
-                                repeat[i] = Integer.parseInt(retrievedDay);
-                            }
-                            else{
-                                if(repeat[i] != Integer.parseInt(retrievedDay)){
-                                    repeat[i] = Integer.parseInt(retrievedDay); //Date change bhako herna lai
-                                    A[i]++; //Date change bhaye matra value update garna lai
-                                }
+                        if( (" "+categoryArray[i]).equals(" "+tableCategory) && ((Integer.parseInt(retrievedYear) <= thisYear && Integer.parseInt(retrievedMonth) == thisMonth && Integer.parseInt(retrievedDay)<thisDay)||(Integer.parseInt(retrievedYear) <= thisYear && Integer.parseInt(retrievedMonth) < thisMonth))){
 
-                            }
+
+                                amountCategory[i] += tableAmount;
+                                if (repeat[i] == 0) {
+                                    repeat[i] = Integer.parseInt(retrievedDay);
+                                } else {
+                                    if (repeat[i] != Integer.parseInt(retrievedDay)) {
+                                        repeat[i] = Integer.parseInt(retrievedDay); //Date change bhako herna lai
+                                        A[i]++; //Date change bhaye matra value update garna lai
+                                    }
+
+                                }
 
                         }
 

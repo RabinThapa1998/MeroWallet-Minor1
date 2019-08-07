@@ -120,6 +120,9 @@ public class StatisticsActivity extends AppCompatActivity {
         String date= year1 + "-" + monthString + "-" + dayString;
 
 
+        Toast.makeText(StatisticsActivity.this,date,Toast.LENGTH_SHORT).show();
+
+
 
 
         categoryArrayBarGraph = MainActivity.retCategoryList();
@@ -341,22 +344,30 @@ public class StatisticsActivity extends AppCompatActivity {
                 String category = res.getString(4);
                 String paymentmode = res.getString(5);
 
-                if(username.equals(user) && paymentmode.equals("Card")){
-                    for(int i=0;i<14;i++){
-                        if(categoryArrayBarGraph[i].equals(category)){
-                            cardExpenseArray[i]+=expense;
+                String retrievedDate = res.getString(3);
+                retrievedYear = retrievedDate.substring(0,4);
+                retrievedMonth = retrievedDate.substring(5,7);
+
+                if (username.equals(user) && retrievedYear.equals(yearString) && retrievedMonth.equals(monthString)) {
+
+                    if (paymentmode.equals("Card")) {
+                        for (int i = 0; i < 14; i++) {
+                            if (categoryArrayBarGraph[i].equals(category)) {
+                                cardExpenseArray[i] += expense;
+                            }
                         }
+                    } else{
+                        for (int i = 0; i < 14; i++) {
+                            if (categoryArrayBarGraph[i].equals(category)) {
+                                cashExpenseArray[i] += expense;
+                            }
+                        }
+
                     }
                 }
 
-                else if (username.equals(user)){
-                    for(int i=0;i<14;i++){
-                        if(categoryArrayBarGraph[i].equals(category)){
-                            cashExpenseArray[i]+=expense;
-                        }
-                    }
 
-                }
+
             } while (res.moveToNext());
         }
         res.close();
