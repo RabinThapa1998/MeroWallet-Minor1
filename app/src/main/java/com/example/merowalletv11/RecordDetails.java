@@ -9,15 +9,20 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class RecordDetails extends AppCompatActivity {
    // TextView amount;
     String eidString;
+    ListView listView;
     int eidInt;
     DatabaseHelper MwDb;
     public static String username;
@@ -96,20 +101,19 @@ public class RecordDetails extends AppCompatActivity {
         res.close();
 
 
-
-        TextView amountTextView = (TextView) findViewById(R.id.amountRec);
-        TextView categoryTextView = (TextView) findViewById(R.id.catRec);
-        TextView paymentTypeTextView = (TextView) findViewById(R.id.paymenttypeRec);
-        TextView dateTextView = (TextView) findViewById(R.id.dateRec);
         ImageView img = (ImageView) findViewById(R.id.picRec);
-
-        amountTextView.setText(amountString1);
-        categoryTextView.setText(category1);
-        paymentTypeTextView.setText(paymentType1);
-        dateTextView.setText(date1);
-
         Bitmap bitmap = stringToBitmap(receipt1);
         img.setImageBitmap(bitmap);
+
+        listView = (ListView)findViewById(R.id.recDetails);
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("Caategory: "+category1);
+        arrayList.add("Amount: "+amountString1);
+        arrayList.add("Payment Type: "+paymentType1);
+        arrayList.add("Date: "+date1);
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,arrayList);
+        listView.setAdapter(arrayAdapter);
 
 
 
