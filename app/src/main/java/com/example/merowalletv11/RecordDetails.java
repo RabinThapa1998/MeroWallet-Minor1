@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class RecordDetails extends AppCompatActivity {
@@ -102,8 +104,9 @@ public class RecordDetails extends AppCompatActivity {
 
 
         ImageView img = (ImageView) findViewById(R.id.picRec);
-        Bitmap bitmap = stringToBitmap(receipt1);
-        img.setImageBitmap(bitmap);
+       /* Bitmap bitmap = stringToBitmap(receipt1);
+        img.setImageBitmap(bitmap);*/
+
 
         listView = (ListView)findViewById(R.id.recDetails);
         ArrayList<String> arrayList = new ArrayList<>();
@@ -114,6 +117,11 @@ public class RecordDetails extends AppCompatActivity {
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,arrayList);
         listView.setAdapter(arrayAdapter);
+
+        if(receipt1!="null")
+        {
+            img.setImageURI(Uri.fromFile(new File(receipt1)));
+        }
 
 
 
