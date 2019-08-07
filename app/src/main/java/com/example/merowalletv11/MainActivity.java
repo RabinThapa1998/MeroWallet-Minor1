@@ -322,10 +322,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 String user1 = res1.getString(1);
                 String category1 = res1.getString(4);
                 Double amount1 = res1.getDouble(2);
-                //String retrievedDate = res.getString(3);
-                /*retrievedYear = retrievedDate.substring(0,4);
-                retrievedMonth = retrievedDate.substring(5,7);*/
-                if (username.equals(user1)/*&& retrievedYear.equals(yearString) && retrievedMonth.equals(monthString)*/){
+                String retrievedDate = res1.getString(3);
+                retrievedYear = retrievedDate.substring(0,4);
+               retrievedMonth = retrievedDate.substring(5,7);
+                if (username.equals(user1) && retrievedYear.equals(yearString) && retrievedMonth.equals(monthString)){
                     for(int j=0;j<14;j++){
                         if(categoryArray[j].equals(category1)) {
                             expenseArray[j] += amount1;
