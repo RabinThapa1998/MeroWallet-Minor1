@@ -39,6 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add"
+        android:background="@drawable/rounded_corner"
         android:layout_below="@id/cat"
         android:layout_centerInParent="true"/>
 

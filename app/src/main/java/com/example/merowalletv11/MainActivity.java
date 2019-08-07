@@ -334,7 +334,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         PieDataSet dataSet = new PieDataSet(yvalues, "");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
-        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        dataSet.setColors(pieChartColor.JOYFUL_COLORS);
 
         PieData data = new PieData((dataSet));
         data.setValueTextSize(12f);
