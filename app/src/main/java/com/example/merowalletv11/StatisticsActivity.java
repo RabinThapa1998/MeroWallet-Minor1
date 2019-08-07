@@ -120,10 +120,6 @@ public class StatisticsActivity extends AppCompatActivity {
         String date= year1 + "-" + monthString + "-" + dayString;
 
 
-        Toast.makeText(StatisticsActivity.this,date,Toast.LENGTH_SHORT).show();
-
-
-
 
         categoryArrayBarGraph = MainActivity.retCategoryList();
         /*for(int i=0;i<14;i++) {

@@ -25,6 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String SIGNUP_COL_ONLINESTATUS = "ONLINESTATUS";//13-1
     public static final String SIGNUP_COL_SIGNUPDATE = "SIGNUPDATE";
     public static final String SIGNUP_COL_IMAGE = "IMAGE";
+    public static final String SIGNUP_COL_MONTH = "MONTH";
 
 
 
@@ -60,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
         sqLiteDatabase.execSQL("create table "+ SIGNUP_TABLE_NAME +
-                "(ID INTEGER PRIMARY KEY AUTOINCREMENT,FIRSTNAME TEXT NOT NULL,LASTNAME TEXT NOT NULL,USERNAME TEXT NOT NULL UNIQUE ,PASSWORD TEXT NOT NULL,CONFIRMPASSWORD TEXT NOT NULL,PHONENUMBER TEXT,ADDRESS TEXT,EMAIL TEXT NOT NULL,BUDGET DOUBLE DEFAULT 0,CASHEXPENSE DOUBLE DEFAULT 0,CARDEXPENSE DOUBLE DEFAULT 0,ONLINESTATUS INTEGER DEFAULT 0,SIGNUPDATE TEXT,IMAGE TEXT)");
+                "(ID INTEGER PRIMARY KEY AUTOINCREMENT,FIRSTNAME TEXT NOT NULL,LASTNAME TEXT NOT NULL,USERNAME TEXT NOT NULL UNIQUE ,PASSWORD TEXT NOT NULL,CONFIRMPASSWORD TEXT NOT NULL,PHONENUMBER TEXT,ADDRESS TEXT,EMAIL TEXT NOT NULL,BUDGET DOUBLE DEFAULT 0,CASHEXPENSE DOUBLE DEFAULT 0,CARDEXPENSE DOUBLE DEFAULT 0,ONLINESTATUS INTEGER DEFAULT 0,SIGNUPDATE TEXT,IMAGE TEXT,MONTH INTEGER DEFAULT 0)");
 
 
         sqLiteDatabase.execSQL("create table "+ EXPENSE_TABLE_NAME +
@@ -262,6 +263,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
      }
+
+    public void updateMonthStatus(String username, int month){
+
+        SQLiteDatabase db1=this.getWritableDatabase();
+        ContentValues contentValues00 = new ContentValues();
+        contentValues00.put(SIGNUP_COL_MONTH,month);
+
+
+        long value = db1.update(SIGNUP_TABLE_NAME,contentValues00,SIGNUP_COL_USERNAME + " = ?",new String[] {username });
+        db1.close();
+
+
+
+    }
 
 
 

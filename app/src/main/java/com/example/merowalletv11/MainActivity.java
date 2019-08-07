@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int thisMonth;
     public static int thisYear;
 
+
+
     public static double amountCategory[] = new double[15];
     public static double averageCategory[] = new double[15];
 
@@ -145,19 +147,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
 
-
-
-
-
-
-
-
-
-        //Retrieve from database
+    //Retrieve from database
         getBudget();
         getCardExpense1();
         getCashExpense1();
         getEmail();
+
+
 
 
 
@@ -169,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int year1 = cal.get(Calendar.YEAR);
         int month1 = cal.get(Calendar.MONTH);
         int day1 = cal.get(Calendar.DAY_OF_MONTH);
+
         month1++;
         thisMonth =month1;
         thisYear=year1;
@@ -200,6 +197,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         numberOfDays = (int)(  (thisYear - Integer.parseInt(signupDate.substring(0,4)))*365.25 +  (  thisMonth - Integer.parseInt(signupDate.substring(5,7)) )*30.4375  +   (thisDay - Integer.parseInt(signupDate.substring(8,10)))   );
 
         //-----------double to int ---difference in year times the number of days in a year---------------difference in month ------------------------------------------------------diff in day
+
+
+
+
+
+
+
+        expenseReset();
+        getBudget();
+        getCardExpense1();
+        getCashExpense1();
+
+
+
+
+
+
 
 
 
@@ -545,6 +559,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             do {
 
                 String user = res.getString(3);
+
                 if (username.equals(user)) {
 
                     cashExpense = res.getDouble(10);
@@ -567,6 +582,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             do {
 
                 String user = res.getString(3);
+
                 if (username.equals(user)) {
 
                     cardExpense = res.getDouble(11);
@@ -697,6 +713,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static double[] getAverageCategory(){
 
         return averageCategory;
+    }
+
+    public void expenseReset()
+    {
+        Cursor res = MwDb.getAllData();
+        if(res.getCount()==0)
+        { }
+        else {
+            res.moveToFirst();
+
+            do {
+
+                String user = res.getString(3);
+                Integer month = res.getInt(15);
+                if (username.equals(user) && thisMonth != month) {
+
+                    MwDb.updateCardExpense(username,0.0);
+                    MwDb.updateCashExpense(username,0.0);
+                    MwDb.updateMonthStatus(username,thisMonth);
+                    MwDb.updateBudget(username,0.0);
+
+                }
+            } while (res.moveToNext());
+        }
+        res.close();
     }
 }
 
